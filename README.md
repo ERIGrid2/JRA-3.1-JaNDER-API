@@ -1,12 +1,14 @@
 # JaNDER
 
+Exposes api defined in https://github.com/ERIGrid2/JRA-3.1-api.
 
 ## Docker-compose structure
+
 
 ````yaml
 version: "3.9"
 services:
-  jander_ri_2:
+  ri-service:
     build:
       context: .
       dockerfile: Dockerfile
