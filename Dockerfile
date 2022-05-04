@@ -26,6 +26,7 @@ RUN apt-get update -yq \
 WORKDIR /home
 
 COPY ./files/redisRepl-1.2.2-linux-amd64 ./files/
+COPY ./files/redisReplTcp-1.2.2-linux-amd64 ./files/
 COPY ./files/entrypoint_redisRepl.sh ./files/
 
 COPY --from=restapi /usr/src/app/ .

@@ -80,9 +80,9 @@ app.all("/signal/:id(*)/state", (req, res, next) =>{
     let validId = signalIdIsValid(signalId);
     let exists = signalIdExists(signalId);
     exists.then((exists) =>{
-        console.log("Get signal " + validId + " exists " + exists);
+        //console.log("Get signal " + validId + " exists " + exists);
         if (validId && (exists + 1 > 0)) {
-            console.log("Get signal " + signalId);
+            //console.log("Get signal " + signalId);
             next()
         }
         else {
@@ -119,10 +119,10 @@ app.put("/signal/:id(*)/state", (req, res) =>{
     // get signalId
     let signalId = req.params.id;
     let signal = req.body;
-    console.log(req.body)
+    //console.log(req.body)
     // check if id is valid
     if(signal.hasOwnProperty('timestamp') && signal.hasOwnProperty('value') ){
-        console.log("valid schema")
+        //console.log("valid schema")
     }
     else{
         res.status(405).json({error: "invalid schema", body: req.body})
@@ -216,7 +216,7 @@ function signalIdExists(signal) {
                 console.log("Error retrieving keys in " + signalId);
             }
             else {
-                console.log("key " + signalId);
+                //console.log("key " + signalId);
                 resolve(exists);
             }
         });
@@ -244,7 +244,7 @@ function getSignalValue(namespace, signalId){
                         }
                         else {
                             if (value){
-                                console.log(namespace +" " + keyValue );
+                                //console.log(namespace +" " + keyValue );
                                 resolve(keyValue);
                             }
                             else{

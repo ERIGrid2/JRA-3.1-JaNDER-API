@@ -9,6 +9,7 @@ Add environmental variables in a .env file
 ````
 JANDER_VERSION=1.1.0
 SERVICE_NAME=JaNDER
+PROTOCOL=HTTPS # TCP
 PORT_RI=6379
 HOST_NAME_RI=localhost
 PORT_WEB=8080
