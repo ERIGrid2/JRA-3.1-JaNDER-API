@@ -117,7 +117,7 @@ function nestEl(prev, next){
 
 // transform signalId to hash ID
 function signalHashId(namespace, signalId){
-    return namespace + ":signalId:" + encodeURIComponent(signalId);
+    return namespace + ":signalId:" + signalId; // encodeURIComponent(signalId);
 }
 // transform hash ID to signalId
 function hashIdToSignal(hashId){
