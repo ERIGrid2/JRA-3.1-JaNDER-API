@@ -1,0 +1,27 @@
+version: "3.9"
+services:
+  ri-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: rwth
+    env_file:
+      - .env
+    ports:
+      - 6379:6379
+      - 8080:8080
+    secrets:
+      - main-cert
+      - org-cert
+      - org-key
+
+secrets:
+  # main org certificate
+  main-cert:
+    file: files/cert/ca.pem
+  # your org certificate
+  org-cert:
+    file: files/cert/jander.pem
+  # main org key
+  org-key:
+    file: files/cert/jander-key.pem
