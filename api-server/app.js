@@ -64,7 +64,7 @@ app.get("/config", (req, res) =>{
 app.get("/signals", (req, res) =>{
     console.log("list signals");
     let signals;
-    signals = getSignals("RSE");
+    signals = getSignals(namespace);
     signals.then(ans =>{
         res.send(ans);
     });
@@ -104,7 +104,7 @@ app.get("/signal/:id(*)/state", (req, res) =>{
     let answer = {};
     let value;
 
-    value = getSignalState("RSE", signalId);
+    value = getSignalState(namespace, signalId);
     value.then(ans => {
         answer[signalId] = ans;
         ans.value = parseFloat(ans.value)
@@ -134,7 +134,7 @@ app.put("/signal/:id(*)/state", (req, res) =>{
     // transform json in flat redis key-value
     let redisSchema = dataSchema.JsonToHashRedis(signalState);
     console.log("update signal " + signalId + " with value " + JSON.stringify(redisSchema));
-    let update = updateSignalState("RSE", signalId, redisSchema).then(
+    let update = updateSignalState(namespace, signalId, redisSchema).then(
         (ans) =>{
             res.status(200).send("signal updated")
         }
