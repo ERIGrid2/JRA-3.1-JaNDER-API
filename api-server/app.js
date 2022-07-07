@@ -22,7 +22,7 @@ const certCaPem = process.env.CERT_CA_PEM;
 const certOrgPem = process.env.CERT_ORG_PEM;
 const certOrgKeyPem = process.env.CERT_ORG_KEY_PEM;
 const namespace = process.env.NAMESPACE;
-const CloudNodeAddress = process.env.CLOUD_NODE_ADDRESS;
+const remoteaddress = process.env.REMOTE_ADDRESS;
 const rc = true;
 const version = process.env.JANDER_VERSION;
 const serviceName = process.env.SERVICE_NAME;
@@ -45,7 +45,7 @@ var id = new RandExp(/^[a-z0-9-]{3,}$/).gen()
 console.log();
 var info = new dataSchema.Info(id, serviceName, version)
 // setup config
-var cfg = new dataSchema.Config(certCaPem, certOrgPem, certOrgKeyPem, namespace, CloudNodeAddress)
+var cfg = new dataSchema.Config(certCaPem, certOrgPem, certOrgKeyPem, namespace, remoteaddress)
 
 /*###################################### ROUTES ##########################################################*/
 

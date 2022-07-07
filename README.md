@@ -17,10 +17,8 @@ HOST_NAME_RI=localhost
 PORT_WEB=8080
 HOST_WEB=localhost
 NAMESPACE=RSE
-CLOUD_NODE_ADDRESS=https://ec2-54-72-205-227.eu-west-1.compute.amazonaws.com/redis
-```
-
-### 2 Build Docker image (only for non amd64 architectures)
+REMOTE_ADDRESS=https://ec2-54-72-205-227.eu-west-1.compute.amazonaws.com/redis
+````
 
 ```bash
 export DOCKER_DEFAULT_PLATFORM=linux/amd64  docker-compose build
