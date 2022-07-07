@@ -16,7 +16,7 @@ HOST_NAME_RI=localhost
 PORT_WEB=8080
 HOST_WEB=localhost
 NAMESPACE=RSE
-CLOUD_NODE_ADDRESS=https://ec2-54-72-205-227.eu-west-1.compute.amazonaws.com/redis
+REMOTE_ADDRESS=https://ec2-54-72-205-227.eu-west-1.compute.amazonaws.com/redis
 ````
 
 
