@@ -20,6 +20,8 @@ NAMESPACE=RSE
 REMOTE_ADDRESS=https://ec2-54-72-205-227.eu-west-1.compute.amazonaws.com/redis
 ````
 
+### 2 Build Docker image (only for non amd64 architectures)
+
 ```bash
 export DOCKER_DEFAULT_PLATFORM=linux/amd64  docker-compose build
 
