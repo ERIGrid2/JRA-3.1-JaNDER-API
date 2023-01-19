@@ -4,7 +4,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: rwth
+    container_name: rse
     env_file:
       - .env
     ports:
@@ -21,7 +21,7 @@ secrets:
     file: files/cert/ca.pem
   # your org certificate
   org-cert:
-    file: files/cert/jander.pem
+    file: files/cert/RSE.pem
   # main org key
   org-key:
-    file: files/cert/jander-key.pem
+    file: files/cert/RSE-key.pem

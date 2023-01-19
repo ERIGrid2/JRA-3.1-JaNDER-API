@@ -11,7 +11,7 @@ Create a .env file and add environmental the following variables:
 ```env
 JANDER_VERSION=1.1.0
 SERVICE_NAME=JaNDER
-PROTOCOL=HTTPS # TCP
+PROTOCOL=HTTPS 
 PORT_RI=6379
 HOST_NAME_RI=localhost
 PORT_WEB=8080

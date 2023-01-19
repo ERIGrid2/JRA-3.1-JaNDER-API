@@ -1,319 +1,276 @@
-var http = require('http');
-const url = require('url');
-const fs = require('fs');
-const path = require('path');
-const RandExp = require('randexp');
-const {exec, spawn} = require("child_process");
 const express = require('express');
 const redis = require('redis');
 const fileupload = require("express-fileupload");
+const Joi = require('joi')
+const validator = require('express-joi-validation').createValidator({})
+
 // object schema defined in this project
 const dataSchema = require("./schema");
-const {HashRedisToJson} = require("./schema");
+const {JanderRedis} = require("./schema");
 
 
 // env parameters
-const certFolder = process.env.CERT_FOLDER;
 const redisPort = process.env.PORT_RI; // 32101
-const redisHost = process.env.HOST_NAME_RI; //"localhost"
-const webPort = process.env.PORT_WEB; // 32101
-const webHost = process.env.HOST_WEB; //"localhost"
-const certCaPem = process.env.CERT_CA_PEM;
-const certOrgPem = process.env.CERT_ORG_PEM;
-const certOrgKeyPem = process.env.CERT_ORG_KEY_PEM;
-const namespace = process.env.NAMESPACE;
-const remoteaddress = process.env.REMOTE_ADDRESS;
-const rc = true;
+const redisHost = process.env.HOST_NAME_RI || process.env.HOSTNAME;
+const webPort = process.env.PORT_WEB || 8080 ; // 32101
 const version = process.env.JANDER_VERSION;
+const namespace = process.env.NAMESPACE;
 const serviceName = process.env.SERVICE_NAME;
 
-// routing app
+// Routing app
 var app = express();
 app.use(fileupload());
 app.use(express.json())
 
+// validation tool
+const ChannelSchema = Joi.object({
+    id: Joi.string().regex(/^[a-zA-Z0-9-_/.:]+$/).required() ,
+    description: Joi.string().optional() ,
+    payload: Joi.string().allow('sample', 'event').required(),
+    range: Joi.required() ,
+    writable: Joi.boolean().required() ,
+    readable: Joi.boolean().required() ,
+    source: Joi.string().allow("unknown", "process", "test", "calculated", "simulated").required(),
+    datatype: Joi.string().allow("float", "complex", "integer", "string", "boolean").required(),
+    unit: Joi.string().required(),
+    rate: Joi.string().required()
+})
 
-// create redis client
+const SampleSchema = Joi.object({
+    source: Joi.string().allow("unknown", "process", "test", "calculated", "simulated").optional(),
+    validity: Joi.string().allow("unknown", "valid", "invalid", "questionable", "indeterminate").optional(),
+    timesource: Joi.string().allow("synchronized", "unsynchronized", "unknown").optional(),
+    timestamp: Joi.number().required(),
+    value: Joi.required()
+})
+
+const EventSchema = Joi.object({
+    id: Joi.number().optional(),
+    source: Joi.string().allow("unknown", "process", "test", "calculated", "simulated").optional(),
+    validity: Joi.string().allow("unknown", "valid", "invalid", "questionable", "indeterminate").optional(),
+    timesource: Joi.string().allow("synchronized", "unsynchronized", "unknown").optional(),
+    timestamp: Joi.number().required(),
+    value: Joi.required()
+})
+
+// Redis Client connection
 console.log('Create redis Client, connection with '+ redisHost + ':'+ redisPort );
 const client = redis.createClient(redisPort, redisHost);
 client.on('connect', function() {
-  console.log('Redis ' + redisHost + ':'+ redisPort +' connected!');
+    console.log('Redis ' + redisHost + ':'+ redisPort +' connected!');
 });
 
-// setup info
-var id = new RandExp(/^[a-z0-9-]{3,}$/).gen()
-console.log();
-var info = new dataSchema.Info(id, serviceName, version)
-// setup config
-var cfg = new dataSchema.Config(certCaPem, certOrgPem, certOrgKeyPem, namespace, remoteaddress)
+// client that manages data structures defined in JRA3
+const jClient = new JanderRedis(client)
 
-/*###################################### ROUTES ##########################################################*/
+const id = namespace //new RandExp(/^[a-z0-9-]{3,}$/).gen()
+const info = new dataSchema.Info(id, serviceName, version)
 
+
+// ############################# ROUTES #############################
 
 app.get("/info", (req, res) =>{
     console.log("Info");
     res.send(info.info);
 });
 
-app.get("/config", (req, res) =>{
-    console.log("config");
-    res.send(cfg.config);
+app.get("/status", (req, res) =>{
+    console.log("Status");
+    res.json({"connected": "maybe"});
 });
 
-// list signals
-app.get("/signals", (req, res) =>{
-    console.log("list signals");
-    let signals;
-    signals = getSignals(namespace);
-    signals.then(ans =>{
-        res.send(ans);
-    });
-});
-
-
-// validate signal ID
-app.all("/signal/:id(*)/state", (req, res, next) =>{
-    let signalId = req.params.id;
-    let answer = {};
-    let value;
-    // validate ID
-    let validId = signalIdIsValid(signalId);
-    let exists = signalIdExists(signalId);
-    exists.then((exists) =>{
-        //console.log("Get signal " + validId + " exists " + exists);
-        if (validId && (exists + 1 > 0)) {
-            //console.log("Get signal " + signalId);
-            next()
+app.get("/channels", (req, res) =>{
+    console.log("Get channels");
+    jClient.getChannelList(namespace).then(ans =>{
+        if (ans) {
+            res.status(200).json(ans).end();
         }
         else {
-            if (!validId){
-                ans = {error: "Invalid signal ID supplied"}
-                res.status(400).json(ans);
-            }
-            else{
-                ans = {error: "Signal ID not found"}
-                res.status(400).json(ans);
-            }
+            res.status(400).send()
         }
     });
-})
+});
 
-// signal value
-app.get("/signal/:id(*)/state", (req, res) =>{
-    let signalId = req.params.id;
-    let answer = {};
-    let value;
+app.put("/channel", validator.body(ChannelSchema), (req, res) =>{
+    let channelDesc = {
+        id: req.body.id ,
+        description: req.body.description ,
+        payload: req.body.payload ,
+        range:  isJsonString(req.body.range) ? JSON.parse(req.body.range) : req.body.range,
+        writable: req.body.writable ,
+        readable: req.body.readable ,
+        datatype: req.body.datatype ,
+        unit: req.body.unit,
+        rate: req.body.rate
+    }
+    try {
+        let channel = new dataSchema.Channel(namespace, channelDesc)
 
-    value = getSignalState(namespace, signalId);
-    value.then(ans => {
-        answer[signalId] = ans;
-        ans.value = parseFloat(ans.value)
-        ans.timestamp = parseInt(ans.timestamp)
-        res.status(200).json(ans);
-    });
+        jClient.writeChannel(channel).then(() => {
+            console.log("Channel written")
+            res.status(200).send("Channel uploaded")
+        })
+    }catch (err){
+        res.status(400).send(err.name + " " + err.message)
+    }
 
 });
 
-// signal value
-app.put("/signal/:id(*)/state", (req, res) =>{
-    // get signalId
-    let signalId = req.params.id;
-    let signal = req.body;
-    //console.log(req.body)
-    // check if id is valid
-    if(signal.hasOwnProperty('timestamp') && signal.hasOwnProperty('value') ){
-        //console.log("valid schema")
-    }
-    else{
-        res.status(405).json({error: "invalid schema", body: req.body})
-        return
-    }
-    // update value
-    let signalState = {}
-    signalState.state = signal
-    // transform json in flat redis key-value
-    let redisSchema = dataSchema.JsonToHashRedis(signalState);
-    console.log("update signal " + signalId + " with value " + JSON.stringify(redisSchema));
-    let update = updateSignalState(namespace, signalId, redisSchema).then(
-        (ans) =>{
-            res.status(200).send("signal updated")
+app.get("/channel/:id(*)/sample", (req, res) =>{
+    let channelId = req.params.id
+    console.log("Get Sample " + channelId);
+    let match = channelId.match(/^[a-zA-Z0-9-_/.:]+$/);
+    jClient.getChannelAttr(namespace, channelId, "payload").then (payload => {
+        if (payload === "sample") {
+            if (match) {
+                jClient.getDynamic(namespace, channelId).then(ans => {
+                    let missingValues = Object.keys(ans).filter(field => {
+                        return ans[field] === ""
+                    }).length
+                    if (!missingValues) {
+                        if (ans) {
+                            res.status(200).json(ans).end();
+                        } else {
+                            res.status(400).send()
+                        }
+
+                    } else {
+                        res.status(404).send("Channel Id " + channelId + " or sample not found.")
+                    }
+                })
+            } else {
+                res.status(400).send("Invalid / malformed channel ID supplied.")
+            }
         }
-    );
+        else{
+            res.status(404).send("Channel Id " + channelId + " is not a sample")
+        }
+    })
+
 });
 
+app.put("/channel/:id(*)/sample", validator.body(SampleSchema), (req, res) =>{
+    let channelId = req.params.id;
+    console.log("Update sample for channel " + channelId);
+    let sampleDesc = {
+        timesource : req.body.timesource || "unknown" ,
+        validity : req.body.validity || "unknown",
+        timestamp: req.body.timestamp,
+        value : isJsonString(req.body.value) ? JSON.parse(req.body.value) : req.body.value,
+        source : req.body.source || "unknown"
+    }
+
+    jClient.getChannel(namespace, channelId).then(ans => {
+        if (ans.payload === "sample") {
+            if (ans.id === channelId) {
+                try {
+                    let channel = new dataSchema.Channel(namespace, ans)
+                    let sample = new dataSchema.Sample(channel, sampleDesc)
+
+                    jClient.writeDynamic(sample).then(() => {
+                        //console.log("Sample written")
+                        res.status(200).send("Sample " + channelId + " updated")
+                    })
+                } catch (err) {
+                    res.status(404).send(err.message)
+                }
+
+            } else {
+                res.status(404).send("Channel Id " + channelId + " not found")
+            }
+        }
+        else{
+            res.status(404).send("Channel Id " + channelId + " is not a sample")
+        }
+    })
+});
+
+
+app.get("/channel/:id(*)/event", (req, res) =>{
+    let channelId = req.params.id;
+    let sinceId = req.query.since_id || 0 ;
+
+    console.log("Get Event " + channelId);
+    let match = channelId.match(/^[a-zA-Z0-9-_/.:]+$/);
+    jClient.getChannelAttr(namespace, channelId, "payload").then (payload => {
+        console.log(payload)
+        if (payload === "event") {
+            if (match) {
+                jClient.getEventAfter(namespace, channelId, sinceId).then(ans => {
+                    if (ans) {
+                        res.status(200).json(ans).end();
+                    } else {
+                        res.status(400).send()
+                    }
+                })
+            } else {
+                res.status(400).send("Invalid / malformed channel ID supplied.")
+            }
+        }
+        else{
+                res.status(404).send("Channel Id " + channelId + " is not an event")
+            }
+    });
+});
+
+
+app.put("/channel/:id(*)/event", validator.body(EventSchema), (req, res) =>{
+
+    let channelId = req.params.id;
+
+    console.log("Update event for channel " + channelId);
+    let eventDesc = {
+        timesource : req.body.timesource || "unknown" ,
+        validity : req.body.validity || "unknown",
+        timestamp: req.body.timestamp,
+        value : isJsonString(req.body.value) ? JSON.parse(req.body.value) : req.body.value,
+        source : req.body.source || "unknown",
+        id : parseInt(req.body.id ) || 0
+    }
+
+    jClient.getChannel(namespace, channelId).then(ans => {
+        if (ans.payload === "event"){
+            if (ans.id === channelId) {
+                try{
+                    jClient.getMaxEventId(namespace, channelId). then(maxId => {
+                        let channel = new dataSchema.Channel(namespace, ans)
+                        if (!eventDesc.id){
+                            eventDesc.id = maxId + 1
+                        }
+                        let event = new dataSchema.Event(channel, eventDesc)
+
+                        jClient.writeDynamic(event).then(() => {
+                            res.status(200).send("Event " + channelId +  " updated")
+                        })
+                    })
+                }catch (err){
+                    res.status(404).send(err.message)
+                }
+
+            } else {
+                res.status(404).send("Channel Id " + channelId + " not found")
+            }
+        }
+        else{
+            res.status(404).send("Channel Id " + channelId + "  is not an event")
+        }
+    })
+});
+
+
+// ############################# APP LISTENER #############################
 
 app.listen(webPort, function (){
     console.log('Server running at http://'+ webHost + ':' + webPort);
 });
 
 
-/*###################################### FUNCTIONS ##########################################################*/
-
-// retrieve signals from a namespace
-function getNamespaceKeys(namespace){
-    return new Promise(resolve => {
-        let allKeys = [];
-        client.hkeys(namespace, function (err, hkeys) {
-            if (err){
-                console.log("Error retrieving keys in " + namespace);
-            }
-            else {
-                allKeys = allKeys.concat(hkeys);
-            }
-            client.keys(namespace + "*", function (err, keys) {
-                if (err){
-                    console.log("Error retrieving keys in " + namespace);
-                }
-                else {
-                    allKeys = allKeys.concat(keys);
-                }
-                resolve(allKeys);
-            });
-        });
-
-    });
-    //TODO add also hashes with namespaces
-}
-
-// validate signalId
-function signalIdIsValid(signalId){
-    let match = signalId.match(/^([a-z0-9-_\/])+$/);
-    if (match){
-        return true;
-    }else{
+function isJsonString(str) {
+    try {
+        JSON.parse(str);
+    } catch (e) {
         return false;
     }
-
+    return true;
 }
-
-function getSignals(namespace){
-    return new Promise(resolve => {
-        let signalId = decodeURIComponent(dataSchema.signalHashId(namespace,"*"));
-        let hashIds = [];
-        client.keys(signalId, function (err, hKeys) {
-            if (err){
-                console.log("Error retrieving keys in " + namespace);
-            }
-            else {
-                hashIds = hashIds.concat(hKeys);
-            }
-            // transform hashId to signalId
-            let allKeys = hashIds.map(function(e) {
-                e = dataSchema.hashIdToSignal(e);
-                return e;
-            });
-            resolve(allKeys);
-        });
-    });
-}
-
-function signalIdExists(signal) {
-    return new Promise(resolve => {
-        let signalId = dataSchema.signalHashId(namespace,signal);
-        let hashIds = [];
-        client.exists(signalId, function (err, exists) {
-            if (err){
-                console.log("Error retrieving keys in " + signalId);
-            }
-            else {
-                //console.log("key " + signalId);
-                resolve(exists);
-            }
-        });
-    });
-}
-
-// get signal value
-function getSignalValue(namespace, signalId){
-    return new Promise(resolve => {
-        let value;
-        // get value from hash namespace
-        client.hget(namespace, signalId, function (err, hValue) {
-            if (err){
-                console.log("Error retrieving key " + signalId);
-            }
-            else {
-                if (value){
-                    console.log(namespace +" " + signalId );
-                    resolve(hValue);
-                }
-                else{
-                    client.get(signalId, function (err, keyValue) {
-                        if (err){
-                            console.log("Error retrieving key " + signalId);
-                        }
-                        else {
-                            if (value){
-                                //console.log(namespace +" " + keyValue );
-                                resolve(keyValue);
-                            }
-                            else{
-
-                            }
-                        }
-                    });
-                }
-            }
-        });
-    });
-
-}
-
-
-// load signals within the hash having name = to namespace
-function updateSignalValue(namespace, signalId, signalValue){
-    return new Promise(resolve => {
-        let allKeys = [];
-        client.hset(namespace, signalId, signalValue, function (err, returnValue) {
-            if (err){
-                console.log("Error during loading " + namespace);
-            }
-            else {
-                resolve(returnValue);
-            }
-        });
-    });
-}
-
-// get signal value
-function getSignalState(namespace, signalId){
-    return new Promise(resolve => {
-        let hashId = dataSchema.signalHashId(namespace, signalId);
-        let value;
-        // get values from hash namespace
-        client.hgetall(hashId, function (err, hValue) {
-            if (err){
-                console.log("Error retrieving key " + hashId);
-                resolve(err);
-            }
-            else {
-                if (hValue){
-                    console.log("ok  " + hashId)
-                    let outValue = HashRedisToJson(hValue);
-                    resolve(outValue.state);
-                }
-                else{
-                    console.log("not found value for " + hashId);
-                    resolve({error: "not found"});
-                }
-            }
-        });
-    });
-
-}
-// signal state is a json  with value and timestamp
-function updateSignalState(namespace, signalId, signalState){
-    return new Promise(resolve => {
-        let hashId = dataSchema.signalHashId(namespace, signalId);
-        client.hmset(hashId, signalState, function (err, returnValue) {
-            if (err){
-                console.log("Error during loading " + namespace);
-            }
-            else {
-                resolve(returnValue);
-            }
-        });
-    });
-}
-
 

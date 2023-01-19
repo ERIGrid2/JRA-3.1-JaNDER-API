@@ -1,15 +1,17 @@
 {
   "name": "jander-backend",
   "version": "1.0.0",
-  "description": "api-gateway for jander redis server",
+  "description": "api-gateway for JaNDER redis server",
   "main": "app.js",
   "dependencies": {
     "express": "^4.17.1",
     "express-fileupload": "^1.2.1",
+    "express-joi-validation": "^5.0.1",
+    "joi": "^17.7.0",
     "randexp": "^0.5.3",
-    "redis": "^3.1.2"
+    "redis": "^3.1.2",
+    "request": "^2.88.2"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
