@@ -1,6 +1,6 @@
 # JaNDER
 
-Exposes api defined in https://github.com/ERIGrid2/JRA-3.1-api.
+Exposes api (version 2) defined in https://github.com/ERIGrid2/JRA-3.1-api.
 
 ## Setup instructions
 
@@ -10,12 +10,11 @@ Create a .env file and add environmental the following variables:
 
 ```env
 JANDER_VERSION=1.1.0
+PROTOCOL=HTTPS
 SERVICE_NAME=JaNDER
-PROTOCOL=HTTPS 
 PORT_RI=6379
 HOST_NAME_RI=localhost
 PORT_WEB=8080
-HOST_WEB=localhost
 NAMESPACE=RSE
 REMOTE_ADDRESS=https://ec2-54-72-205-227.eu-west-1.compute.amazonaws.com/redis
 ````
