@@ -261,7 +261,7 @@ app.put("/channel/:id(*)/event", validator.body(EventSchema), (req, res) =>{
 // ############################# APP LISTENER #############################
 
 app.listen(webPort, function (){
-    console.log('Server running at http://'+ webHost + ':' + webPort);
+    console.log('Server running');
 });
 
 
