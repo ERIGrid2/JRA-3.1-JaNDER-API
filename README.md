@@ -79,7 +79,7 @@ Expose api on YOUR_API_PORT.
 
 ### 4 Run
 
-Open a terminal and execute the command: `docker-compose up -d`
+Open a terminal and execute the command: `docker compose up -d`
 
 ### RedisRepl
 
