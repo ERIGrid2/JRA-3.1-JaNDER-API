@@ -28,6 +28,7 @@ const merge = (target, source) => {
 function channelHashId(namespace, channelId){
     return namespace + ":channelId:" + channelId;
 }
+
 function hashIdToChannel(hashId){
     return decodeURIComponent(hashId.split("channelId:")[1]);
 }
@@ -104,7 +105,7 @@ function ValidationException(message) {
 function validateChannelInfo(chDescription){
     let enumValues = {
         datatype: ["float", "complex", "integer", "string", "boolean"],
-        payload: ["sample", "event"],
+        payload: ["samples", "events"],
         source: ["unknown", "process", "test", "calculated", "simulated"],
         writable: [true, false],
         readable: [true, false],

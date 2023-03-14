@@ -121,7 +121,7 @@ app.get("/channel/:id(*)/sample", (req, res) =>{
     console.log("Get Sample " + channelId);
     let match = channelId.match(/^[a-zA-Z0-9-_/.:]+$/);
     jClient.getChannelAttr(namespace, channelId, "payload").then (payload => {
-        if (payload === "sample") {
+        if (payload === "samples") {
             if (match) {
                 jClient.getDynamic(namespace, channelId).then(ans => {
                     let missingValues = Object.keys(ans).filter(field => {
@@ -161,7 +161,7 @@ app.put("/channel/:id(*)/sample", validator.body(SampleSchema), (req, res) =>{
     }
 
     jClient.getChannel(namespace, channelId).then(ans => {
-        if (ans.payload === "sample") {
+        if (ans.payload === "samples") {
             if (ans.id === channelId) {
                 try {
                     let channel = new dataSchema.Channel(namespace, ans)
@@ -194,7 +194,7 @@ app.get("/channel/:id(*)/event", (req, res) =>{
     let match = channelId.match(/^[a-zA-Z0-9-_/.:]+$/);
     jClient.getChannelAttr(namespace, channelId, "payload").then (payload => {
         console.log(payload)
-        if (payload === "event") {
+        if (payload === "events") {
             if (match) {
                 jClient.getEventAfter(namespace, channelId, sinceId).then(ans => {
                     if (ans) {
@@ -229,7 +229,7 @@ app.put("/channel/:id(*)/event", validator.body(EventSchema), (req, res) =>{
     }
 
     jClient.getChannel(namespace, channelId).then(ans => {
-        if (ans.payload === "event"){
+        if (ans.payload === "events"){
             if (ans.id === channelId) {
                 try{
                     jClient.getMaxEventId(namespace, channelId). then(maxId => {
