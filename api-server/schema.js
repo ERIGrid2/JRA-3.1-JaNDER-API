@@ -609,16 +609,22 @@ class JanderRedis {
 
                 // select the events with id greater than eventId
                 redisClient.hmget(hashId, EventIdKeys , function (err, hValues) {
-                    let entries =  Object.fromEntries(zip(EventIdKeys, hValues))
-                    let filteredIds = EventIdKeys.filter(field => {return entries[field] >= eventId}).map(field => { return field.split(":")[1]})
+                    if (EventIdKeys.length){
+                        let entries =  Object.fromEntries(zip(EventIdKeys, hValues))
+                        let filteredIds = EventIdKeys.filter(field => {return entries[field] >= eventId}).map(field => { return field.split(":")[1]})
 
-                    let promises = []
-                    filteredIds.forEach(id => {
-                        promises.push(oThis.getEvent(namespace, channelId, id))
-                    })
-                    Promise.all(promises).then(result => {
-                        resolve(result)
-                    })
+                        let promises = []
+                        filteredIds.forEach(id => {
+                            promises.push(oThis.getEvent(namespace, channelId, id))
+                        })
+                        Promise.all(promises).then(result => {
+                            resolve(result)
+                        })
+                    } else{
+                        resolve({})
+                    }
+
+
                 })
             })
         });
