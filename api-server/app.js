@@ -124,6 +124,7 @@ app.get("/channel/:id(*)/sample", (req, res) =>{
         if (payload === "samples") {
             if (match) {
                 jClient.getDynamic(namespace, channelId).then(ans => {
+                    console.log(ans)
                     let missingValues = Object.keys(ans).filter(field => {
                         return ans[field] === ""
                     }).length
@@ -233,6 +234,7 @@ app.put("/channel/:id(*)/event", validator.body(EventSchema), (req, res) =>{
             if (ans.id === channelId) {
                 try{
                     jClient.getMaxEventId(namespace, channelId). then(maxId => {
+                        console.log(maxId)
                         let channel = new dataSchema.Channel(namespace, ans)
                         if (!eventDesc.id){
                             eventDesc.id = maxId + 1

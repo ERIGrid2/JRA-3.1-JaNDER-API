@@ -361,14 +361,14 @@ class ChannelDynamic {
     }
 }
 
-class Event  extends ChannelDynamic{
+class Events  extends ChannelDynamic{
     constructor(channel, dynamic) {
         super(channel, dynamic)
         this.attr.id = dynamic.id
     }
 }
 
-class Sample  extends ChannelDynamic{
+class Samples  extends ChannelDynamic{
     constructor(channel, dynamic) {
         super(channel, dynamic)
     }
@@ -386,8 +386,8 @@ class JanderRedis {
             'rate'
         ]
         this.dynamicFields = {
-            sample: ['timestamp', 'timesource', 'value', 'validity', 'source'],
-            event: ['timestamp', 'timesource', 'value', 'validity', 'source', 'id']
+            samples: ['timestamp', 'timesource', 'value', 'validity', 'source'],
+            events: ['timestamp', 'timesource', 'value', 'validity', 'source', 'id']
         }
 
         this.validationFields = ['payload', 'datatype']
@@ -490,6 +490,7 @@ class JanderRedis {
                 hashFields = hashFields.map(field => { return  payload + ":" + field})
 
                 // get values from hash namespace
+                console.log(" get " + hashId + " " + hashFields)
                 redisClient.hmget(hashId, hashFields , function (err, hValues) {
                     if (err){
                         console.log("Error retrieving key " + hashId);
@@ -518,9 +519,15 @@ class JanderRedis {
             let hashId = namespace + ":channelId:" + channelId;
             // get event hash keys with evnetId
             this.client.hkeys(hashId, function (err, hKeys) {
-                const regex = /^Event:\d+:id$/g;
+                const regex = /^Events:\d+:id$/g;
                 let EventIdKeys = hKeys.filter(field => {return field.match(regex)}).map(field => { return parseInt(field.split(":")[1])})
-                resolve(Math.max(...EventIdKeys))
+                console.log(EventIdKeys)
+                if (EventIdKeys.length){
+                    resolve(Math.max(...EventIdKeys))
+                }else{
+                    resolve(0)
+                }
+
             })
         });
     }
@@ -530,9 +537,13 @@ class JanderRedis {
             let hashId = namespace + ":channelId:" + channelId;
             // get event hash keys with evnetId
             this.client.hkeys(hashId, function (err, hKeys) {
-                const regex = /^Event:\d+:id$/g;
+                const regex = /^Events:\d+:id$/g;
                 let EventIdKeys = hKeys.filter(field => {return field.match(regex)}).map(field => { return parseInt(field.split(":")[1])})
-                resolve(Math.min(...EventIdKeys))
+                if (EventIdKeys.length){
+                    resolve(Math.min(...EventIdKeys))
+                }else{
+                    resolve(0)
+                }
             })
         });
     }
@@ -593,7 +604,7 @@ class JanderRedis {
             this.client.hkeys(hashId, function (err, hKeys) {
 
                 // timestamp identifier
-                const regex = /^Event:\d+:id$/g;
+                const regex = /^Events:\d+:id$/g;
                 let EventIdKeys = hKeys.filter(field => {return field.match(regex)})
 
                 // select the events with id greater than eventId
@@ -657,8 +668,8 @@ module.exports.JanderRedis = JanderRedis
 module.exports.Config = Config
 module.exports.Info = Info
 module.exports.Channel = Channel
-module.exports.Sample = Sample
-module.exports.Event = Event
+module.exports.Sample = Samples
+module.exports.Event = Events
 
 
 // TEST
@@ -690,7 +701,7 @@ let sampleDesc = {
 }
 
 let channel = new Channel("RSE", channelDesc)
-let sample = new Sample(channel, sampleDesc)
+let sample = new Samples(channel, sampleDesc)
 
 console.log(channel.hashId())
 
@@ -702,7 +713,7 @@ jClient.writeChannel(channel).then(() => {
 })
 
 jClient.writeDynamic(sample).then(() => {
-    console.log("Sample written")
+    console.log("Samples written")
 })
 
 
