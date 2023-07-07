@@ -18,7 +18,7 @@ FROM redis:latest
 
 RUN apt-get update -yq \
    && apt-get install curl gnupg -yq \
-   && curl -sL https://deb.nodesource.com/setup_10.x | bash \
+   && curl -sL https://deb.nodesource.com/setup_12.x | bash \
    && apt-get install nodejs -yq \
    && apt-get install -y procps \
    && apt-get clean -y
