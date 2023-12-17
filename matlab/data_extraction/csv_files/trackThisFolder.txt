@@ -15,5 +15,3 @@
 *.csv
 *.avi
 *.m~
-
-!trackThisFolder.txt
