@@ -545,7 +545,7 @@ switch selection_switch
                 downsampling_meas_data
 
                 % Plotting and saving drone state - FIRST ATTEMPT
-                destinationFig = 'figures\14_december_2023_attempt1';
+                destinationFig = strcat('figures', filesep, '14_december_2023_attempt1');
                 disp( 'Plotting data first attempt...');
                 plot_signals_state_1
                 
@@ -554,7 +554,7 @@ switch selection_switch
                 disp( ' ' );
                 
                 % Plotting and saving drone state - SECOND ATTEMPT
-                destinationFig = 'figures\14_december_2023_attempt2';
+                destinationFig = strcat('figures', filesep, '14_december_2023_attempt2');
                 disp( 'Plotting data second attempt...');
                 plot_signals_state_2
 
@@ -589,7 +589,7 @@ switch selection_switch
                 downsampling_meas_data
 
                 % Plotting and saving drone state - FIRST ATTEMPT
-                destinationFig = 'figures\14_december_2023_pretty_attempt1';
+                destinationFig = strcat('figures', filesep, '14_december_2023_pretty_attempt1');
                 disp( 'Plotting data first attempt...');
                 disp( ' ' );
                 plot_signals_state_1
@@ -599,7 +599,7 @@ switch selection_switch
                 disp( ' ' );
                 
                 % Plotting and saving drone state - SECOND ATTEMPT
-                destinationFig = 'figures\14_december_2023_pretty_attempt2';
+                destinationFig = strcat('figures', filesep, '14_december_2023_pretty_attempt2');
                 disp( 'Plotting data second attempt...');
                 disp( ' ' );
                 plot_signals_state_2
@@ -632,7 +632,7 @@ switch selection_switch
                 downsampling_meas_data
 
                 % Plotting and saving drone state - FIRST ATTEMPT
-                destinationFig = 'figures\15_december_2023_attempt1';
+                destinationFig = strcat('figures', filesep, '15_december_2023_attempt1');
                 disp( 'Plotting data first attempt...');
                 plot_signals_state_1
                 
@@ -665,7 +665,7 @@ switch selection_switch
                 downsampling_meas_data
 
                 % Plotting and saving drone state - FIRST ATTEMPT
-                destinationFig = 'figures\15_december_2023_pretty_attempt1';
+                destinationFig = strcat('figures', filesep, '15_december_2023_pretty_attempt1');
                 disp( 'Plotting data first attempt...');
                 plot_signals_state_1
                 
