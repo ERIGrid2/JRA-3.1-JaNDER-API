@@ -25,7 +25,7 @@ filenameUndervoltagePrettyScenario = 'tests_december_15_2023_pretty.csv';
 disp( ' ' );
 disp( '----------------------------------------------------------------------------------');
 disp( 'This file runs the MATLAB script for extracting and elaborating data from the experiments');
-disp( '1  - Extracting data from the experiments on December 14, 2023 - Overvoltage scenario');
+disp( '1  - Extracting data from the experiments on December 14 and 15, 2023 - Overvoltage scenario / Undervoltage');
 disp( '2  - Cleaning, subsampling and plotting data from the experiments on December 14, 2023 - Overvoltage scenario');
 disp('---------------------------------------------------------------------------------');
 
