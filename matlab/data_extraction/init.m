@@ -1147,8 +1147,8 @@ switch selection_switch
                 clc
                 
                 % To align the plots. Remove the dirty part
-                shift_1_start = ; %%%%%%%%%% TO BE MODIFIED %%%%%%%%%%
-                shift_1_end   = ; %%%%%%%%%% TO BE MODIFIED %%%%%%%%%%
+                shift_1_start = 0; %%%%%%%%%% TO BE MODIFIED %%%%%%%%%%
+                shift_1_end   = 0; %%%%%%%%%% TO BE MODIFIED %%%%%%%%%%
                 
                 % Downsampling factor
                 downsampling_value_1 = 2; % parameters for the code
@@ -1180,8 +1180,8 @@ switch selection_switch
                 clc
                 
                 % To align the plots. Remove the dirty part
-                shift_1_start = ; %%%%%%%%%% TO BE MODIFIED %%%%%%%%%%
-                shift_1_end   = ; %%%%%%%%%% TO BE MODIFIED %%%%%%%%%%
+                shift_1_start = 0; %%%%%%%%%% TO BE MODIFIED %%%%%%%%%%
+                shift_1_end   = 0; %%%%%%%%%% TO BE MODIFIED %%%%%%%%%%
                 
                 % Downsampling factor
                 downsampling_value_1 = 2; % parameters for the code
