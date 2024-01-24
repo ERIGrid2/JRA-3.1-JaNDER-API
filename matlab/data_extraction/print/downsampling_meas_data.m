@@ -8,14 +8,37 @@ reactive_power_ref_el_sin_out_vec_shifted_1   = reactive_power_ref_el_sin_out_ve
 soc_sin_vec_shifted_1                         = soc_sin_vec(shift_1_start: shift_1_end, :);
 voltage_ref_sin_out_vec_shifted_1             = voltage_ref_sin_out_vec(shift_1_start: shift_1_end, :);
 frequency_ref_sin_out_vec_shifted_1           = frequency_ref_sin_out_vec(shift_1_start: shift_1_end, :);
+frequency_rse_pcc_vec_shifted_1               = frequency_rse_pcc_vec(shift_1_start: shift_1_end, :);
+voltage_rse_pcc_vec_shifted_1                 = voltage_rse_pcc_vec(shift_1_start: shift_1_end, :);
 active_power_el_rse_out_vec_shifted_1         = active_power_el_rse_out_vec(shift_1_start: shift_1_end, :);
 reactive_power_el_rse_out_vec_shifted_1       = reactive_power_el_rse_out_vec(shift_1_start: shift_1_end, :);
 voltage_ref_rse_out_vec_shifted_1             = voltage_ref_rse_out_vec(shift_1_start: shift_1_end, :);
 frequency_ref_rse_out_vec_shifted_1           = frequency_ref_rse_out_vec(shift_1_start: shift_1_end, :);
 rse_chp_m_ea_watt_vec_shifted_1               = rse_chp_m_ea_watt_vec(shift_1_start: shift_1_end, :);
 
-% Excluding some signals from the scenario 
-if selection_scenario ~= 1 && selection_scenario ~= 2 && selection_scenario ~= 3 && selection_scenario ~= 4
+% Excluding some signals from the scenario SELECTION_SWITCH = 2 (Experiments December 14-15, 2023)
+if selection_switch == 2 && selection_scenario ~= 1 && selection_scenario ~= 2 && selection_scenario ~= 3 ...
+        && selection_scenario ~= 4
+    cres_temperature1_m_ea_celsius_vec_shifted_1  = ...
+        cres_temperature1_m_ea_celsius_vec(shift_1_start: shift_1_end, :);
+    cres_temperature2_m_ea_celsisus_vec_shifted_1 = ...
+        cres_temperature2_m_ea_celsisus_vec(shift_1_start: shift_1_end, :);
+    cres_temperature3_m_ea_celsius_vec_shifted_1  = ...
+        cres_temperature3_m_ea_celsius_vec(shift_1_start: shift_1_end, :);
+end
+
+% Excluding some signals generated only in the SELECTION_SWITCH = 4 (Experiments Januar 26, 2024)
+if selection_switch == 4 && selection_scenario ~= 1 && selection_scenario ~= 2 
+    % Frequency and voltage at the connection point SINTEF
+    frequency_sin_pcc_vec_shifted_1               = frequency_sin_pcc_vec(shift_1_start: shift_1_end, :);
+    voltage_sin_pcc_vec_shifted_1                 = voltage_sin_pcc_vec(shift_1_start: shift_1_end, :);
+    
+    % Reactive and active power measured at RSE
+    active_power_el_gf_mes_vec_shifted_1          = active_power_el_gf_mes_vec(shift_1_start: shift_1_end, :);
+    reactive_power_el_gf_mes_vec_shifted_1        = reactive_power_el_gf_mes_vec(shift_1_start: shift_1_end, :);
+    active_power_el_chp_mes_vec_shifted_1         = active_power_el_chp_mes_vec(shift_1_start: shift_1_end, :);
+    reactive_power_el_chp_mes_vec_shifted_1       = reactive_power_el_chp_mes_vec(shift_1_start: shift_1_end, :);
+
     cres_temperature1_m_ea_celsius_vec_shifted_1  = ...
         cres_temperature1_m_ea_celsius_vec(shift_1_start: shift_1_end, :);
     cres_temperature2_m_ea_celsisus_vec_shifted_1 = ...
@@ -38,8 +61,9 @@ thermal_source_dtu_vec_shifted_1              = thermal_source_dtu_vec(shift_1_s
 chp_heat_out_rse_vec_shifted_1                = chp_heat_out_rse_vec(shift_1_start: shift_1_end, :);
 active_power_chp_rse_vec_shifted_1            = active_power_chp_rse_vec(shift_1_start: shift_1_end, :);
 
-%%%%%%%%% Shifting second experimental trial %%%%%%%%%
-if selection_scenario == 1 || selection_scenario == 2
+%%%%%%%%% Shifting second experimental trial (Overvoltage scenario) - SELECTION_SWITH = 2 (Experiments December 14-15, 2023) %%%%%%%%%
+%%%%%%%%% - SELECTION_SWITH = 4 (Experiments January 26, 2024)                                                               %%%%%%%%%
+if (selection_switch == 2 || selection_switch == 4 ) && selection_scenario == 1 || selection_scenario == 2
     active_power_el_sin_out_vec_shifted_2         = active_power_el_sin_out_vec(shift_2_start: shift_2_end, :);
     reactive_power_el_sin_out_vec_shifted_2       = reactive_power_el_sin_out_vec(shift_2_start: shift_2_end, :);
     active_power_ref_el_sin_out_vec_shifted_2     = active_power_ref_el_sin_out_vec(shift_2_start: shift_2_end, :);
@@ -47,14 +71,39 @@ if selection_scenario == 1 || selection_scenario == 2
     soc_sin_vec_shifted_2                         = soc_sin_vec(shift_2_start: shift_2_end, :);
     voltage_ref_sin_out_vec_shifted_2             = voltage_ref_sin_out_vec(shift_2_start: shift_2_end, :);
     frequency_ref_sin_out_vec_shifted_2           = frequency_ref_sin_out_vec(shift_2_start: shift_2_end, :);
+    voltage_rse_pcc_vec_shifted_2                 = voltage_rse_pcc_vec(shift_2_start: shift_2_end, :);
+    frequency_rse_pcc_vec_shifted_2               = frequency_rse_pcc_vec(shift_2_start: shift_2_end, :);
     active_power_el_rse_out_vec_shifted_2         = active_power_el_rse_out_vec(shift_2_start: shift_2_end, :);
     reactive_power_el_rse_out_vec_shifted_2       = reactive_power_el_rse_out_vec(shift_2_start: shift_2_end, :);
     voltage_ref_rse_out_vec_shifted_2             = voltage_ref_rse_out_vec(shift_2_start: shift_2_end, :);
     frequency_ref_rse_out_vec_shifted_2           = frequency_ref_rse_out_vec(shift_2_start: shift_2_end, :);
     rse_chp_m_ea_watt_vec_shifted_2               = rse_chp_m_ea_watt_vec(shift_2_start: shift_2_end, :);
 
-    % Excluding some signals from the scenario 
-    if selection_scenario ~= 1 && selection_scenario ~= 2 && selection_scenario ~= 3 && selection_scenario ~= 4
+    % Excluding some signals from the scenario (Experiments December 14-15, 2023)
+    if selection_switch == 2 && selection_scenario ~= 1 && selection_scenario ~= 2 && selection_scenario ~= 3 ...
+            && selection_scenario ~= 4
+        cres_temperature1_m_ea_celsius_vec_shifted_2  = ...
+            cres_temperature1_m_ea_celsius_vec(shift_2_start: shift_2_end, :);
+        cres_temperature2_m_ea_celsisus_vec_shifted_2 = ...
+            cres_temperature2_m_ea_celsisus_vec(shift_2_start: shift_2_end, :);
+        cres_temperature3_m_ea_celsius_vec_shifted_2  = ...
+            cres_temperature3_m_ea_celsius_vec(shift_2_start: shift_2_end, :);
+    end
+    
+    % Excluding some signals generated only in the SELECTION_SWITCH = 4 (Experiments January 26, 2024)
+    if selection_switch == 4 && selection_scenario ~= 1 && selection_scenario ~= 2 
+        % Frequency and voltage at the connection point SINTEF (in case of
+        % a second experiment trial)
+        frequency_sin_pcc_vec_shifted_2               = frequency_sin_pcc_vec(shift_2_start: shift_2_end, :);
+        voltage_sin_pcc_vec_shifted_2                 = voltage_sin_pcc_vec(shift_2_start: shift_2_end, :);
+        
+        % Reactive and active power measured at RSE (in case of
+        % a second experiment trial)
+        active_power_el_gf_mes_vec_shifted_2          = active_power_el_gf_mes_vec(shift_2_start: shift_2_end, :);
+        reactive_power_el_gf_mes_vec_shifted_2        = reactive_power_el_gf_mes_vec(shift_2_start: shift_2_end, :);
+        active_power_el_chp_mes_vec_shifted_2         = active_power_el_chp_mes_vec(shift_2_start: shift_2_end, :);
+        reactive_power_el_chp_mes_vec_shifted_2       = reactive_power_el_chp_mes_vec(shift_2_start: shift_2_end, :);
+
         cres_temperature1_m_ea_celsius_vec_shifted_2  = ...
             cres_temperature1_m_ea_celsius_vec(shift_2_start: shift_2_end, :);
         cres_temperature2_m_ea_celsisus_vec_shifted_2 = ...
@@ -87,14 +136,37 @@ reactive_power_ref_el_sin_out_vec_downsample_1   = downsample(reactive_power_ref
 soc_sin_vec_downsample_1                         = downsample(soc_sin_vec_shifted_1, downsampling_value_1);
 voltage_ref_sin_out_vec_downsample_1             = downsample(voltage_ref_sin_out_vec_shifted_1, downsampling_value_1);
 frequency_ref_sin_out_vec_downsample_1           = downsample(frequency_ref_sin_out_vec_shifted_1, downsampling_value_1);
+voltage_rse_pcc_vec_shifted_1                    = downsample(voltage_rse_pcc_vec_shifted_1, downsampling_value_1);
+frequency_rse_pcc_vec_shifted_1                  = downsample(frequency_rse_pcc_vec_shifted_1, downsampling_value_1);
 active_power_el_rse_out_vec_downsample_1         = downsample(active_power_el_rse_out_vec_shifted_1, downsampling_value_1);
 reactive_power_el_rse_out_vec_downsample_1       = downsample(reactive_power_el_rse_out_vec_shifted_1, downsampling_value_1);
 voltage_ref_rse_out_vec_downsample_1             = downsample(voltage_ref_rse_out_vec_shifted_1, downsampling_value_1);
 frequency_ref_rse_out_vec_downsample_1           = downsample(frequency_ref_rse_out_vec_shifted_1, downsampling_value_1);
 rse_chp_m_ea_watt_vec_downsample_1               = downsample(rse_chp_m_ea_watt_vec_shifted_1, downsampling_value_1);
 
-% Excluding some signals from the scenario 
-if selection_scenario ~= 1 && selection_scenario ~= 2 && selection_scenario ~= 3 && selection_scenario ~= 4
+% Excluding some signals from the scenario only in the SELECTION_SWITCH = 2 (Experiments December 14-15, 2023)
+if selection_switch == 2 && selection_scenario ~= 1 && selection_scenario ~= 2 && selection_scenario ~= 3 ...
+        && selection_scenario ~= 4
+    cres_temperature1_m_ea_celsius_vec_downsample_1  = ...
+        downsample(cres_temperature1_m_ea_celsius_vec_shifted_1, downsampling_value_1);
+    cres_temperature2_m_ea_celsisus_vec_downsample_1 = ...
+        downsample(cres_temperature2_m_ea_celsisus_vec_shifted_1, downsampling_value_1);
+    cres_temperature3_m_ea_celsius_vec_downsample_1  = ...
+        downsample(cres_temperature3_m_ea_celsius_vec_shifted_1, downsampling_value_1);
+end
+
+% Excluding some signals from the scenario only in the SELECTION_SWITCH = 4 (Experiments January 26, 2024)
+if selection_switch == 4 && selection_scenario ~= 1 && selection_scenario ~= 2 
+    % Voltage and frequency at the connection point SINTEF
+    voltage_sin_pcc_vec_shifted_1                 = downsample(voltage_sin_pcc_vec_shifted_1, downsampling_value_1);
+    frequency_sin_pcc_vec_shifted_1               = downsample(frequency_sin_pcc_vec_shifted_1, downsampling_value_1);
+    
+    % Reactive and active power measured at RSE
+    active_power_el_gf_mes_vec_shifted_1          = downsample(active_power_el_gf_mes_vec_shifted_1, downsampling_value_1);
+    reactive_power_el_gf_mes_vec_shifted_1        = downsample(reactive_power_el_gf_mes_vec_shifted_1, downsampling_value_1);
+    active_power_el_chp_mes_vec_shifted_1         = downsample(active_power_el_chp_mes_vec_shifted_1, downsampling_value_1);
+    reactive_power_el_chp_mes_vec_shifted_1       = downsample(reactive_power_el_chp_mes_vec_shifted_1, downsampling_value_1);
+    
     cres_temperature1_m_ea_celsius_vec_downsample_1  = ...
         downsample(cres_temperature1_m_ea_celsius_vec_shifted_1, downsampling_value_1);
     cres_temperature2_m_ea_celsisus_vec_downsample_1 = ...
@@ -117,8 +189,9 @@ thermal_source_dtu_vec_downsample_1              = downsample(thermal_source_dtu
 chp_heat_out_rse_vec_downsample_1                = downsample(chp_heat_out_rse_vec_shifted_1, downsampling_value_1);
 active_power_chp_rse_vec_downsample_1            = downsample(active_power_chp_rse_vec_shifted_1, downsampling_value_1);
 
-%%%%%%%%% Shifting second experimental trial %%%%%%%%%
-if selection_scenario == 1 || selection_scenario == 2
+%%%%%%%%% Shifting second experimental trial - SELECTION_SWITH = 2 (Experiments December 14-15, 2023) %%%%%%%%%
+%%%%%%%%% - SELECTION_SWITH = 4 (Experiments January 26, 2024)                                        %%%%%%%%%
+if (selection_switch == 2 || selection_switch == 4 ) && selection_scenario == 1 || selection_scenario == 2
     active_power_el_sin_out_vec_downsample_2         = downsample(active_power_el_sin_out_vec_shifted_2, downsampling_value_2);
     reactive_power_el_sin_out_vec_downsample_2       = downsample(reactive_power_el_sin_out_vec_shifted_2, downsampling_value_2);
     active_power_ref_el_sin_out_vec_downsample_2     = downsample(active_power_ref_el_sin_out_vec_shifted_2, downsampling_value_2);
@@ -126,14 +199,38 @@ if selection_scenario == 1 || selection_scenario == 2
     soc_sin_vec_downsample_2                         = downsample(soc_sin_vec_shifted_2, downsampling_value_2);
     voltage_ref_sin_out_vec_downsample_2             = downsample(voltage_ref_sin_out_vec_shifted_2, downsampling_value_2);
     frequency_ref_sin_out_vec_downsample_2           = downsample(frequency_ref_sin_out_vec_shifted_2, downsampling_value_2);
+    voltage_rse_pcc_vec_shifted_2                    = downsample(voltage_rse_pcc_vec_shifted_2, downsampling_value_2);
+    frequency_rse_pcc_vec_shifted_2                  = downsample(frequency_rse_pcc_vec_shifted_2, downsampling_value_2);
     active_power_el_rse_out_vec_downsample_2         = downsample(active_power_el_rse_out_vec_shifted_2, downsampling_value_2);
     reactive_power_el_rse_out_vec_downsample_2       = downsample(reactive_power_el_rse_out_vec_shifted_2, downsampling_value_2);
     voltage_ref_rse_out_vec_downsample_2             = downsample(voltage_ref_rse_out_vec_shifted_2, downsampling_value_2);
     frequency_ref_rse_out_vec_downsample_2           = downsample(frequency_ref_rse_out_vec_shifted_2, downsampling_value_2);
     rse_chp_m_ea_watt_vec_downsample_2               = downsample(rse_chp_m_ea_watt_vec_shifted_2, downsampling_value_2);
 
-    % Excluding some signals from the scenario 
+    % Excluding some signals from the scenario only in the SELECTION_SWITCH = 2 (Experiments December 14-15, 2023)
     if selection_scenario ~= 1 && selection_scenario ~= 2
+        cres_temperature1_m_ea_celsius_vec_downsample_2  = ...
+            downsample(cres_temperature1_m_ea_celsius_vec_shifted_2, downsampling_value_2);
+        cres_temperature2_m_ea_celsisus_vec_downsample_2 = ...
+            downsample(cres_temperature2_m_ea_celsisus_vec_shifted_2, downsampling_value_2);
+        cres_temperature3_m_ea_celsius_vec_downsample_2  = ...
+            downsample(cres_temperature3_m_ea_celsius_vec_shifted_2, downsampling_value_2);
+    end
+    
+    % Excluding some signals from the scenario only in the SELECTION_SWITCH = 4 (Experiments January 26, 2024)
+    if selection_switch == 4 && selection_scenario ~= 1 && selection_scenario ~= 2 
+        % Voltage and frequency at the connection SINTEF (in case of
+        % a second experiment trial)
+        voltage_sin_pcc_vec_shifted_2                 = downsample(voltage_sin_pcc_vec_shifted_2, downsampling_value_2);
+        frequency_sin_pcc_vec_shifted_2               = downsample(frequency_sin_pcc_vec_shifted_2, downsampling_value_2);
+        
+        % Reactive and active power measured at RSE (in case of
+        % a second experiment trial)
+        active_power_el_gf_mes_vec_shifted_2          = downsample(active_power_el_gf_mes_vec_shifted_2, downsampling_value_2);
+        reactive_power_el_gf_mes_vec_shifted_2        = downsample(reactive_power_el_gf_mes_vec_shifted_2, downsampling_value_2);
+        active_power_el_chp_mes_vec_shifted_2         = downsample(active_power_el_chp_mes_vec_shifted_2, downsampling_value_2);
+        reactive_power_el_chp_mes_vec_shifted_2       = downsample(reactive_power_el_chp_mes_vec_shifted_2, downsampling_value_2);
+
         cres_temperature1_m_ea_celsius_vec_downsample_2  = ...
             downsample(cres_temperature1_m_ea_celsius_vec_shifted_2, downsampling_value_2);
         cres_temperature2_m_ea_celsisus_vec_downsample_2 = ...
@@ -182,6 +279,10 @@ data_voltage_ref_sin_out_vec_downsample_1           = [linspace(0, simulation_du
     length(voltage_ref_sin_out_vec_downsample_1))', voltage_ref_sin_out_vec_downsample_1(:,3)];         
 data_frequency_ref_sin_out_vec_downsample_1         = [linspace(0, simulation_duration_1, ...
     length(frequency_ref_sin_out_vec_downsample_1))', frequency_ref_sin_out_vec_downsample_1(:,3)];        
+data_voltage_rse_pcc_vec_downsample_1               = [linspace(0, simulation_duration_1, ...
+    length(voltage_rse_pcc_vec_downsample_1))', voltage_rse_pcc_vec_downsample_1(:,3)]; 
+data_frequency_rse_pcc_vec_downsample_1             = [linspace(0, simulation_duration_1, ...
+    length(frequency_rse_pcc_vec_downsample_1))', frequency_rse_pcc_vec_downsample_1(:,3)]; 
 data_active_power_el_rse_out_vec_downsample_1       = [linspace(0, simulation_duration_1, ...
     length(active_power_el_rse_out_vec_downsample_1))', active_power_el_rse_out_vec_downsample_1(:,3)];       
 data_reactive_power_el_rse_out_vec_downsample_1     = [linspace(0, simulation_duration_1, ...
@@ -191,10 +292,39 @@ data_voltage_ref_rse_out_vec_downsample_1           = [linspace(0, simulation_du
 data_frequency_ref_rse_out_vec_downsample_1         = [linspace(0, simulation_duration_1, ...
     length(frequency_ref_rse_out_vec_downsample_1))', frequency_ref_rse_out_vec_downsample_1(:,3)];         
 data_rse_chp_m_ea_watt_vec_downsample_1             = [linspace(0, simulation_duration_1, ...
-    length(rse_chp_m_ea_watt_vec_downsample_1))', rse_chp_m_ea_watt_vec_downsample_1(:,3)];             
+    length(rse_chp_m_ea_watt_vec_downsample_1))', rse_chp_m_ea_watt_vec_downsample_1(:,3)];
 
-% Excluding some signals from the scenario 
-if selection_scenario ~= 1 && selection_scenario ~= 2 && selection_scenario ~= 3 && selection_scenario ~= 4
+% Excluding some signals from the scenario only in the SELECTION_SWITCH = 2 (Experiments December 14-15, 2023)
+if selection_switch == 2 && selection_scenario ~= 1 && selection_scenario ~= 2 && selection_scenario ~= 3 && selection_scenario ~= 4
+    data_cres_temperature1_m_ea_celsius_vec_downsample_1 = [linspace(0, simulation_duration_1, ...
+        length(cres_temperature1_m_ea_celsius_vec_downsample_1))', cres_temperature1_m_ea_celsius_vec_downsample_1(:,3)];
+
+    data_cres_temperature2_m_ea_celsisus_vec_downsample_1 = [linspace(0, simulation_duration_1, ...
+        length(cres_temperature2_m_ea_celsisus_vec_downsample_1))', cres_temperature2_m_ea_celsisus_vec_downsample_1(:,3)];
+
+    data_cres_temperature3_m_ea_celsius_vec_downsample_1 = [linspace(0, simulation_duration_1, ...
+        length(cres_temperature3_m_ea_celsius_vec_downsample_1))', cres_temperature3_m_ea_celsius_vec_downsample_1(:,3)];
+
+end
+
+% Excluding some signals from the scenario only in the SELECTION_SWITCH = 4 (Experiments January 26, 2024)
+if selection_switch == 4 && selection_scenario ~= 1 && selection_scenario ~= 2
+    % Voltage and frequency at the connection point at SINTEF
+    data_voltage_sin_pcc_vec_downsample_1               = [linspace(0, simulation_duration_1, ...
+        length(voltage_sin_pcc_vec_downsample_1))', voltage_sin_pcc_vec_downsample_1(:,3)]; 
+    data_frequency_sin_pcc_vec_downsample_1             = [linspace(0, simulation_duration_1, ...
+        length(frequency_sin_pcc_vec_downsample_1))', frequency_sin_pcc_vec_downsample_1(:,3)]; 
+
+    % Active and reactive power measured at RSE
+    data_active_power_el_gf_mes_vec_shifted_1          = [linspace(0, simulation_duration_1, ...
+        length(active_power_el_gf_mes_vec_shifted_1))', active_power_el_gf_mes_vec_shifted_1(:,3)];
+    data_reactive_power_el_gf_mes_vec_shifted_1        = [linspace(0, simulation_duration_1, ...
+        length(reactive_power_el_gf_mes_vec_shifted_1))', reactive_power_el_gf_mes_vec_shifted_1(:,3)];
+    data_active_power_el_chp_mes_vec_shifted_1         = [linspace(0, simulation_duration_1, ...
+        length(active_power_el_chp_mes_vec_shifted_1))', active_power_el_chp_mes_vec_shifted_1(:,3)];
+    data_reactive_power_el_chp_mes_vec_shifted_1       = [linspace(0, simulation_duration_1, ...
+        length(reactive_power_el_chp_mes_vec_shifted_1))', reactive_power_el_chp_mes_vec_shifted_1(:,3)];
+    
     data_cres_temperature1_m_ea_celsius_vec_downsample_1 = [linspace(0, simulation_duration_1, ...
         length(cres_temperature1_m_ea_celsius_vec_downsample_1))', cres_temperature1_m_ea_celsius_vec_downsample_1(:,3)];
 
@@ -233,8 +363,9 @@ data_chp_heat_out_rse_vec_downsample_1 = [linspace(0, simulation_duration_1, ...
 data_active_power_chp_rse_vec_downsample_1 = [linspace(0, simulation_duration_1, ...
     length(active_power_chp_rse_vec_downsample_1))', active_power_chp_rse_vec_downsample_1(:,3)];  
 
-%%%%%%%%% Shifting second experimental trial %%%%%%%%%
-if selection_scenario == 1 || selection_scenario == 2
+%%%%%%%%% Shifting second experimental trial - SELECTION_SWITH = 2 (Experiments December 14-15, 2023) %%%%%%%%%
+%%%%%%%%% - SELECTION_SWITH = 4 (Experiments January 26, 2024)                                        %%%%%%%%%
+if (selection_switch == 2 || selection_switch == 4) && selection_scenario == 1 || selection_scenario == 2
     data_active_power_el_sin_out_vec_downsample_2       = [linspace(0, simulation_duration_2, ...
         length(active_power_el_sin_out_vec_downsample_2))', active_power_el_sin_out_vec_downsample_2(:,3)];
     data_reactive_power_el_sin_out_vec_downsample_2 = [linspace(0, simulation_duration_2, ...
@@ -249,6 +380,10 @@ if selection_scenario == 1 || selection_scenario == 2
         length(voltage_ref_sin_out_vec_downsample_2))', voltage_ref_sin_out_vec_downsample_2(:,3)];         
     data_frequency_ref_sin_out_vec_downsample_2         = [linspace(0, simulation_duration_2, ...
         length(frequency_ref_sin_out_vec_downsample_2))', frequency_ref_sin_out_vec_downsample_2(:,3)];        
+    data_voltage_rse_pcc_vec_downsample_2               = [linspace(0, simulation_duration_1, ...
+        length(voltage_rse_pcc_vec_downsample_2))', voltage_rse_pcc_vec_downsample_2(:,3)]; 
+    data_frequency_rse_pcc_vec_downsample_2             = [linspace(0, simulation_duration_1, ...
+        length(frequency_rse_pcc_vec_downsample_2))', frequency_rse_pcc_vec_downsample_2(:,3)];
     data_active_power_el_rse_out_vec_downsample_2       = [linspace(0, simulation_duration_2, ...
         length(active_power_el_rse_out_vec_downsample_2))', active_power_el_rse_out_vec_downsample_2(:,3)];       
     data_reactive_power_el_rse_out_vec_downsample_2     = [linspace(0, simulation_duration_2, ...
@@ -260,8 +395,39 @@ if selection_scenario == 1 || selection_scenario == 2
     data_rse_chp_m_ea_watt_vec_downsample_2             = [linspace(0, simulation_duration_2, ...
         length(rse_chp_m_ea_watt_vec_downsample_2))', rse_chp_m_ea_watt_vec_downsample_2(:,3)];             
 
-    % Excluding some signals from the scenario 
-    if selection_scenario ~= 1 && selection_scenario ~= 2
+    % Excluding some signals from the scenario only in the SELECTION_SWITCH = 4 (Experiments December 14-15, 2023)
+    if selection_switch == 2 && selection_scenario ~= 1 && selection_scenario ~= 2
+        data_cres_temperature1_m_ea_celsius_vec_downsample_2 = [linspace(0, simulation_duration_2, ...
+            length(cres_temperature1_m_ea_celsius_vec_downsample_2))', cres_temperature1_m_ea_celsius_vec_downsample_2(:,3)];
+
+        data_cres_temperature2_m_ea_celsisus_vec_downsample_2 = [linspace(0, simulation_duration_2, ...
+            length(cres_temperature2_m_ea_celsisus_vec_downsample_2))', cres_temperature2_m_ea_celsisus_vec_downsample_2(:,3)];
+
+        data_cres_temperature3_m_ea_celsius_vec_downsample_2 = [linspace(0, simulation_duration_2, ...
+            length(cres_temperature3_m_ea_celsius_vec_downsample_2))', cres_temperature3_m_ea_celsius_vec_downsample_2(:,3)];
+
+    end
+    
+    % Excluding some signals from the scenario only in the SELECTION_SWITCH = 4 (Experiments January 26, 2024)
+    if selection_switch == 4 && selection_scenario ~= 1 && selection_scenario ~= 2
+        % Voltage and frequency at the connection point SINTEF (in case of
+        % a second trial of experiments)
+        data_voltage_sin_pcc_vec_downsample_2               = [linspace(0, simulation_duration_2, ...
+            length(voltage_sin_pcc_vec_downsample_2))', voltage_sin_pcc_vec_downsample_2(:,3)]; 
+        data_frequency_sin_pcc_vec_downsample_2             = [linspace(0, simulation_duration_2, ...
+            length(frequency_sin_pcc_vec_downsample_2))', frequency_sin_pcc_vec_downsample_2(:,3)];
+        
+        % Active and reactive power measured at RSE (in case of a second
+        % trial of experiments)
+        data_active_power_el_gf_mes_vec_shifted_2          = [linspace(0, simulation_duration_2, ...
+            length(active_power_el_gf_mes_vec_shifted_2))', active_power_el_gf_mes_vec_shifted_2(:,3)];
+        data_reactive_power_el_gf_mes_vec_shifted_2        = [linspace(0, simulation_duration_2, ...
+            length(reactive_power_el_gf_mes_vec_shifted_2))', reactive_power_el_gf_mes_vec_shifted_2(:,3)];
+        data_active_power_el_chp_mes_vec_shifted_2         = [linspace(0, simulation_duration_2, ...
+            length(active_power_el_chp_mes_vec_shifted_2))', active_power_el_chp_mes_vec_shifted_2(:,3)];
+        data_reactive_power_el_chp_mes_vec_shifted_2       = [linspace(0, simulation_duration_2, ...
+            length(reactive_power_el_chp_mes_vec_shifted_2))', reactive_power_el_chp_mes_vec_shifted_2(:,3)];
+        
         data_cres_temperature1_m_ea_celsius_vec_downsample_2 = [linspace(0, simulation_duration_2, ...
             length(cres_temperature1_m_ea_celsius_vec_downsample_2))', cres_temperature1_m_ea_celsius_vec_downsample_2(:,3)];
 
