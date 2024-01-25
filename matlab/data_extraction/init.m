@@ -40,7 +40,7 @@ disp( ' ' );
 % Switch for selecting the right scenario
 switch selection_switch
     
-    %%%% OVERVOLTAGE SCENARIO
+    %% OVERVOLTAGE SCENARIO
     case 1
         
         disp( '----------------------------------------------------------------------------------');
@@ -527,7 +527,7 @@ switch selection_switch
         % Moving file to the right folder
         movefile(file_name_MAT, destinationMAT);
         
-    %%%% Clearing, subsampling and plotting data
+    %% Clearing, subsampling and plotting data
     case 2
         
         disp( '----------------------------------------------------------------------------------');
@@ -557,10 +557,11 @@ switch selection_switch
                 clc
                 
                 % To align the plots. Remove the dirty part
-                shift_1_start = 2568;
-                shift_1_end   = 3551;
-                shift_2_start = 3721;
-                shift_2_end   = 4129;
+                % COMMAND: datetime(active_power_el_sin_out_vec(XX,2), 'ConvertFrom', 'posixtime')
+                shift_1_start = datetime('14-Dec-2023 09:17:45'); % related point 2568, "voltage_ref_rse_out_vec" vector
+                shift_1_end   = datetime('14-Dec-2023 09:34:11'); % related point 3551, "voltage_ref_rse_out_vec" vector
+                shift_2_start = datetime('14-Dec-2023 09:37:01'); % related point 3721, "voltage_ref_rse_out_vec" vector
+                shift_2_end   = datetime('14-Dec-2023 09:46:11'); % related point 4129, "voltage_ref_rse_out_vec" vector
                 
                 % Downsampling factor
                 downsampling_value_1 = 2; % parameters for the code
@@ -601,10 +602,11 @@ switch selection_switch
                 clc
                 
                 % To align the plots. Remove the dirty part
-                shift_1_start = 2568; 
-                shift_1_end   = 3551;
-                shift_2_start = 3721;
-                shift_2_end   = 4129;
+                % COMMAND: datetime(active_power_el_sin_out_vec(XX,2), 'ConvertFrom', 'posixtime')
+                shift_1_start = datetime('14-Dec-2023 09:17:45'); % related point 2568, "voltage_ref_rse_out_vec" vector
+                shift_1_end   = datetime('14-Dec-2023 09:34:11'); % related point 3551, "voltage_ref_rse_out_vec" vector
+                shift_2_start = datetime('14-Dec-2023 09:37:01'); % related point 3721, "voltage_ref_rse_out_vec" vector
+                shift_2_end   = datetime('14-Dec-2023 09:46:11'); % related point 4129, "voltage_ref_rse_out_vec" vector
                 
                 % Downsampling factor
                 downsampling_value_1 = 2; % parameters for the code
@@ -647,8 +649,9 @@ switch selection_switch
                 clc
                 
                 % To align the plots. Remove the dirty part
-                shift_1_start = 570;
-                shift_1_end   = 1037;
+                % COMMAND: datetime(active_power_el_sin_out_vec(XX,2), 'ConvertFrom', 'posixtime')
+                shift_1_start = datetime('15-Dec-2023 11:00:27'); % related point 570, "voltage_ref_rse_out_vec" vector
+                shift_1_end   = datetime('15-Dec-2023 11:24:37'); % related point 1037, "voltage_ref_rse_out_vec" vector
                 
                 % Downsampling factor
                 downsampling_value_1 = 2; % parameters for the code
@@ -680,8 +683,9 @@ switch selection_switch
                 clc
                 
                 % To align the plots. Remove the dirty part
-                shift_1_start = 570; 
-                shift_1_end   = 1037;
+                % COMMAND: datetime(active_power_el_sin_out_vec(XX,2), 'ConvertFrom', 'posixtime')
+                shift_1_start = datetime('15-Dec-2023 11:00:27'); % related point 570, "voltage_ref_rse_out_vec" vector
+                shift_1_end   = datetime('15-Dec-2023 11:24:37'); % related point 1037, "voltage_ref_rse_out_vec" vector
                 
                 % Downsampling factor
                 downsampling_value_1 = 2; % parameters for the code
@@ -702,7 +706,7 @@ switch selection_switch
                 
         end
         
-    %%%% UNDERVOLTAGE SCENARIO
+    %% UNDERVOLTAGE SCENARIO
     case 3
         
         disp( '----------------------------------------------------------------------------------');
@@ -1119,7 +1123,7 @@ switch selection_switch
         % Moving file to the right folder
         movefile(file_name_MAT, destinationMAT);
         
-    %%%% Clearing, subsampling and plotting data
+    %% Clearing, subsampling and plotting data
     case 4
         
         disp( '----------------------------------------------------------------------------------');
@@ -1147,6 +1151,7 @@ switch selection_switch
                 clc
                 
                 % To align the plots. Remove the dirty part
+                % COMMAND: datetime(active_power_el_sin_out_vec(XX,2), 'ConvertFrom', 'posixtime')
                 shift_1_start = 0; %%%%%%%%%% TO BE MODIFIED %%%%%%%%%%
                 shift_1_end   = 0; %%%%%%%%%% TO BE MODIFIED %%%%%%%%%%
                 
@@ -1180,6 +1185,7 @@ switch selection_switch
                 clc
                 
                 % To align the plots. Remove the dirty part
+                % COMMAND: datetime(active_power_el_sin_out_vec(XX,2), 'ConvertFrom', 'posixtime')
                 shift_1_start = 0; %%%%%%%%%% TO BE MODIFIED %%%%%%%%%%
                 shift_1_end   = 0; %%%%%%%%%% TO BE MODIFIED %%%%%%%%%%
                 

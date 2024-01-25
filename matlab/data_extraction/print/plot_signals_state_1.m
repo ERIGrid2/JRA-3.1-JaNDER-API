@@ -7,7 +7,7 @@ handlerLegend =  1;
 legend_string = strings;
 
 plot(data_active_power_el_sin_out_vec_downsample_1(:,1), ...
-    data_active_power_el_sin_out_vec_downsample_1(:,2), color_vector(1));
+    active_power_el_sin_out_vec_downsample_1(:,3), color_vector(1));
 grid on
 
 legend_string(handlerLegend) = strcat('$P_{el_{SIN}}$');  
@@ -29,7 +29,7 @@ handlerLegend =  1;
 legend_string = strings;
 
 plot(data_reactive_power_el_sin_out_vec_downsample_1(:,1), ...
-    data_reactive_power_el_sin_out_vec_downsample_1(:,2), color_vector(1));
+    reactive_power_el_sin_out_vec_downsample_1(:,3), color_vector(1));
 grid on
 
 legend_string(handlerLegend) = strcat('$Q_{el_{SIN}}$');  
@@ -51,7 +51,7 @@ handlerLegend =  1;
 legend_string = strings;
 
 plot(data_active_power_ref_el_sin_out_vec_downsample_1(:,1), ...
-    data_active_power_ref_el_sin_out_vec_downsample_1(:,2), color_vector(1));
+    active_power_ref_el_sin_out_vec_downsample_1(:,3), color_vector(1));
 grid on
 
 legend_string(handlerLegend) = strcat('$P_{el_{SIN}}^{ref}$');  
@@ -73,7 +73,7 @@ handlerLegend =  1;
 legend_string = strings;
 
 plot(data_reactive_power_ref_el_sin_out_vec_downsample_1(:,1), ...
-    data_reactive_power_ref_el_sin_out_vec_downsample_1(:,2), color_vector(1));
+    reactive_power_ref_el_sin_out_vec_downsample_1(:,3), color_vector(1));
 grid on
 
 legend_string(handlerLegend) = strcat('$Q_{el_{SIN}}^{ref}$');  
@@ -95,7 +95,7 @@ handlerLegend =  1;
 legend_string = strings;
 
 plot(data_soc_sin_vec_downsample_1(:,1), ...
-    data_soc_sin_vec_downsample_1(:,2), color_vector(1));
+    soc_sin_vec_downsample_1(:,3), color_vector(1));
 grid on
 
 legend_string(handlerLegend) = strcat('$SoC$');  
@@ -117,7 +117,7 @@ handlerLegend =  1;
 legend_string = strings;
 
 plot(data_voltage_ref_sin_out_vec_downsample_1(:,1), ...
-    data_voltage_ref_sin_out_vec_downsample_1(:,2), color_vector(1));
+    voltage_ref_sin_out_vec_downsample_1(:,3), color_vector(1));
 grid on
 
 legend_string(handlerLegend) = strcat('$V_{SIN}^{ref}$');  
@@ -139,7 +139,7 @@ handlerLegend =  1;
 legend_string = strings;
 
 plot(data_frequency_ref_sin_out_vec_downsample_1(:,1), ...
-    data_frequency_ref_sin_out_vec_downsample_1(:,2), color_vector(1));
+    frequency_ref_sin_out_vec_downsample_1(:,3), color_vector(1));
 grid on
 
 legend_string(handlerLegend) = strcat('$f_{SIN}^{ref}$');  
@@ -161,7 +161,7 @@ handlerLegend =  1;
 legend_string = strings;
 
 plot(data_active_power_el_rse_out_vec_downsample_1(:,1), ...
-    data_active_power_el_rse_out_vec_downsample_1(:,2), color_vector(1));
+    active_power_el_rse_out_vec_downsample_1(:,3), color_vector(1));
 grid on
 
 legend_string(handlerLegend) = strcat('$P_{el_{RSE}}$');  
@@ -183,7 +183,7 @@ handlerLegend =  1;
 legend_string = strings;
 
 plot(data_reactive_power_el_rse_out_vec_downsample_1(:,1), ...
-    data_reactive_power_el_rse_out_vec_downsample_1(:,2), color_vector(1));
+    reactive_power_el_rse_out_vec_downsample_1(:,3), color_vector(1));
 grid on
 
 legend_string(handlerLegend) = strcat('$Q_{el_{RSE}}$');  
@@ -205,7 +205,7 @@ handlerLegend =  1;
 legend_string = strings;
 
 plot(data_voltage_ref_rse_out_vec_downsample_1(:,1), ...
-    data_voltage_ref_rse_out_vec_downsample_1(:,2), color_vector(1));
+    voltage_ref_rse_out_vec_downsample_1(:,3), color_vector(1));
 grid on
 
 legend_string(handlerLegend) = strcat('$V_{RSE}^{ref}$');  
@@ -227,7 +227,7 @@ handlerLegend =  1;
 legend_string = strings;
 
 plot(data_frequency_ref_rse_out_vec_downsample_1(:,1), ...
-    data_frequency_ref_rse_out_vec_downsample_1(:,2), color_vector(1));
+    frequency_ref_rse_out_vec_downsample_1(:,3), color_vector(1));
 grid on
 
 legend_string(handlerLegend) = strcat('$f_{RSE}^{ref}$');  
@@ -241,26 +241,32 @@ title('Reference Frequency From TUD to RSE');
 handlerNameFig{handlerIndexFig,1} = strcat('frequency_ref_rse_out','.fig'); 
 
 %% %%%%%%%%%%%%%%%%%%%%%%% VOLTAGE FROM RSE TO TUD %%%%%%%%%%%%%%%%%%%%% %% 
-handlerIndex = handlerIndex + 1; 
-handlerIndexFig = handlerIndexFig + 1;
-handlerFig{handlerIndex,1} = figure();
-color_vector = 'brgymk';
-handlerLegend =  1;
-legend_string = strings;
+% Only in the case SELECTION_SWITCH = 4 (Experiments January 26, 2024)
+% The signals were no measured in the previous experiments
+if selection_switch == 4
+    
+    handlerIndex = handlerIndex + 1; 
+    handlerIndexFig = handlerIndexFig + 1;
+    handlerFig{handlerIndex,1} = figure();
+    color_vector = 'brgymk';
+    handlerLegend =  1;
+    legend_string = strings;
 
-plot(data_voltage_rse_pcc_vec_downsample_1(:,1), ...
-    data_voltage_rse_pcc_vec_downsample_1(:,2), color_vector(1));
-grid on
+    plot(data_voltage_rse_pcc_vec_downsample_1(:,1), ...
+        voltage_rse_pcc_vec_downsample_1(:,3), color_vector(1));
+    grid on
 
-legend_string(handlerLegend) = strcat('$V_{RSE}$');  
-leg = legend(legend_string, 'Location', 'Best', 'FontSize', 14, 'Orientation','horizontal');
-set(leg,'Interpreter','latex');
-xlim([0 data_voltage_rse_pcc_vec_downsample_1(end,1)]); % X-axis limits - TIME
+    legend_string(handlerLegend) = strcat('$V_{RSE}$');  
+    leg = legend(legend_string, 'Location', 'Best', 'FontSize', 14, 'Orientation','horizontal');
+    set(leg,'Interpreter','latex');
+    xlim([0 data_voltage_rse_pcc_vec_downsample_1(end,1)]); % X-axis limits - TIME
 
-xlabel('Time [m]');
-ylabel('Voltage [V]');
-title('Voltage From RSE to TUD');
-handlerNameFig{handlerIndexFig,1} = strcat('voltage_rse_out','.fig'); 
+    xlabel('Time [m]');
+    ylabel('Voltage [V]');
+    title('Voltage From RSE to TUD');
+    handlerNameFig{handlerIndexFig,1} = strcat('voltage_rse_out','.fig'); 
+
+end
 
 %% %%%%%%%%%%%%%%%%%%%%%%% ON/OFF SIGNAL EHP (CRES) %%%%%%%%%%%%%%%%%%%% %% 
 handlerIndex = handlerIndex + 1; 
@@ -271,7 +277,7 @@ handlerLegend =  1;
 legend_string = strings;
 
 plot(data_rse_chp_m_ea_watt_vec_downsample_1(:,1), ...
-    data_rse_chp_m_ea_watt_vec_downsample_1(:,2), color_vector(1));
+    rse_chp_m_ea_watt_vec_downsample_1(:,3), color_vector(1));
 grid on
 
 legend_string(handlerLegend) = strcat('$ON/OFF$');  
@@ -296,7 +302,7 @@ if selection_scenario ~= 1 && selection_scenario ~= 2 && selection_scenario ~= 3
     legend_string = strings;
 
     plot(data_cres_temperature1_m_ea_celsius_vec_downsample_1(:,1), ...
-        data_cres_temperature1_m_ea_celsius_vec_downsample_1(:,2), color_vector(1));
+        cres_temperature1_m_ea_celsius_vec_downsample_1(:,3), color_vector(1));
     grid on
 
     legend_string(handlerLegend) = strcat('$T_1$');  
@@ -323,7 +329,7 @@ if selection_scenario ~= 1 && selection_scenario ~= 2 && selection_scenario ~= 3
     legend_string = strings;
 
     plot(data_cres_temperature2_m_ea_celsisus_vec_downsample_1(:,1), ...
-        data_cres_temperature2_m_ea_celsisus_vec_downsample_1(:,2), color_vector(1));
+        cres_temperature2_m_ea_celsisus_vec_downsample_1(:,3), color_vector(1));
     grid on
 
     legend_string(handlerLegend) = strcat('$T_2$');  
@@ -351,7 +357,7 @@ if selection_scenario ~= 1 && selection_scenario ~= 2 && selection_scenario ~= 3
     legend_string = strings;
 
     plot(data_cres_temperature3_m_ea_celsius_vec_downsample_1(:,1), ...
-        data_cres_temperature3_m_ea_celsius_vec_downsample_1(:,2), color_vector(1));
+        cres_temperature3_m_ea_celsius_vec_downsample_1(:,3), color_vector(1));
     grid on
 
     legend_string(handlerLegend) = strcat('$T_3$');  
@@ -375,7 +381,7 @@ handlerLegend =  1;
 legend_string = strings;
 
 plot(data_cres_heat_pump_m_ea_kiloWatts_vec_downsample_1(:,1), ...
-    data_cres_heat_pump_m_ea_kiloWatts_vec_downsample_1(:,2), color_vector(1));
+    cres_heat_pump_m_ea_kiloWatts_vec_downsample_1(:,3), color_vector(1));
 grid on
 
 legend_string(handlerLegend) = strcat('$P_{th_{CRES}}$');  
@@ -397,7 +403,7 @@ handlerLegend =  1;
 legend_string = strings;
 
 plot(data_th_temp_0_dtu_vec_downsample_1(:,1), ...
-    data_th_temp_0_dtu_vec_downsample_1(:,2), color_vector(1));
+    th_temp_0_dtu_vec_downsample_1(:,3), color_vector(1));
 grid on
 
 legend_string(handlerLegend) = strcat('$T_{1_{DTU}}$');  
@@ -417,7 +423,7 @@ handlerFig{handlerIndex,1} = figure();
 color_vector = 'brgymk';
 
 plot(data_th_flow_1_dtu_vec_downsample_1(:,1), ...
-    data_th_flow_1_dtu_vec_downsample_1(:,2), color_vector(1));
+    th_flow_1_dtu_vec_downsample_1(:,3), color_vector(1));
 grid on
 
 xlim([0 data_th_flow_1_dtu_vec_downsample_1(end,1)]); % X-axis limits - TIME
@@ -434,7 +440,7 @@ handlerFig{handlerIndex,1} = figure();
 color_vector = 'brgymk';
 
 plot(data_th_fwd_1_dtu_vec_downsample_1(:,1), ...
-    data_th_fwd_1_dtu_vec_downsample_1(:,2), color_vector(1));
+    th_fwd_1_dtu_vec_downsample_1(:,3), color_vector(1));
 grid on
 
 xlim([0 data_th_fwd_1_dtu_vec_downsample_1(end,1)]); % X-axis limits - TIME
@@ -451,7 +457,7 @@ handlerFig{handlerIndex,1} = figure();
 color_vector = 'brgymk';
 
 plot(data_th_ret_1_dtu_vec_downsample_1(:,1), ...
-    data_th_ret_1_dtu_vec_downsample_1(:,2), color_vector(1));
+    th_ret_1_dtu_vec_downsample_1(:,3), color_vector(1));
 grid on
 
 xlim([0 data_th_ret_1_dtu_vec_downsample_1(end,1)]); % X-axis limits - TIME
@@ -468,7 +474,7 @@ handlerFig{handlerIndex,1} = figure();
 color_vector = 'brgymk';
 
 plot(data_th_fwd_2_dtu_vec_downsample_1(:,1), ...
-    data_th_fwd_2_dtu_vec_downsample_1(:,2), color_vector(1));
+    th_fwd_2_dtu_vec_downsample_1(:,3), color_vector(1));
 grid on
 
 xlim([0 data_th_fwd_2_dtu_vec_downsample_1(end,1)]); % X-axis limits - TIME
@@ -485,7 +491,7 @@ handlerFig{handlerIndex,1} = figure();
 color_vector = 'brgymk';
 
 plot(data_th_ret_2_dtu_vec_downsample_1(:,1), ...
-    data_th_ret_2_dtu_vec_downsample_1(:,2), color_vector(1));
+    th_ret_2_dtu_vec_downsample_1(:,3), color_vector(1));
 grid on
 
 xlim([0 data_th_ret_2_dtu_vec_downsample_1(end,1)]); % X-axis limits - TIME
@@ -502,7 +508,7 @@ handlerFig{handlerIndex,1} = figure();
 color_vector = 'brgymk';
 
 plot(data_th_fwd_3_dtu_vec_downsample_1(:,1), ...
-    data_th_fwd_3_dtu_vec_downsample_1(:,2), color_vector(1));
+    th_fwd_3_dtu_vec_downsample_1(:,3), color_vector(1));
 grid on
 
 xlim([0 data_th_fwd_3_dtu_vec_downsample_1(end,1)]); % X-axis limits - TIME
@@ -519,7 +525,7 @@ handlerFig{handlerIndex,1} = figure();
 color_vector = 'brgymk';
 
 plot(data_th_ret_3_dtu_vec_downsample_1(:,1), ...
-    data_th_ret_3_dtu_vec_downsample_1(:,2), color_vector(1));
+    th_ret_3_dtu_vec_downsample_1(:,3), color_vector(1));
 grid on
 
 xlim([0 data_th_ret_3_dtu_vec_downsample_1(end,1)]); % X-axis limits - TIME
@@ -536,7 +542,7 @@ handlerFig{handlerIndex,1} = figure();
 color_vector = 'brgymk';
 
 plot(data_thermal_load_dtu_vec_downsample_1(:,1), ...
-    data_thermal_load_dtu_vec_downsample_1(:,2), color_vector(1));
+    thermal_load_dtu_vec_downsample_1(:,3), color_vector(1));
 grid on
 
 xlim([0 data_thermal_load_dtu_vec_downsample_1(end,1)]); % X-axis limits - TIME
@@ -553,7 +559,7 @@ handlerFig{handlerIndex,1} = figure();
 color_vector = 'brgymk';
 
 plot(data_thermal_source_dtu_vec_downsample_1(:,1), ...
-    data_thermal_source_dtu_vec_downsample_1(:,2), color_vector(1));
+    thermal_source_dtu_vec_downsample_1(:,3), color_vector(1));
 grid on
 
 xlim([0 data_thermal_source_dtu_vec_downsample_1(end,1)]); % X-axis limits - TIME
@@ -572,7 +578,7 @@ handlerLegend =  1;
 legend_string = strings;
 
 plot(data_chp_heat_out_rse_vec_downsample_1(:,1), ...
-    data_chp_heat_out_rse_vec_downsample_1(:,2), color_vector(1));
+    chp_heat_out_rse_vec_downsample_1(:,3), color_vector(1));
 grid on
 
 legend_string(handlerLegend) = strcat('$P_{th_{CHP}}$');  
@@ -594,7 +600,7 @@ handlerLegend =  1;
 legend_string = strings;
 
 plot(data_active_power_chp_rse_vec_downsample_1(:,1), ...
-    data_active_power_chp_rse_vec_downsample_1(:,2), color_vector(1));
+    active_power_chp_rse_vec_downsample_1(:,3), color_vector(1));
 grid on
 
 legend_string(handlerLegend) = strcat('$P_{el_{CHP}}$');  
@@ -620,7 +626,7 @@ title('Comparison P_{el_{SIN}}, P_{el_{SIN}}^{ref} and SoC');
 %%% First subplot
 subplot(2,2,1)
 plot(data_active_power_ref_el_sin_out_vec_downsample_1(:,1), ...
-    data_active_power_ref_el_sin_out_vec_downsample_1(:,2), color_vector(1)); % P_{el_{SIN}}^{ref}
+    active_power_ref_el_sin_out_vec_downsample_1(:,3), color_vector(1)); % P_{el_{SIN}}^{ref}
 grid on
 
 legend_string(handlerLegend) = strcat('$P_{el_{SIN}}^{ref}$');  
@@ -634,7 +640,7 @@ ylabel('Power [kW]');
 %%% Second subplot
 subplot(2,2,2)
 plot(data_active_power_el_sin_out_vec_downsample_1(:,1), ...
-    data_active_power_el_sin_out_vec_downsample_1(:,2), color_vector(2)); % P_{el_{SIN}}
+    active_power_el_sin_out_vec_downsample_1(:,3), color_vector(2)); % P_{el_{SIN}}
 grid on
 
 legend_string(handlerLegend) = strcat('$P_{el_{SIN}}$');  
@@ -648,7 +654,7 @@ ylabel('Power [kW]');
 %%% Third subplot
 subplot(2,2,3)
 plot(data_soc_sin_vec_downsample_1(:,1), ...
-    data_soc_sin_vec_downsample_1(:,2), color_vector(3)); % SoC
+    soc_sin_vec_downsample_1(:,3), color_vector(3)); % SoC
 grid on
 
 legend_string(handlerLegend) = strcat('$SoC$');  
@@ -662,11 +668,11 @@ ylabel('SoC [%]');
 %%% Fourth subplot
 subplot(2,2,4)
 plot(data_active_power_ref_el_sin_out_vec_downsample_1(:,1), ...
-    data_active_power_ref_el_sin_out_vec_downsample_1(:,2), strcat('--', color_vector(1)), 'LineWidth',2); % P_{el_{SIN}}^{ref}
+    active_power_ref_el_sin_out_vec_downsample_1(:,3), strcat('--', color_vector(1)), 'LineWidth',2); % P_{el_{SIN}}^{ref}
 grid on
 hold on
 plot(data_active_power_el_sin_out_vec_downsample_1(:,1), ...
-    data_active_power_el_sin_out_vec_downsample_1(:,2), strcat(':', color_vector(2)), 'LineWidth',2); % P_{el_{SIN}}
+    active_power_el_sin_out_vec_downsample_1(:,3), strcat(':', color_vector(2)), 'LineWidth',2); % P_{el_{SIN}}
 hold off
 
 xlabel('Time [m]');
@@ -693,7 +699,7 @@ title('Comparison P_{el_{CRES}} and ON/OFF'); % P_{elGF}^{mes} not stored
 %%% First subplot
 subplot(2,1,1)
 plot(data_cres_heat_pump_m_ea_kiloWatts_vec_downsample_1(:,1), ...
-    data_cres_heat_pump_m_ea_kiloWatts_vec_downsample_1(:,2), color_vector(1)); % P_{el_{CRES}}
+    cres_heat_pump_m_ea_kiloWatts_vec_downsample_1(:,3), color_vector(1)); % P_{el_{CRES}}
 grid on
 
 legend_string(handlerLegend) = strcat('$P_{el_{CRES}}$');  
@@ -707,7 +713,7 @@ ylabel('Power [kW]');
 %%% Second subplot
 subplot(2,1,2)
 plot(data_rse_chp_m_ea_watt_vec_downsample_1(:,1), ...
-    data_rse_chp_m_ea_watt_vec_downsample_1(:,2), color_vector(2)); % ON/OFF
+    rse_chp_m_ea_watt_vec_downsample_1(:,3), color_vector(2)); % ON/OFF
 grid on
 
 legend_string(handlerLegend) = strcat('$ON/OFF$');  
@@ -733,7 +739,7 @@ title('Comparison P_{el_{CHP}}^{ref} and and P_{thCHP}'); % P_{elCHP}^{mes} not 
 %%% First subplot
 subplot(2,1,1)
 plot(data_active_power_chp_rse_vec_downsample_1(:,1), ...
-    data_active_power_chp_rse_vec_downsample_1(:,2), color_vector(1)); % ON/OFF
+    active_power_chp_rse_vec_downsample_1(:,3), color_vector(1)); % ON/OFF
 grid on
 
 legend_string(handlerLegend) = strcat('$P_{el_{CHP}}^{ref}$');  
@@ -747,7 +753,7 @@ ylabel('Power [kW]');
 %%% Second subplot
 subplot(2,1,2)
 plot(data_chp_heat_out_rse_vec_downsample_1(:,1), ...
-    data_chp_heat_out_rse_vec_downsample_1(:,2), color_vector(2)); % ON/OFF
+    chp_heat_out_rse_vec_downsample_1(:,3), color_vector(2)); % ON/OFF
 grid on
 
 legend_string(handlerLegend) = strcat('$P_{th_{CHP}}$');  
@@ -773,7 +779,7 @@ title('Comparison V_{RSE}^{ref}, V_{SIN}^{ref}, P_{el_{SIN}}, and P_{el_{RSE}}')
 %%% First subplot
 subplot(2,3,1)
 plot(data_voltage_ref_rse_out_vec_downsample_1(:,1), ...
-    data_voltage_ref_rse_out_vec_downsample_1(:,2), color_vector(1)); % V_{RSE}^{ref}
+    voltage_ref_rse_out_vec_downsample_1(:,3), color_vector(1)); % V_{RSE}^{ref}
 grid on
 
 legend_string(handlerLegend) = strcat('$V_{RSE}^{ref}$');  
@@ -787,7 +793,7 @@ ylabel('Voltage [V]');
 %%% Second subplot
 subplot(2,3,2)
 plot(data_voltage_ref_sin_out_vec_downsample_1(:,1), ...
-    data_voltage_ref_sin_out_vec_downsample_1(:,2), color_vector(2)); % V_{SIN}^{ref}
+    voltage_ref_sin_out_vec_downsample_1(:,3), color_vector(2)); % V_{SIN}^{ref}
 grid on
 
 handlerLegend = 1; % re-initialization
@@ -802,11 +808,11 @@ ylabel('Voltage [V]');
 %%% Third subplot
 subplot(2,3,3)
 plot(data_voltage_ref_rse_out_vec_downsample_1(:,1), ...
-    data_voltage_ref_rse_out_vec_downsample_1(:,2), strcat('--', color_vector(1)), 'LineWidth',2); % V_{RSE}^{ref}
+    voltage_ref_rse_out_vec_downsample_1(:,3), strcat('--', color_vector(1)), 'LineWidth',2); % V_{RSE}^{ref}
 grid on
 hold on
 plot(data_voltage_ref_sin_out_vec_downsample_1(:,1), ...
-    data_voltage_ref_sin_out_vec_downsample_1(:,2), strcat(':', color_vector(2)), 'LineWidth',2); % V_{SIN}^{ref}
+    voltage_ref_sin_out_vec_downsample_1(:,3), strcat(':', color_vector(2)), 'LineWidth',2); % V_{SIN}^{ref}
 grid on
 hold off
 
@@ -823,7 +829,7 @@ ylabel('Voltage [V]');
 %%% Fourth subplot 
 subplot(2,3,4)
 plot(data_active_power_el_sin_out_vec_downsample_1(:,1), ...
-    data_active_power_el_sin_out_vec_downsample_1(:,2), color_vector(1)); % P_{el_{SIN}}
+    active_power_el_sin_out_vec_downsample_1(:,3), color_vector(1)); % P_{el_{SIN}}
 grid on
 
 handlerLegend = 1; % re-initialization
@@ -838,7 +844,7 @@ ylabel('Power [kW]');
 %%% Fifth subplot 
 subplot(2,3,5)
 plot(data_active_power_el_rse_out_vec_downsample_1(:,1), ...
-    data_active_power_el_rse_out_vec_downsample_1(:,2), color_vector(2)); % P_{el_{RSE}}
+    active_power_el_rse_out_vec_downsample_1(:,3), color_vector(2)); % P_{el_{RSE}}
 grid on
 
 handlerLegend = 1; % re-initialization
@@ -853,11 +859,11 @@ ylabel('Power [kW]');
 %%% Sixth subplot
 subplot(2,3,6)
 plot(data_active_power_el_sin_out_vec_downsample_1(:,1), ...
-    data_active_power_el_sin_out_vec_downsample_1(:,2), strcat('--', color_vector(1)), 'LineWidth',2); % P_{el_{SIN}}
+    active_power_el_sin_out_vec_downsample_1(:,3), strcat('--', color_vector(1)), 'LineWidth',2); % P_{el_{SIN}}
 grid on
 hold on
 plot(data_active_power_el_rse_out_vec_downsample_1(:,1), ...
-    data_active_power_el_rse_out_vec_downsample_1(:,2), strcat(':', color_vector(2)), 'LineWidth',2); % P_{el_{RSE}}
+    active_power_el_rse_out_vec_downsample_1(:,3), strcat(':', color_vector(2)), 'LineWidth',2); % P_{el_{RSE}}
 hold off
 
 xlabel('Time [m]');
@@ -881,11 +887,11 @@ handlerLegend =  1;
 legend_string = strings;
 
 plot(data_voltage_ref_sin_out_vec_downsample_1(:,1), ...
-    data_voltage_ref_sin_out_vec_downsample_1(:,2), color_vector(1));
+    voltage_ref_sin_out_vec_downsample_1(:,3), color_vector(1));
 grid on
 hold on
 plot(data_voltage_ref_rse_out_vec_downsample_1(:,1), ...
-    data_voltage_ref_rse_out_vec_downsample_1(:,2), color_vector(2));
+    voltage_ref_rse_out_vec_downsample_1(:,3), color_vector(2));
 hold off
 
 legend_string(handlerLegend) = strcat('$V_{SIN}^{ref}$');  handlerLegend = handlerLegend + 1;
@@ -908,11 +914,11 @@ handlerLegend =  1;
 legend_string = strings;
 
 plot(data_active_power_el_sin_out_vec_downsample_1(:,1), ...
-    data_active_power_el_sin_out_vec_downsample_1(:,2), color_vector(1));
+    active_power_el_sin_out_vec_downsample_1(:,3), color_vector(1));
 grid on
 hold on
 plot(data_active_power_el_rse_out_vec_downsample_1(:,1), ...
-    data_active_power_el_rse_out_vec_downsample_1(:,2), color_vector(2));
+    active_power_el_rse_out_vec_downsample_1(:,3), color_vector(2));
 hold off
 
 legend_string(handlerLegend) = strcat('$P_{el_{SIN}}$');  handlerLegend = handlerLegend + 1;
@@ -939,11 +945,11 @@ title('Comparison V_{SIN}^{ref}, V_{RSE}^{ref}, P_{el_{SIN}}, and P_{el_{RSE}}')
 %%% First subplot
 subplot(2,1,1)
 plot(data_voltage_ref_sin_out_vec_downsample_1(:,1), ...
-    data_voltage_ref_sin_out_vec_downsample_1(:,2), color_vector(1));
+    voltage_ref_sin_out_vec_downsample_1(:,3), color_vector(1));
 grid on
 hold on
 plot(data_voltage_ref_rse_out_vec_downsample_1(:,1), ...
-    data_voltage_ref_rse_out_vec_downsample_1(:,2), color_vector(2));
+    voltage_ref_rse_out_vec_downsample_1(:,3), color_vector(2));
 hold off
 
 legend_string(handlerLegend) = strcat('$V_{SIN}^{ref}$');  handlerLegend = handlerLegend + 1;
@@ -958,11 +964,11 @@ ylabel('Voltage [V]');
 %%% Second subplot
 subplot(2,1,2)
 plot(data_active_power_el_sin_out_vec_downsample_1(:,1), ...
-    data_active_power_el_sin_out_vec_downsample_1(:,2), color_vector(1));
+    active_power_el_sin_out_vec_downsample_1(:,3), color_vector(1));
 grid on
 hold on
 plot(data_active_power_el_rse_out_vec_downsample_1(:,1), ...
-    data_active_power_el_rse_out_vec_downsample_1(:,2), color_vector(2));
+    active_power_el_rse_out_vec_downsample_1(:,3), color_vector(2));
 hold off
 
 handlerLegend = 1; % re-initialization
@@ -986,11 +992,11 @@ handlerLegend =  1;
 legend_string = strings;
 
 plot(data_cres_heat_pump_m_ea_kiloWatts_vec_downsample_1(:,1), ...
-    data_cres_heat_pump_m_ea_kiloWatts_vec_downsample_1(:,2), color_vector(1));
+    cres_heat_pump_m_ea_kiloWatts_vec_downsample_1(:,3), color_vector(1));
 grid on
 hold on
 plot(data_active_power_chp_rse_vec_downsample_1(:,1), ...
-    data_active_power_chp_rse_vec_downsample_1(:,2), color_vector(2));
+    active_power_chp_rse_vec_downsample_1(:,3), color_vector(2));
 hold off
 
 legend_string(handlerLegend) = strcat('$P_{th_{CRES}}$');  handlerLegend = handlerLegend + 1;
@@ -1017,11 +1023,11 @@ title('Comparison P_{th_{CRES}}, P_{el_{CHP}}, and ON/OFF');
 %%% First subplot
 subplot(2,1,1)
 plot(data_cres_heat_pump_m_ea_kiloWatts_vec_downsample_1(:,1), ...
-    data_cres_heat_pump_m_ea_kiloWatts_vec_downsample_1(:,2), color_vector(1));
+    cres_heat_pump_m_ea_kiloWatts_vec_downsample_1(:,3), color_vector(1));
 grid on
 hold on
 plot(data_active_power_chp_rse_vec_downsample_1(:,1), ...
-    data_active_power_chp_rse_vec_downsample_1(:,2), color_vector(2));
+    active_power_chp_rse_vec_downsample_1(:,3), color_vector(2));
 hold off
 
 legend_string(handlerLegend) = strcat('$P_{th_{CRES}}$');  handlerLegend = handlerLegend + 1;
@@ -1036,7 +1042,7 @@ ylabel('Power [kW]');
 %%% Second subplot
 subplot(2,1,2)
 plot(data_rse_chp_m_ea_watt_vec_downsample_1(:,1), ...
-    data_rse_chp_m_ea_watt_vec_downsample_1(:,2), color_vector(1));
+    rse_chp_m_ea_watt_vec_downsample_1(:,3), color_vector(1));
 grid on
 
 handlerLegend = 1; % re-initialization
@@ -1063,11 +1069,11 @@ title('Comparison P_{el_{SIN}}, P_{el_{CHP}}, and SoC');
 %%% First subplot
 subplot(2,1,1)
 plot(data_active_power_el_sin_out_vec_downsample_1(:,1), ...
-    data_active_power_el_sin_out_vec_downsample_1(:,2), color_vector(1));
+    active_power_el_sin_out_vec_downsample_1(:,3), color_vector(1));
 grid on
 hold on
 plot(data_active_power_ref_el_sin_out_vec_downsample_1(:,1), ...
-    data_active_power_ref_el_sin_out_vec_downsample_1(:,2), color_vector(2));
+    active_power_ref_el_sin_out_vec_downsample_1(:,3), color_vector(2));
 hold off
 
 legend_string(handlerLegend) = strcat('$P_{el_{SIN}}$');  handlerLegend = handlerLegend + 1;
@@ -1082,7 +1088,7 @@ ylabel('Power [kW]');
 %%% Second subplot
 subplot(2,1,2)
 plot(data_soc_sin_vec_downsample_1(:,1), ...
-    data_soc_sin_vec_downsample_1(:,2), color_vector(1));
+    soc_sin_vec_downsample_1(:,3), color_vector(1));
 grid on
 
 handlerLegend = 1; % re-initialization
@@ -1109,7 +1115,7 @@ title('Comparison P_{th_{CHP}} and P_{el_{CHP}}');
 %%% First subplot
 subplot(2,1,1)
 plot(data_chp_heat_out_rse_vec_downsample_1(:,1), ...
-    data_chp_heat_out_rse_vec_downsample_1(:,2), color_vector(1));
+    chp_heat_out_rse_vec_downsample_1(:,3), color_vector(1));
 grid on
 
 legend_string(handlerLegend) = strcat('$P_{th_{CHP}}$');  
@@ -1123,7 +1129,7 @@ ylabel('Power [kW]');
 %%% Second subplot
 subplot(2,1,2)
 plot(data_active_power_chp_rse_vec_downsample_1(:,1), ...
-    data_active_power_chp_rse_vec_downsample_1(:,2), color_vector(1));
+    active_power_chp_rse_vec_downsample_1(:,3), color_vector(1));
 grid on
 
 handlerLegend = 1; % re-initialization
@@ -1137,54 +1143,60 @@ ylabel('Power [kW]');
 handlerNameFig{handlerIndexFig,1} = strcat('thermal_and_active_power_chp_rse','.fig');
 
 %% %%%%%% SUBPLOT FREQUENCY AND VOLTAGE RSE AND TUD %%%%%%%%%%%%%%%%%%%% %%
-handlerIndex = handlerIndex + 1; 
-handlerIndexFig = handlerIndexFig + 1;
-handlerFig{handlerIndex,1} = figure();
-color_vector = 'brgymk';
-handlerLegend =  1;
-legend_string = strings;
+% Only in the case SELECTION_SWITCH = 4 (Experiments January 26, 2024)
+% The signals were no measured in the previous experiments
+if selection_switch == 4
+    
+    handlerIndex = handlerIndex + 1; 
+    handlerIndexFig = handlerIndexFig + 1;
+    handlerFig{handlerIndex,1} = figure();
+    color_vector = 'brgymk';
+    handlerLegend =  1;
+    legend_string = strings;
 
-title('Comparison V_{TUD}^{ref}, V_{RSE}, f_{TUD}^{ref}, and f_{RSE}');
+    title('Comparison V_{TUD}^{ref}, V_{RSE}, f_{TUD}^{ref}, and f_{RSE}');
 
-%%% First subplot
-subplot(2,1,1)
-plot(data_voltage_ref_rse_out_vec_downsample_1(:,1), ...
-    data_voltage_ref_rse_out_vec_downsample_1(:,2), color_vector(1));
-grid on
-hold on
-plot(data_voltage_rse_pcc_vec_downsample_1(:,1), ...
-    data_voltage_rse_pcc_vec_downsample_1(:,2), color_vector(2));
-hold off
+    %%% First subplot
+    subplot(2,1,1)
+    plot(data_voltage_ref_rse_out_vec_downsample_1(:,1), ...
+        voltage_ref_rse_out_vec_downsample_1(:,3), color_vector(1));
+    grid on
+    hold on
+    plot(data_voltage_rse_pcc_vec_downsample_1(:,1), ...
+        voltage_rse_pcc_vec_downsample_1(:,3), color_vector(2));
+    hold off
 
-legend_string(handlerLegend) = strcat('$V_{TUD}^{ref}$'); handlerLegend = handlerLegend + 1;
-legend_string(handlerLegend) = strcat('$V_{RSE}$');  
-leg = legend(legend_string, 'Location', 'Best', 'FontSize', 14, 'Orientation','horizontal');
-set(leg,'Interpreter','latex');
-xlim([0 data_voltage_ref_rse_out_vec_downsample_1(end,1)]); % X-axis limits - TIME
+    legend_string(handlerLegend) = strcat('$V_{TUD}^{ref}$'); handlerLegend = handlerLegend + 1;
+    legend_string(handlerLegend) = strcat('$V_{RSE}$');  
+    leg = legend(legend_string, 'Location', 'Best', 'FontSize', 14, 'Orientation','horizontal');
+    set(leg,'Interpreter','latex');
+    xlim([0 data_voltage_ref_rse_out_vec_downsample_1(end,1)]); % X-axis limits - TIME
 
-xlabel('Time [m]');
-ylabel('Voltage [V]');
+    xlabel('Time [m]');
+    ylabel('Voltage [V]');
 
-%%% Second subplot
-subplot(2,1,2)
-plot(data_frequency_ref_rse_out_vec_downsample_1(:,1), ...
-    data_frequency_ref_rse_out_vec_downsample_1(:,2), color_vector(1));
-grid on
-hold on
-plot(data_frequency_rse_pcc_vec_downsample_1(:,1), ...
-    data_frequency_rse_pcc_vec_downsample_1(:,2), color_vector(2));
-hold off
+    %%% Second subplot
+    subplot(2,1,2)
+    plot(data_frequency_ref_rse_out_vec_downsample_1(:,1), ...
+        frequency_ref_rse_out_vec_downsample_1(:,3), color_vector(1));
+    grid on
+    hold on
+    plot(data_frequency_rse_pcc_vec_downsample_1(:,1), ...
+        frequency_rse_pcc_vec_downsample_1(:,3), color_vector(2));
+    hold off
 
-handlerLegend = 1; % re-initialization
-legend_string(handlerLegend) = strcat('$f_{TUD}^{ref}$'); handlerLegend = handlerLegend + 1;
-legend_string(handlerLegend) = strcat('$f_{RSE}$');  
-leg = legend(legend_string, 'Location', 'Best', 'FontSize', 14, 'Orientation','horizontal');
-set(leg,'Interpreter','latex');
-xlim([0 data_frequency_ref_rse_out_vec_downsample_1(end,1)]); % X-axis limits - TIME
+    handlerLegend = 1; % re-initialization
+    legend_string(handlerLegend) = strcat('$f_{TUD}^{ref}$'); handlerLegend = handlerLegend + 1;
+    legend_string(handlerLegend) = strcat('$f_{RSE}$');  
+    leg = legend(legend_string, 'Location', 'Best', 'FontSize', 14, 'Orientation','horizontal');
+    set(leg,'Interpreter','latex');
+    xlim([0 data_frequency_ref_rse_out_vec_downsample_1(end,1)]); % X-axis limits - TIME
 
-xlabel('Time [m]');
-ylabel('Frequency [Hz]');
-handlerNameFig{handlerIndexFig,1} = strcat('voltage_and_frequency_ref_mes_RSE_TUD','.fig');
+    xlabel('Time [m]');
+    ylabel('Frequency [Hz]');
+    handlerNameFig{handlerIndexFig,1} = strcat('voltage_and_frequency_ref_mes_RSE_TUD','.fig');
+    
+end
 
 %% %%%%%% SUBPLOT FREQUENCY AND VOLTAGE SINTEF AND TUD %%%%%%%%%%%%%%%%% %%
 % Only in the case SELECTION_SWITCH = 4 (Experiments January 26, 2024)
@@ -1203,11 +1215,11 @@ if selection_switch == 4
     %%% First subplot
     subplot(2,1,1)
     plot(data_voltage_ref_sin_out_vec_downsample_1(:,1), ...
-        data_voltage_ref_sin_out_vec_downsample_1(:,2), color_vector(1));
+        voltage_ref_sin_out_vec_downsample_1(:,3), color_vector(1));
     grid on
     hold on
     plot(data_voltage_sin_pcc_vec_downsample_1(:,1), ...
-        data_voltage_sin_pcc_vec_downsample_1(:,2), color_vector(2));
+        voltage_sin_pcc_vec_downsample_1(:,3), color_vector(2));
     hold off
 
     legend_string(handlerLegend) = strcat('$V_{TUD}^{ref}$'); handlerLegend = handlerLegend + 1;
@@ -1222,11 +1234,11 @@ if selection_switch == 4
     %%% Second subplot
     subplot(2,1,2)
     plot(data_frequency_ref_rse_out_vec_downsample_1(:,1), ...
-        data_frequency_ref_rse_out_vec_downsample_1(:,2), color_vector(1));
+        frequency_ref_rse_out_vec_downsample_1(:,3), color_vector(1));
     grid on
     hold on
     plot(data_frequency_rse_pcc_vec_downsample_1(:,1), ...
-        data_frequency_rse_pcc_vec_downsample_1(:,2), color_vector(2));
+        frequency_rse_pcc_vec_downsample_1(:,3), color_vector(2));
     hold off
 
     handlerLegend = 1; % re-initialization
@@ -1243,56 +1255,61 @@ if selection_switch == 4
 end
 
 %% %%%%%%%%%%%%%%%%% SUBPLOT CRES HP AND TEMPERATURE %%%%%%%%%%%%%%%%%%% %%
-handlerIndex = handlerIndex + 1; 
-handlerIndexFig = handlerIndexFig + 1;
-handlerFig{handlerIndex,1} = figure();
-color_vector = 'brgymk';
-handlerLegend =  1;
-legend_string = strings;
+if selection_scenario ~= 1 && selection_scenario ~= 2 && selection_scenario ~= 3 && selection_scenario ~= 4
 
-title('Comparison P_{th_{CRES}}');
+    handlerIndex = handlerIndex + 1; 
+    handlerIndexFig = handlerIndexFig + 1;
+    handlerFig{handlerIndex,1} = figure();
+    color_vector = 'brgymk';
+    handlerLegend =  1;
+    legend_string = strings;
 
-%%% First subplot
-subplot(2,1,1)
-plot(data_cres_heat_pump_m_ea_kiloWatts_vec_downsample_1(:,1), ...
-    data_cres_heat_pump_m_ea_kiloWatts_vec_downsample_1(:,2), color_vector(1));
+    title('Comparison P_{th_{CRES}}');
 
-legend_string(handlerLegend) = strcat('$P_{th_{CRES}}$');  
-leg = legend(legend_string, 'Location', 'Best', 'FontSize', 14, 'Orientation','horizontal');
-set(leg,'Interpreter','latex');
-xlim([0 data_cres_heat_pump_m_ea_kiloWatts_vec_downsample_1(end,1)]); % X-axis limits - TIME
+    %%% First subplot
+    subplot(2,1,1)
+    plot(data_cres_heat_pump_m_ea_kiloWatts_vec_downsample_1(:,1), ...
+        cres_heat_pump_m_ea_kiloWatts_vec_downsample_1(:,3), color_vector(1));
 
-xlabel('Time [m]');
-ylabel('Power [kW]');
+    legend_string(handlerLegend) = strcat('$P_{th_{CRES}}$');  
+    leg = legend(legend_string, 'Location', 'Best', 'FontSize', 14, 'Orientation','horizontal');
+    set(leg,'Interpreter','latex');
+    xlim([0 data_cres_heat_pump_m_ea_kiloWatts_vec_downsample_1(end,1)]); % X-axis limits - TIME
 
-%%% Second subplot
-subplot(2,1,2)
-plot(data_cres_temperature1_m_ea_celsius_vec_downsample_1(:,1), ...
-	data_cres_temperature1_m_ea_celsius_vec_downsample_1(:,2), color_vector(1));
-grid on
-hold on
-plot(data_cres_temperature2_m_ea_celsius_vec_downsample_1(:,1), ...
-	data_cres_temperature2_m_ea_celsius_vec_downsample_1(:,2), color_vector(2));
-plot(data_cres_temperature3_m_ea_celsius_vec_downsample_1(:,1), ...
-	data_cres_temperature3_m_ea_celsius_vec_downsample_1(:,2), color_vector(3));
-hold off
+    xlabel('Time [m]');
+    ylabel('Power [kW]');
 
-handlerLegend = 1; % re-initialization
-legend_string(handlerLegend) = strcat('$T_1$'); handlerLegend = handlerLegend + 1;
-legend_string(handlerLegend) = strcat('$T_1$'); handlerLegend = handlerLegend + 1;
-legend_string(handlerLegend) = strcat('$T_3$'); 
-leg = legend(legend_string, 'Location', 'Best', 'FontSize', 14, 'Orientation','horizontal');
-set(leg,'Interpreter','latex');
-xlim([0 data_frequency_ref_sin_out_vec_downsample_1(end,1)]); % X-axis limits - TIME
+    %%% Second subplot
+    subplot(2,1,2)
+    plot(data_cres_temperature1_m_ea_celsius_vec_downsample_1(:,1), ...
+        cres_temperature1_m_ea_celsius_vec_downsample_1(:,3), color_vector(1));
+    grid on
+    hold on
+    plot(data_cres_temperature2_m_ea_celsius_vec_downsample_1(:,1), ...
+        cres_temperature2_m_ea_celsius_vec_downsample_1(:,3), color_vector(2));
+    plot(data_cres_temperature3_m_ea_celsius_vec_downsample_1(:,1), ...
+        cres_temperature3_m_ea_celsius_vec_downsample_1(:,3), color_vector(3));
+    hold off
 
-xlabel('Time [m]');
-ylabel('Temperature [°C]');
-handlerNameFig{handlerIndexFig,1} = strcat('thermal_power_and_temperature_CRES','.fig');
+    handlerLegend = 1; % re-initialization
+    legend_string(handlerLegend) = strcat('$T_1$'); handlerLegend = handlerLegend + 1;
+    legend_string(handlerLegend) = strcat('$T_1$'); handlerLegend = handlerLegend + 1;
+    legend_string(handlerLegend) = strcat('$T_3$'); 
+    leg = legend(legend_string, 'Location', 'Best', 'FontSize', 14, 'Orientation','horizontal');
+    set(leg,'Interpreter','latex');
+    xlim([0 data_frequency_ref_sin_out_vec_downsample_1(end,1)]); % X-axis limits - TIME
+
+    xlabel('Time [m]');
+    ylabel('Temperature [°C]');
+    handlerNameFig{handlerIndexFig,1} = strcat('thermal_power_and_temperature_CRES','.fig');
+    
+end
 
 %% %%%%%%%%%%%%%%%%% ACTIVE AND REACTIVE POWER MES CHP %%%%%%%%%%%%%%%%% %%
 % Only in the case SELECTION_SWITCH = 4 (Experiments January 26, 2024)
 % The signals were no measured in the previous experiments
 if selection_switch == 4
+    
     handlerIndex = handlerIndex + 1; 
     handlerIndexFig = handlerIndexFig + 1;
     handlerFig{handlerIndex,1} = figure();
@@ -1305,7 +1322,7 @@ if selection_switch == 4
     %%% First subplot
     subplot(2,1,1)
     plot(data_active_power_el_gf_mes_vec_shifted_1(:,1), ...
-        data_active_power_el_gf_mes_vec_shifted_1(:,2), color_vector(1));
+        active_power_el_gf_mes_vec_shifted_1(:,3), color_vector(1));
     grid on
 
     legend_string(handlerLegend) = strcat('$P_{el_{GF}}^{mes}$');
@@ -1316,7 +1333,7 @@ if selection_switch == 4
     %%% Second subplot
     subplot(2,1,2)
     plot(data_reactive_power_el_gf_mes_vec_shifted_1(:,1), ...
-        data_reactive_power_el_gf_mes_vec_shifted_1(:,2), color_vector(1));
+        reactive_power_el_gf_mes_vec_shifted_1(:,3), color_vector(1));
     grid on
 
     handlerLegend = 1; % re-initialization
@@ -1335,6 +1352,7 @@ end
 % Only in the case SELECTION_SWITCH = 4 (Experiments January 26, 2024)
 % The signals were no measured in the previous experiments
 if selection_switch == 4
+    
     handlerIndex = handlerIndex + 1; 
     handlerIndexFig = handlerIndexFig + 1;
     handlerFig{handlerIndex,1} = figure();
@@ -1347,7 +1365,7 @@ if selection_switch == 4
     %%% First subplot
     subplot(2,1,1)
     plot(data_active_power_el_chp_mes_vec_shifted_1(:,1), ...
-        data_active_power_el_chp_mes_vec_shifted_1(:,2), color_vector(1));
+        active_power_el_chp_mes_vec_shifted_1(:,3), color_vector(1));
     grid on
 
     legend_string(handlerLegend) = strcat('$P_{el_{CHP}}^{mes}$');
@@ -1358,7 +1376,7 @@ if selection_switch == 4
     %%% Second subplot
     subplot(2,1,2)
     plot(data_reactive_power_el_chp_mes_vec_shifted_1(:,1), ...
-        data_reactive_power_el_chp_mes_vec_shifted_1(:,2), color_vector(1));
+        reactive_power_el_chp_mes_vec_shifted_1(:,3), color_vector(1));
     grid on
 
     handlerLegend = 1; % re-initialization
