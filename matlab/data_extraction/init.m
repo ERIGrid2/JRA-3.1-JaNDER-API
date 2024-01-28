@@ -320,6 +320,8 @@ switch selection_switch
         thermal_source_dtu_vec = [];
         chp_heat_out_rse_vec = [];
         active_power_chp_rse_vec = [];
+        voltage_ref_sin_out_vec = [];
+        frequency_ref_sin_out_vec = [];
         
     	for i = 1 : length(time_vec) %#ok<ALIGN>
            
@@ -777,7 +779,7 @@ switch selection_switch
                 
                 format long % for better displaying data
                 
-                fileMATName = filenameUndervoltageScenario_rev1; % name MAT-file
+                fileMATName = filenameUndervoltageScenario_rev2; % name MAT-file
                 fileMATName = erase(fileMATName,'.csv'); % Delete substrings within strings
                 
             %%%% Undervoltage scenario (pretty)
@@ -833,7 +835,7 @@ switch selection_switch
                 
                 format long % for better displaying data
                 
-                fileMATName = filenameUndervoltagePrettyScenario_rev1; % name MAT-file
+                fileMATName = filenameUndervoltagePrettyScenario_rev2; % name MAT-file
                 fileMATName = erase(fileMATName,'.csv'); % Delete substrings within strings
         
         end
@@ -874,8 +876,8 @@ switch selection_switch
         thermal_source_dtu_vec = [];
         chp_heat_out_rse_vec = [];
         active_power_chp_rse_vec = [];
-        active_power_el_gf_mes_vec = [];
-        reactive_power_el_gf_mes_vec = [];
+        active_power_el_hp_mes_vec = [];
+        reactive_power_el_hp_mes_vec = [];
         active_power_el_chp_mes_vec = [];
         reactive_power_el_chp_mes_vec = [];
         
@@ -1076,16 +1078,16 @@ switch selection_switch
                     active_power_chp_rse_vec = [active_power_chp_rse_vec; ...
                         time_vec(i), samplesTimestamp_vec(i), samplesvalues_vec(i)];
                                     
-                case 'ACTIVE_POWER_EL_GF_MES'
+                case 'ACTIVE_POWER_EL_HP_MES'
                     
                     % Data relative to this signal
-                    active_power_el_gf_mes_vec = [active_power_el_gf_mes_vec; ...
+                    active_power_el_hp_mes_vec = [active_power_el_hp_mes_vec; ...
                         time_vec(i), samplesTimestamp_vec(i), samplesvalues_vec(i)];
                     
-                case 'REACTIVE_POWER_EL_GF_MES'
+                case 'REACTIVE_POWER_EL_HP_MES'
                     
                     % Data relative to this signal
-                    reactive_power_el_gf_mes_vec = [reactive_power_el_gf_mes_vec; ...
+                    reactive_power_el_hp_mes_vec = [reactive_power_el_hp_mes_vec; ...
                         time_vec(i), samplesTimestamp_vec(i), samplesvalues_vec(i)];
                     
                 case 'ACTIVE_POWER_EL_CHP_MES'
@@ -1117,7 +1119,7 @@ switch selection_switch
             'cres_temperature2_m_ea_celsisus_vec', 'cres_temperature3_m_ea_celsius_vec', 'cres_heat_pump_m_ea_kiloWatts_vec', ...
             'th_temp_0_dtu_vec', 'th_flow_1_dtu_vec', 'th_fwd_1_dtu_vec', 'th_ret_1_dtu_vec', 'th_fwd_2_dtu_vec', ...
             'th_ret_2_dtu_vec', 'th_fwd_3_dtu_vec', 'th_ret_3_dtu_vec', 'thermal_load_dtu_vec', 'thermal_source_dtu_vec', ...
-            'chp_heat_out_rse_vec', 'active_power_chp_rse_vec', 'active_power_el_gf_mes_vec', 'reactive_power_el_gf_mes_vec', ...
+            'chp_heat_out_rse_vec', 'active_power_chp_rse_vec', 'active_power_el_hp_mes_vec', 'reactive_power_el_hp_mes_vec', ...
             'active_power_el_chp_mes_vec', 'reactive_power_el_chp_mes_vec');
     
         % Moving file to the right folder
@@ -1152,8 +1154,8 @@ switch selection_switch
                 
                 % To align the plots. Remove the dirty part
                 % COMMAND: datetime(active_power_el_sin_out_vec(XX,2), 'ConvertFrom', 'posixtime')
-                shift_1_start = 0; %%%%%%%%%% TO BE MODIFIED %%%%%%%%%%
-                shift_1_end   = 0; %%%%%%%%%% TO BE MODIFIED %%%%%%%%%%
+                shift_1_start = datetime('26-Jan-2024 13:59:00');
+                shift_1_end   = datetime('26-Jan-2024 14:30:00');
                 
                 % Downsampling factor
                 downsampling_value_1 = 2; % parameters for the code
@@ -1186,8 +1188,8 @@ switch selection_switch
                 
                 % To align the plots. Remove the dirty part
                 % COMMAND: datetime(active_power_el_sin_out_vec(XX,2), 'ConvertFrom', 'posixtime')
-                shift_1_start = 0; %%%%%%%%%% TO BE MODIFIED %%%%%%%%%%
-                shift_1_end   = 0; %%%%%%%%%% TO BE MODIFIED %%%%%%%%%%
+                shift_1_start = datetime('26-Jan-2024 13:59:00');
+                shift_1_end   = datetime('26-Jan-2024 14:30:00');
                 
                 % Downsampling factor
                 downsampling_value_1 = 2; % parameters for the code

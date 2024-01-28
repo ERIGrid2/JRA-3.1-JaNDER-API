@@ -1198,61 +1198,61 @@ if selection_switch == 4
     
 end
 
-%% %%%%%% SUBPLOT FREQUENCY AND VOLTAGE SINTEF AND TUD %%%%%%%%%%%%%%%%% %%
+% % %%%%%% SUBPLOT FREQUENCY AND VOLTAGE SINTEF AND TUD %%%%%%%%%%%%%%%%% %%
 % Only in the case SELECTION_SWITCH = 4 (Experiments January 26, 2024)
 % The signals were no measured in the previous experiments
-if selection_switch == 4
-    
-    handlerIndex = handlerIndex + 1; 
-    handlerIndexFig = handlerIndexFig + 1;
-    handlerFig{handlerIndex,1} = figure();
-    color_vector = 'brgymk';
-    handlerLegend =  1;
-    legend_string = strings;
-
-    title('Comparison V_{TUD}^{ref}, V_{SINTEF}, f_{TUD}^{ref}, and f_{SINTEF}');
-
-    %%% First subplot
-    subplot(2,1,1)
-    plot(data_voltage_ref_sin_out_vec_downsample_1(:,1), ...
-        voltage_ref_sin_out_vec_downsample_1(:,3), color_vector(1));
-    grid on
-    hold on
-    plot(data_voltage_sin_pcc_vec_downsample_1(:,1), ...
-        voltage_sin_pcc_vec_downsample_1(:,3), color_vector(2));
-    hold off
-
-    legend_string(handlerLegend) = strcat('$V_{TUD}^{ref}$'); handlerLegend = handlerLegend + 1;
-    legend_string(handlerLegend) = strcat('$V_{SINTEF}$');  
-    leg = legend(legend_string, 'Location', 'Best', 'FontSize', 14, 'Orientation','horizontal');
-    set(leg,'Interpreter','latex');
-    xlim([0 data_voltage_ref_sin_out_vec_downsample_1(end,1)]); % X-axis limits - TIME
-
-    xlabel('Time [m]');
-    ylabel('Voltage [V]');
-
-    %%% Second subplot
-    subplot(2,1,2)
-    plot(data_frequency_ref_rse_out_vec_downsample_1(:,1), ...
-        frequency_ref_rse_out_vec_downsample_1(:,3), color_vector(1));
-    grid on
-    hold on
-    plot(data_frequency_rse_pcc_vec_downsample_1(:,1), ...
-        frequency_rse_pcc_vec_downsample_1(:,3), color_vector(2));
-    hold off
-
-    handlerLegend = 1; % re-initialization
-    legend_string(handlerLegend) = strcat('$f_{TUD}^{ref}$'); handlerLegend = handlerLegend + 1;
-    legend_string(handlerLegend) = strcat('$f_{SINTEF}$');  
-    leg = legend(legend_string, 'Location', 'Best', 'FontSize', 14, 'Orientation','horizontal');
-    set(leg,'Interpreter','latex');
-    xlim([0 data_frequency_ref_rse_out_vec_downsample_1(end,1)]); % X-axis limits - TIME
-
-    xlabel('Time [m]');
-    ylabel('Frequency [Hz]');
-    handlerNameFig{handlerIndexFig,1} = strcat('voltage_and_frequency_ref_mes_SINTEF_TUD','.fig');
-
-end
+% if selection_switch == 4
+%     
+%     handlerIndex = handlerIndex + 1; 
+%     handlerIndexFig = handlerIndexFig + 1;
+%     handlerFig{handlerIndex,1} = figure();
+%     color_vector = 'brgymk';
+%     handlerLegend =  1;
+%     legend_string = strings;
+% 
+%     title('Comparison V_{TUD}^{ref}, V_{SINTEF}, f_{TUD}^{ref}, and f_{SINTEF}');
+% 
+%     %% First subplot
+%     subplot(2,1,1)
+%     plot(data_voltage_ref_sin_out_vec_downsample_1(:,1), ...
+%         voltage_ref_sin_out_vec_downsample_1(:,3), color_vector(1));
+%     grid on
+%     hold on
+%     plot(data_voltage_sin_pcc_vec_downsample_1(:,1), ...
+%         voltage_sin_pcc_vec_downsample_1(:,3), color_vector(2));
+%     hold off
+% 
+%     legend_string(handlerLegend) = strcat('$V_{TUD}^{ref}$'); handlerLegend = handlerLegend + 1;
+%     legend_string(handlerLegend) = strcat('$V_{SINTEF}$');  
+%     leg = legend(legend_string, 'Location', 'Best', 'FontSize', 14, 'Orientation','horizontal');
+%     set(leg,'Interpreter','latex');
+%     xlim([0 data_voltage_ref_sin_out_vec_downsample_1(end,1)]); % X-axis limits - TIME
+% 
+%     xlabel('Time [m]');
+%     ylabel('Voltage [V]');
+% 
+%     %% Second subplot
+%     subplot(2,1,2)
+%     plot(data_frequency_ref_rse_out_vec_downsample_1(:,1), ...
+%         frequency_ref_rse_out_vec_downsample_1(:,3), color_vector(1));
+%     grid on
+%     hold on
+%     plot(data_frequency_rse_pcc_vec_downsample_1(:,1), ...
+%         frequency_rse_pcc_vec_downsample_1(:,3), color_vector(2));
+%     hold off
+% 
+%     handlerLegend = 1; % re-initialization
+%     legend_string(handlerLegend) = strcat('$f_{TUD}^{ref}$'); handlerLegend = handlerLegend + 1;
+%     legend_string(handlerLegend) = strcat('$f_{SINTEF}$');  
+%     leg = legend(legend_string, 'Location', 'Best', 'FontSize', 14, 'Orientation','horizontal');
+%     set(leg,'Interpreter','latex');
+%     xlim([0 data_frequency_ref_rse_out_vec_downsample_1(end,1)]); % X-axis limits - TIME
+% 
+%     xlabel('Time [m]');
+%     ylabel('Frequency [Hz]');
+%     handlerNameFig{handlerIndexFig,1} = strcat('voltage_and_frequency_ref_mes_SINTEF_TUD','.fig');
+% 
+% end
 
 %% %%%%%%%%%%%%%%%%% SUBPLOT CRES HP AND TEMPERATURE %%%%%%%%%%%%%%%%%%% %%
 if selection_scenario ~= 1 && selection_scenario ~= 2 && selection_scenario ~= 3 && selection_scenario ~= 4
@@ -1321,26 +1321,26 @@ if selection_switch == 4
 
     %%% First subplot
     subplot(2,1,1)
-    plot(data_active_power_el_gf_mes_vec_shifted_1(:,1), ...
-        active_power_el_gf_mes_vec_shifted_1(:,3), color_vector(1));
+    plot(data_active_power_el_chp_mes_vec_shifted_1(:,1), ...
+        active_power_el_chp_mes_vec_shifted_1(:,3), color_vector(1));
     grid on
 
     legend_string(handlerLegend) = strcat('$P_{el_{GF}}^{mes}$');
     leg = legend(legend_string, 'Location', 'Best', 'FontSize', 14, 'Orientation','horizontal');
     set(leg,'Interpreter','latex');
-    xlim([0 data_active_power_el_gf_mes_vec_shifted_1(end,1)]); % X-axis limits - TIME
+    xlim([0 data_active_power_el_chp_mes_vec_shifted_1(end,1)]); % X-axis limits - TIME
 
     %%% Second subplot
     subplot(2,1,2)
-    plot(data_reactive_power_el_gf_mes_vec_shifted_1(:,1), ...
-        reactive_power_el_gf_mes_vec_shifted_1(:,3), color_vector(1));
+    plot(data_reactive_power_el_chp_mes_vec_shifted_1(:,1), ...
+        reactive_power_el_chp_mes_vec_shifted_1(:,3), color_vector(1));
     grid on
 
     handlerLegend = 1; % re-initialization
     legend_string(handlerLegend) = strcat('$Q_{el_{GF}}^{mes}$'); 
     leg = legend(legend_string, 'Location', 'Best', 'FontSize', 14, 'Orientation','horizontal');
     set(leg,'Interpreter','latex');
-    xlim([0 data_reactive_power_el_gf_mes_vec_shifted_1(end,1)]); % X-axis limits - TIME
+    xlim([0 data_reactive_power_el_chp_mes_vec_shifted_1(end,1)]); % X-axis limits - TIME
 
     xlabel('Time [m]');
     ylabel('Power [kVAr]');

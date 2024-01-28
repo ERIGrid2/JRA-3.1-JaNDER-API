@@ -74,7 +74,7 @@ if selection_switch == 2 && selection_scenario ~= 1 && selection_scenario ~= 2 &
 end
 
 % Excluding some signals generated only in the SELECTION_SWITCH = 4 (Experiments Januar 26, 2024)
-if selection_switch == 4 && selection_scenario ~= 1 && selection_scenario ~= 2 
+if selection_switch == 4
     % Frequency and voltage at the connection point SINTEF - STARTING TIME
     find_start_frequency_rse_pcc_vec_1  = find(datetime(frequency_rse_pcc_vec(:,2), 'ConvertFrom', ...
         'posixtime') >= shift_1_start, 1);
@@ -88,21 +88,21 @@ if selection_switch == 4 && selection_scenario ~= 1 && selection_scenario ~= 2
         'posixtime') >= shift_1_end, 1);
     
     % STARTING TIME
-    find_start_frequency_sin_pcc_vec_1  = find(datetime(frequency_sin_pcc_vec(:,2), 'ConvertFrom', ...
-        'posixtime') >= shift_1_start, 1);
-    find_start_voltage_sin_pcc_vec_1    = find(datetime(voltage_sin_pcc_vec(:,2), 'ConvertFrom', ...
-        'posixtime') >= shift_1_start, 1);
+    %find_start_frequency_sin_pcc_vec_1  = find(datetime(frequency_sin_pcc_vec(:,2), 'ConvertFrom', ...
+    %    'posixtime') >= shift_1_start, 1);
+    %find_start_voltage_sin_pcc_vec_1    = find(datetime(voltage_sin_pcc_vec(:,2), 'ConvertFrom', ...
+    %    'posixtime') >= shift_1_start, 1);
     
     % ENDING TIME
-    find_end_frequency_sin_pcc_vec_1    = find(datetime(frequency_sin_pcc_vec(:,2), 'ConvertFrom', ...
-        'posixtime') >= shift_1_end, 1);
-    find_end_voltage_sin_pcc_vec_1      = find(datetime(voltage_sin_pcc_vec(:,2), 'ConvertFrom', ...
-        'posixtime') >= shift_1_end, 1);
+    %find_end_frequency_sin_pcc_vec_1    = find(datetime(frequency_sin_pcc_vec(:,2), 'ConvertFrom', ...
+    %    'posixtime') >= shift_1_end, 1);
+    %find_end_voltage_sin_pcc_vec_1      = find(datetime(voltage_sin_pcc_vec(:,2), 'ConvertFrom', ...
+    %    'posixtime') >= shift_1_end, 1);
     
     % Reactive and active power measured at RSE - STARTING TIME
-    find_start_active_power_el_gf_mes_vec_1     = find(datetime(active_power_el_gf_mes_vec(:,2), 'ConvertFrom', ...
+    find_start_active_power_el_hp_mes_vec_1     = find(datetime(active_power_el_hp_mes_vec(:,2), 'ConvertFrom', ...
         'posixtime') >= shift_1_start, 1);
-    find_start_reactive_power_el_gf_mes_vec_1   = find(datetime(reactive_power_el_gf_mes_vec(:,2), 'ConvertFrom', ...
+    find_start_reactive_power_el_hp_mes_vec_1   = find(datetime(reactive_power_el_hp_mes_vec(:,2), 'ConvertFrom', ...
         'posixtime') >= shift_1_start, 1);
     find_start_active_power_el_chp_mes_vec_1    = find(datetime(active_power_el_chp_mes_vec(:,2), 'ConvertFrom', ...
         'posixtime') >= shift_1_start, 1);
@@ -110,9 +110,9 @@ if selection_switch == 4 && selection_scenario ~= 1 && selection_scenario ~= 2
         'posixtime') >= shift_1_start, 1);
     
     % ENDING TIME
-    find_end_active_power_el_gf_mes_vec_1       = find(datetime(active_power_el_gf_mes_vec(:,2), 'ConvertFrom', ...
+    find_end_active_power_el_hp_mes_vec_1       = find(datetime(active_power_el_hp_mes_vec(:,2), 'ConvertFrom', ...
         'posixtime') >= shift_1_end, 1);
-    find_end_reactive_power_el_gf_mes_vec_1     = find(datetime(reactive_power_el_gf_mes_vec(:,2), 'ConvertFrom', ...
+    find_end_reactive_power_el_hp_mes_vec_1     = find(datetime(reactive_power_el_hp_mes_vec(:,2), 'ConvertFrom', ...
         'posixtime') >= shift_1_end, 1);
     find_end_active_power_el_chp_mes_vec_1      = find(datetime(active_power_el_chp_mes_vec(:,2), 'ConvertFrom', ...
         'posixtime') >= shift_1_end, 1);
@@ -193,7 +193,7 @@ find_end_active_power_chp_rse_vec_1               = find(datetime(active_power_c
     
 %%%%%%%%% FINDING Time second experimental trial (Overvoltage scenario) - SELECTION_SWITH = 2 (Experiments December 14-15,   %%%%%%%%% 
 %%%%%%%%% 2023) - SELECTION_SWITH = 4 (Experiments January 26, 2024)                                                               %%%%%%%%%
-if (selection_switch == 2 || selection_switch == 4 ) && selection_scenario == 1 || selection_scenario == 2
+if ( selection_switch == 2 ) && (selection_scenario == 1 || selection_scenario == 2)
     % STARTING TIME
     find_start_active_power_el_sin_out_vec_2        = find(datetime(active_power_el_sin_out_vec(:,2), 'ConvertFrom', ...
         'posixtime') >= shift_2_start, 1);
@@ -267,7 +267,7 @@ if (selection_switch == 2 || selection_switch == 4 ) && selection_scenario == 1 
     end
 
     % Excluding some signals generated only in the SELECTION_SWITCH = 4 (Experiments Januar 26, 2024)
-    if selection_switch == 4 && selection_scenario ~= 1 && selection_scenario ~= 2 
+    if selection_switch == 4
         % Frequency and voltage at the connection point SINTEF - STARTING TIME
         find_start_frequency_rse_pcc_vec_2  = find(datetime(frequency_rse_pcc_vec(:,2), 'ConvertFrom', ...
             'posixtime') >= shift_2_start, 1);
@@ -281,21 +281,21 @@ if (selection_switch == 2 || selection_switch == 4 ) && selection_scenario == 1 
             'posixtime') >= shift_2_end, 1);
 
         % STARTING TIME
-        find_start_frequency_sin_pcc_vec_2  = find(datetime(frequency_sin_pcc_vec(:,2), 'ConvertFrom', ...
-            'posixtime') >= shift_2_start, 1);
-        find_start_voltage_sin_pcc_vec_2    = find(datetime(voltage_sin_pcc_vec(:,2), 'ConvertFrom', ...
-            'posixtime') >= shift_2_start, 1);
+        %find_start_frequency_sin_pcc_vec_2  = find(datetime(frequency_sin_pcc_vec(:,2), 'ConvertFrom', ...
+        %    'posixtime') >= shift_2_start, 1);
+        %find_start_voltage_sin_pcc_vec_2    = find(datetime(voltage_sin_pcc_vec(:,2), 'ConvertFrom', ...
+        %    'posixtime') >= shift_2_start, 1);
 
         % ENDING TIME
-        find_end_frequency_sin_pcc_vec_2    = find(datetime(frequency_sin_pcc_vec(:,2), 'ConvertFrom', ...
-            'posixtime') >= shift_2_end, 1);
-        find_end_voltage_sin_pcc_vec_2      = find(datetime(voltage_sin_pcc_vec(:,2), 'ConvertFrom', ...
-            'posixtime') >= shift_2_end, 1);
+        %find_end_frequency_sin_pcc_vec_2    = find(datetime(frequency_sin_pcc_vec(:,2), 'ConvertFrom', ...
+        %    'posixtime') >= shift_2_end, 1);
+        %find_end_voltage_sin_pcc_vec_2      = find(datetime(voltage_sin_pcc_vec(:,2), 'ConvertFrom', ...
+        %    'posixtime') >= shift_2_end, 1);
 
         % Reactive and active power measured at RSE - STARTING TIME
-        find_start_active_power_el_gf_mes_vec_2     = find(datetime(active_power_el_gf_mes_vec(:,2), 'ConvertFrom', ...
+        find_start_active_power_el_hp_mes_vec_2     = find(datetime(active_power_el_hp_mes_vec(:,2), 'ConvertFrom', ...
             'posixtime') >= shift_2_start, 1);
-        find_start_reactive_power_el_gf_mes_vec_2   = find(datetime(reactive_power_el_gf_mes_vec(:,2), 'ConvertFrom', ...
+        find_start_reactive_power_el_hp_mes_vec_2   = find(datetime(reactive_power_el_hp_mes_vec(:,2), 'ConvertFrom', ...
             'posixtime') >= shift_2_start, 1);
         find_start_active_power_el_chp_mes_vec_2    = find(datetime(active_power_el_chp_mes_vec(:,2), 'ConvertFrom', ...
             'posixtime') >= shift_2_start, 1);
@@ -303,9 +303,9 @@ if (selection_switch == 2 || selection_switch == 4 ) && selection_scenario == 1 
             'posixtime') >= shift_2_start, 1);
 
         % ENDING TIME
-        find_end_active_power_el_gf_mes_vec_2       = find(datetime(active_power_el_gf_mes_vec(:,2), 'ConvertFrom', ...
+        find_end_active_power_el_hp_mes_vec_2       = find(datetime(active_power_el_hp_mes_vec(:,2), 'ConvertFrom', ...
             'posixtime') >= shift_2_end, 1);
-        find_end_reactive_power_el_gf_mes_vec_2     = find(datetime(reactive_power_el_gf_mes_vec(:,2), 'ConvertFrom', ...
+        find_end_reactive_power_el_hp_mes_vec_2     = find(datetime(reactive_power_el_hp_mes_vec(:,2), 'ConvertFrom', ...
             'posixtime') >= shift_2_end, 1);
         find_end_active_power_el_chp_mes_vec_2      = find(datetime(active_power_el_chp_mes_vec(:,2), 'ConvertFrom', ...
             'posixtime') >= shift_2_end, 1);
@@ -423,23 +423,23 @@ if selection_switch == 2 && selection_scenario ~= 1 && selection_scenario ~= 2 &
 end
 
 % Excluding some signals generated only in the SELECTION_SWITCH = 4 (Experiments Januar 26, 2024)
-if selection_switch == 4 && selection_scenario ~= 1 && selection_scenario ~= 2 
+if selection_switch == 4
     % Frequency and voltage at the connection point SINTEF
     frequency_rse_pcc_vec_shifted_1               = frequency_rse_pcc_vec(find_start_frequency_rse_pcc_vec_1 : ...
         find_end_frequency_rse_pcc_vec_1, :);
     voltage_rse_pcc_vec_shifted_1                 = voltage_rse_pcc_vec(find_start_voltage_rse_pcc_vec_1 : ...
         find_end_voltage_rse_pcc_vec_1, :);
     
-    frequency_sin_pcc_vec_shifted_1               = frequency_sin_pcc_vec(find_start_frequency_sin_pcc_vec_1 : ...
-        find_end_frequency_sin_pcc_vec_1, :);
-    voltage_sin_pcc_vec_shifted_1                 = voltage_sin_pcc_vec(find_start_voltage_sin_pcc_vec_1 : ...
-        find_end_voltage_sin_pcc_vec_1, :);
+    %frequency_sin_pcc_vec_shifted_1               = frequency_sin_pcc_vec(find_start_frequency_sin_pcc_vec_1 : ...
+    %    find_end_frequency_sin_pcc_vec_1, :);
+    %voltage_sin_pcc_vec_shifted_1                 = voltage_sin_pcc_vec(find_start_voltage_sin_pcc_vec_1 : ...
+    %    find_end_voltage_sin_pcc_vec_1, :);
     
     % Reactive and active power measured at RSE
-    active_power_el_gf_mes_vec_shifted_1          = active_power_el_gf_mes_vec(find_start_active_power_el_gf_mes_vec_1 : ...
-        find_end_active_power_el_gf_mes_vec_1, :);
-    reactive_power_el_gf_mes_vec_shifted_1        = reactive_power_el_gf_mes_vec(find_start_reactive_power_el_gf_mes_vec_1 : ...
-        find_end_reactive_power_el_gf_mes_vec_1, :);
+    active_power_el_hp_mes_vec_shifted_1          = active_power_el_hp_mes_vec(find_start_active_power_el_hp_mes_vec_1 : ...
+        find_end_active_power_el_hp_mes_vec_1, :);
+    reactive_power_el_hp_mes_vec_shifted_1        = reactive_power_el_hp_mes_vec(find_start_reactive_power_el_hp_mes_vec_1 : ...
+        find_end_reactive_power_el_hp_mes_vec_1, :);
     active_power_el_chp_mes_vec_shifted_1         = active_power_el_chp_mes_vec(find_start_active_power_el_chp_mes_vec_1 : ...
         find_end_active_power_el_chp_mes_vec_1, :);
     reactive_power_el_chp_mes_vec_shifted_1       = reactive_power_el_chp_mes_vec(find_start_reactive_power_el_chp_mes_vec_1 : ...
@@ -482,7 +482,7 @@ active_power_chp_rse_vec_shifted_1            = active_power_chp_rse_vec(find_st
 
 %%%%%%%%% Shifting second experimental trial (Overvoltage scenario) - SELECTION_SWITH = 2 (Experiments December 14-15, 2023) %%%%%%%%%
 %%%%%%%%% - SELECTION_SWITH = 4 (Experiments January 26, 2024)                                                               %%%%%%%%%
-if (selection_switch == 2 || selection_switch == 4 ) && selection_scenario == 1 || selection_scenario == 2
+if ( selection_switch == 2 ) && (selection_scenario == 1 || selection_scenario == 2)
     active_power_el_sin_out_vec_shifted_2         = active_power_el_sin_out_vec(find_start_active_power_el_sin_out_vec_2 : ...
         find_end_active_power_el_sin_out_vec_2, :);
     reactive_power_el_sin_out_vec_shifted_2       = reactive_power_el_sin_out_vec(find_start_reactive_power_el_sin_out_vec_2 : ...
@@ -520,23 +520,23 @@ if (selection_switch == 2 || selection_switch == 4 ) && selection_scenario == 1 
     end
 
     % Excluding some signals generated only in the SELECTION_SWITCH = 4 (Experiments Januar 26, 2024)
-    if selection_switch == 4 && selection_scenario ~= 1 && selection_scenario ~= 2 
+    if selection_switch == 4
         % Frequency and voltage at the connection point SINTEF
         frequency_rse_pcc_vec_shifted_2               = frequency_rse_pcc_vec(find_start_frequency_rse_pcc_vec_2 : ...
             find_end_frequency_rse_pcc_vec_2, :);
         voltage_rse_pcc_vec_shifted_2                 = voltage_rse_pcc_vec(find_start_voltage_rse_pcc_vec_2 : ...
             find_end_voltage_rse_pcc_vec_2, :);
 
-        frequency_sin_pcc_vec_shifted_2               = frequency_sin_pcc_vec(find_start_frequency_sin_pcc_vec_2 : ...
-            find_end_frequency_sin_pcc_vec_2, :);
-        voltage_sin_pcc_vec_shifted_2                 = voltage_sin_pcc_vec(find_start_voltage_sin_pcc_vec_2 : ...
-            find_end_voltage_sin_pcc_vec_2, :);
+        %frequency_sin_pcc_vec_shifted_2               = frequency_sin_pcc_vec(find_start_frequency_sin_pcc_vec_2 : ...
+        %    find_end_frequency_sin_pcc_vec_2, :);
+        %voltage_sin_pcc_vec_shifted_2                 = voltage_sin_pcc_vec(find_start_voltage_sin_pcc_vec_2 : ...
+        %    find_end_voltage_sin_pcc_vec_2, :);
 
         % Reactive and active power measured at RSE
-        active_power_el_gf_mes_vec_shifted_2          = active_power_el_gf_mes_vec(find_start_active_power_el_gf_mes_vec_2 : ...
-            find_end_active_power_el_gf_mes_vec_2, :);
-        reactive_power_el_gf_mes_vec_shifted_2        = reactive_power_el_gf_mes_vec(find_start_reactive_power_el_gf_mes_vec_2 : ...
-            find_end_reactive_power_el_gf_mes_vec_2, :);
+        active_power_el_hp_mes_vec_shifted_2          = active_power_el_hp_mes_vec(find_start_active_power_el_hp_mes_vec_2 : ...
+            find_end_active_power_el_hp_mes_vec_2, :);
+        reactive_power_el_hp_mes_vec_shifted_2        = reactive_power_el_hp_mes_vec(find_start_reactive_power_el_hp_mes_vec_2 : ...
+            find_end_reactive_power_el_hp_mes_vec_2, :);
         active_power_el_chp_mes_vec_shifted_2         = active_power_el_chp_mes_vec(find_start_active_power_el_chp_mes_vec_2 : ...
             find_end_active_power_el_chp_mes_vec_2, :);
         reactive_power_el_chp_mes_vec_shifted_2       = reactive_power_el_chp_mes_vec(find_start_reactive_power_el_chp_mes_vec_2 : ...
@@ -605,17 +605,17 @@ if selection_switch == 2 && selection_scenario ~= 1 && selection_scenario ~= 2 &
 end
 
 % Excluding some signals from the scenario only in the SELECTION_SWITCH = 4 (Experiments January 26, 2024)
-if selection_switch == 4 && selection_scenario ~= 1 && selection_scenario ~= 2 
+if selection_switch == 4 
     % Voltage and frequency at the connection point SINTEF
-    voltage_rse_pcc_vec_shifted_1                 = downsample(voltage_rse_pcc_vec_shifted_1, downsampling_value_1);
-    frequency_rse_pcc_vec_shifted_1               = downsample(frequency_rse_pcc_vec_shifted_1, downsampling_value_1);
+    voltage_rse_pcc_vec_downsample_1              = downsample(voltage_rse_pcc_vec_shifted_1, downsampling_value_1);
+    frequency_rse_pcc_vec_downsample_1            = downsample(frequency_rse_pcc_vec_shifted_1, downsampling_value_1);
 
-    voltage_sin_pcc_vec_shifted_1                 = downsample(voltage_sin_pcc_vec_shifted_1, downsampling_value_1);
-    frequency_sin_pcc_vec_shifted_1               = downsample(frequency_sin_pcc_vec_shifted_1, downsampling_value_1);
+    %voltage_sin_pcc_vec_downsample_1             = downsample(voltage_sin_pcc_vec_shifted_1, downsampling_value_1);
+    %frequency_sin_pcc_vec_downsample_1           = downsample(frequency_sin_pcc_vec_shifted_1, downsampling_value_1);
     
     % Reactive and active power measured at RSE
-    active_power_el_gf_mes_vec_shifted_1          = downsample(active_power_el_gf_mes_vec_shifted_1, downsampling_value_1);
-    reactive_power_el_gf_mes_vec_shifted_1        = downsample(reactive_power_el_gf_mes_vec_shifted_1, downsampling_value_1);
+    active_power_el_hp_mes_vec_shifted_1          = downsample(active_power_el_hp_mes_vec_shifted_1, downsampling_value_1);
+    reactive_power_el_hp_mes_vec_shifted_1        = downsample(reactive_power_el_hp_mes_vec_shifted_1, downsampling_value_1);
     active_power_el_chp_mes_vec_shifted_1         = downsample(active_power_el_chp_mes_vec_shifted_1, downsampling_value_1);
     reactive_power_el_chp_mes_vec_shifted_1       = downsample(reactive_power_el_chp_mes_vec_shifted_1, downsampling_value_1);
     
@@ -643,7 +643,7 @@ active_power_chp_rse_vec_downsample_1            = downsample(active_power_chp_r
 
 %%%%%%%%% Shifting second experimental trial - SELECTION_SWITH = 2 (Experiments December 14-15, 2023) %%%%%%%%%
 %%%%%%%%% - SELECTION_SWITH = 4 (Experiments January 26, 2024)                                        %%%%%%%%%
-if (selection_switch == 2 || selection_switch == 4 ) && selection_scenario == 1 || selection_scenario == 2
+if ( selection_switch == 2 ) && (selection_scenario == 1 || selection_scenario == 2)
     active_power_el_sin_out_vec_downsample_2         = downsample(active_power_el_sin_out_vec_shifted_2, downsampling_value_2);
     reactive_power_el_sin_out_vec_downsample_2       = downsample(reactive_power_el_sin_out_vec_shifted_2, downsampling_value_2);
     active_power_ref_el_sin_out_vec_downsample_2     = downsample(active_power_ref_el_sin_out_vec_shifted_2, downsampling_value_2);
@@ -668,19 +668,19 @@ if (selection_switch == 2 || selection_switch == 4 ) && selection_scenario == 1 
     end
     
     % Excluding some signals from the scenario only in the SELECTION_SWITCH = 4 (Experiments January 26, 2024)
-    if selection_switch == 4 && selection_scenario ~= 1 && selection_scenario ~= 2 
+    if selection_switch == 4
         % Voltage and frequency at the connection SINTEF (in case of
         % a second experiment trial)
-        voltage_rse_pcc_vec_shifted_2                 = downsample(voltage_rse_pcc_vec_shifted_2, downsampling_value_2);
-        frequency_rse_pcc_vec_shifted_2               = downsample(frequency_rse_pcc_vec_shifted_2, downsampling_value_2);
+        voltage_rse_pcc_vec_downsample_2              = downsample(voltage_rse_pcc_vec_shifted_2, downsampling_value_2);
+        frequency_rse_pcc_vec_downsample_2            = downsample(frequency_rse_pcc_vec_shifted_2, downsampling_value_2);
     
-        voltage_sin_pcc_vec_shifted_2                 = downsample(voltage_sin_pcc_vec_shifted_2, downsampling_value_2);
-        frequency_sin_pcc_vec_shifted_2               = downsample(frequency_sin_pcc_vec_shifted_2, downsampling_value_2);
+        %voltage_sin_pcc_vec_downsample_2              = downsample(voltage_sin_pcc_vec_shifted_2, downsampling_value_2);
+        %frequency_sin_pcc_vec_downsample_2            = downsample(frequency_sin_pcc_vec_shifted_2, downsampling_value_2);
         
         % Reactive and active power measured at RSE (in case of
         % a second experiment trial)
-        active_power_el_gf_mes_vec_shifted_2          = downsample(active_power_el_gf_mes_vec_shifted_2, downsampling_value_2);
-        reactive_power_el_gf_mes_vec_shifted_2        = downsample(reactive_power_el_gf_mes_vec_shifted_2, downsampling_value_2);
+        active_power_el_hp_mes_vec_shifted_2          = downsample(active_power_el_hp_mes_vec_shifted_2, downsampling_value_2);
+        reactive_power_el_hp_mes_vec_shifted_2        = downsample(reactive_power_el_hp_mes_vec_shifted_2, downsampling_value_2);
         active_power_el_chp_mes_vec_shifted_2         = downsample(active_power_el_chp_mes_vec_shifted_2, downsampling_value_2);
         reactive_power_el_chp_mes_vec_shifted_2       = downsample(reactive_power_el_chp_mes_vec_shifted_2, downsampling_value_2);
 
@@ -778,7 +778,7 @@ if selection_switch == 2 && selection_scenario ~= 1 && selection_scenario ~= 2 &
 end
 
 % Excluding some signals from the scenario only in the SELECTION_SWITCH = 4 (Experiments January 26, 2024)
-if selection_switch == 4 && selection_scenario ~= 1 && selection_scenario ~= 2
+if selection_switch == 4
     % Voltage and frequency at the connection point at SINTEF
     
     time_bias = datetime(voltage_rse_pcc_vec_downsample_1(1,2), 'ConvertFrom', 'posixtime');
@@ -789,22 +789,22 @@ if selection_switch == 4 && selection_scenario ~= 1 && selection_scenario ~= 2
     time_vector = datetime(frequency_rse_pcc_vec_downsample_1(:,2), 'ConvertFrom', 'posixtime') - time_bias;
     data_frequency_rse_pcc_vec_downsample_1            = [time_vector, frequency_rse_pcc_vec_downsample_1(:,3)]; 
 
-    time_bias = datetime(voltage_sin_pcc_vec_downsample_1(1,2), 'ConvertFrom', 'posixtime');
-    time_vector = datetime(voltage_sin_pcc_vec_downsample_1(:,2), 'ConvertFrom', 'posixtime') - time_bias;
-    data_voltage_sin_pcc_vec_downsample_1              = [time_vector, voltage_sin_pcc_vec_downsample_1(:,3)]; 
+    %time_bias = datetime(voltage_sin_pcc_vec_downsample_1(1,2), 'ConvertFrom', 'posixtime');
+    %time_vector = datetime(voltage_sin_pcc_vec_downsample_1(:,2), 'ConvertFrom', 'posixtime') - time_bias;
+    %data_voltage_sin_pcc_vec_downsample_1              = [time_vector, voltage_sin_pcc_vec_downsample_1(:,3)]; 
     
-    time_bias = datetime(frequency_sin_pcc_vec_downsample_1(1,2), 'ConvertFrom', 'posixtime');
-    time_vector = datetime(frequency_sin_pcc_vec_downsample_1(:,2), 'ConvertFrom', 'posixtime') - time_bias;
-    data_frequency_sin_pcc_vec_downsample_1            = [time_vector, frequency_sin_pcc_vec_downsample_1(:,3)]; 
+    %time_bias = datetime(frequency_sin_pcc_vec_downsample_1(1,2), 'ConvertFrom', 'posixtime');
+    %time_vector = datetime(frequency_sin_pcc_vec_downsample_1(:,2), 'ConvertFrom', 'posixtime') - time_bias;
+    %data_frequency_sin_pcc_vec_downsample_1            = [time_vector, frequency_sin_pcc_vec_downsample_1(:,3)]; 
 
     % Active and reactive power measured at RSE
-    time_bias = datetime(active_power_el_gf_mes_vec_shifted_1(1,2), 'ConvertFrom', 'posixtime');
-    time_vector = datetime(active_power_el_gf_mes_vec_shifted_1(:,2), 'ConvertFrom', 'posixtime') - time_bias;
-    data_active_power_el_gf_mes_vec_shifted_1          = [time_vector, active_power_el_gf_mes_vec_shifted_1(:,3)];
+    time_bias = datetime(active_power_el_hp_mes_vec_shifted_1(1,2), 'ConvertFrom', 'posixtime');
+    time_vector = datetime(active_power_el_hp_mes_vec_shifted_1(:,2), 'ConvertFrom', 'posixtime') - time_bias;
+    data_active_power_el_hp_mes_vec_shifted_1          = [time_vector, active_power_el_hp_mes_vec_shifted_1(:,3)];
     
-    time_bias = datetime(reactive_power_el_gf_mes_vec_shifted_1(1,2), 'ConvertFrom', 'posixtime');
-    time_vector = datetime(reactive_power_el_gf_mes_vec_shifted_1(:,2), 'ConvertFrom', 'posixtime') - time_bias;
-    data_reactive_power_el_gf_mes_vec_shifted_1        = [time_vector, reactive_power_el_gf_mes_vec_shifted_1(:,3)];
+    time_bias = datetime(reactive_power_el_hp_mes_vec_shifted_1(1,2), 'ConvertFrom', 'posixtime');
+    time_vector = datetime(reactive_power_el_hp_mes_vec_shifted_1(:,2), 'ConvertFrom', 'posixtime') - time_bias;
+    data_reactive_power_el_hp_mes_vec_shifted_1        = [time_vector, reactive_power_el_hp_mes_vec_shifted_1(:,3)];
 
     time_bias = datetime(active_power_el_chp_mes_vec_shifted_1(1,2), 'ConvertFrom', 'posixtime');
     time_vector = datetime(active_power_el_chp_mes_vec_shifted_1(:,2), 'ConvertFrom', 'posixtime') - time_bias;
@@ -884,7 +884,7 @@ data_active_power_chp_rse_vec_downsample_1          = [time_vector, active_power
 
 %%%%%%%%% Shifting second experimental trial - SELECTION_SWITH = 2 (Experiments December 14-15, 2023) %%%%%%%%%
 %%%%%%%%% - SELECTION_SWITH = 4 (Experiments January 26, 2024)                                        %%%%%%%%%
-if (selection_switch == 2 || selection_switch == 4) && selection_scenario == 1 || selection_scenario == 2   
+if ( selection_switch == 2 ) && (selection_scenario == 1 || selection_scenario == 2)  
     time_bias = datetime(active_power_el_sin_out_vec_downsample_2(1,2), 'ConvertFrom', 'posixtime');
     time_vector = datetime(active_power_el_sin_out_vec_downsample_2(:,2), 'ConvertFrom', 'posixtime') - time_bias;
     data_active_power_el_sin_out_vec_downsample_2       = [time_vector, active_power_el_sin_out_vec_downsample_2(:,3)];
@@ -950,7 +950,7 @@ if (selection_switch == 2 || selection_switch == 4) && selection_scenario == 1 |
     end
     
     % Excluding some signals from the scenario only in the SELECTION_SWITCH = 4 (Experiments January 26, 2024)
-    if selection_switch == 4 && selection_scenario ~= 1 && selection_scenario ~= 2
+    if selection_switch == 4
         % Voltage and frequency at the connection point SINTEF (in case of
         % a second trial of experiments)        
         time_bias = datetime(voltage_rse_pcc_vec_downsample_2(1,2), 'ConvertFrom', 'posixtime');
@@ -972,13 +972,13 @@ if (selection_switch == 2 || selection_switch == 4) && selection_scenario == 1 |
         
         % Active and reactive power measured at RSE (in case of a second
         % trial of experiments)     
-        time_bias = datetime(active_power_el_gf_mes_vec_shifted_2(1,2), 'ConvertFrom', 'posixtime');
-        time_vector = datetime(active_power_el_gf_mes_vec_shifted_2(:,2), 'ConvertFrom', 'posixtime') - time_bias;
-        data_active_power_el_gf_mes_vec_shifted_2           = [time_vector, active_power_el_gf_mes_vec_shifted_2(:,3)];
+        time_bias = datetime(active_power_el_hp_mes_vec_shifted_2(1,2), 'ConvertFrom', 'posixtime');
+        time_vector = datetime(active_power_el_hp_mes_vec_shifted_2(:,2), 'ConvertFrom', 'posixtime') - time_bias;
+        data_active_power_el_hp_mes_vec_shifted_2           = [time_vector, active_power_el_hp_mes_vec_shifted_2(:,3)];
 
-        time_bias = datetime(reactive_power_el_gf_mes_vec_shifted_2(1,2), 'ConvertFrom', 'posixtime');
-        time_vector = datetime(reactive_power_el_gf_mes_vec_shifted_2(:,2), 'ConvertFrom', 'posixtime') - time_bias;
-        data_reactive_power_el_gf_mes_vec_shifted_2         = [time_vector, reactive_power_el_gf_mes_vec_shifted_2(:,3)];
+        time_bias = datetime(reactive_power_el_hp_mes_vec_shifted_2(1,2), 'ConvertFrom', 'posixtime');
+        time_vector = datetime(reactive_power_el_hp_mes_vec_shifted_2(:,2), 'ConvertFrom', 'posixtime') - time_bias;
+        data_reactive_power_el_hp_mes_vec_shifted_2         = [time_vector, reactive_power_el_hp_mes_vec_shifted_2(:,3)];
 
         time_bias = datetime(active_power_el_chp_mes_vec_shifted_2(1,2), 'ConvertFrom', 'posixtime');
         time_vector = datetime(active_power_el_chp_mes_vec_shifted_2(:,2), 'ConvertFrom', 'posixtime') - time_bias;
