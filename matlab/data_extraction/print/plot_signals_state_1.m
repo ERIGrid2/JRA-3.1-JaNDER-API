@@ -412,7 +412,7 @@ set(leg,'Interpreter','latex');
 xlim([0 data_th_temp_0_dtu_vec_downsample_1(end,1)]); % X-axis limits - TIME
 
 xlabel('Time [m]');
-ylabel('Temperature [ï¿½C]');
+ylabel('Temperature [°C]');
 title('Temperature Heat Source Buffer Tank - DTU');
 handlerNameFig{handlerIndexFig,1} = strcat('th_temp_0_dtu','.fig'); 
 
@@ -1391,6 +1391,171 @@ if selection_switch == 4
 
 end
 
+%% %%%%%%%%%%%%%%%%% ADDITIONAL PLOTS DELIVERABLE %%%%%%%%%%%%%%%%%%%%%% %%
+if(selection_switch == 4)
+    handlerIndex = handlerIndex + 1; 
+    handlerIndexFig = handlerIndexFig + 1;
+    handlerFig{handlerIndex,1} = figure();
+    color_vector = 'brgymk';
+    handlerLegend =  1;
+    legend_string = strings;
+
+    %title('Comparison P_{el_{CHP}}^{mes} and Q_{el_{CHP}}^{mes}');
+
+    %%% First subplot
+    subplot(2,1,1)
+    plot(data_th_temp_0_dtu_vec_downsample_1(:,1), ...
+        th_temp_0_dtu_vec_downsample_1(:,3), color_vector(1));
+    grid on
+    
+    legend_string(handlerLegend) = strcat('$T_{1_{DTU}}$');  
+    leg = legend(legend_string, 'Location', 'Best', 'FontSize', 14, 'Orientation','horizontal');
+    set(leg,'Interpreter','latex');
+    xlim([0 data_th_temp_0_dtu_vec_downsample_1(end,1)]); % X-axis limits - TIME
+
+    xlabel('Time [m]');
+    ylabel('Temperature [°C]');
+    %title('Temperature Heat Source Buffer Tank - DTU');
+
+    %%% Second subplot
+    subplot(2,1,2)
+    plot(data_thermal_source_dtu_vec_downsample_1(:,1), ...
+        thermal_source_dtu_vec_downsample_1(:,3), color_vector(1));
+    grid on
+
+    handlerLegend = 1; % re-initialization
+    legend_string(handlerLegend) = strcat('$\bar{P}_{th_{DTU}}$');  
+    leg = legend(legend_string, 'Location', 'Best', 'FontSize', 14, 'Orientation','horizontal');
+    set(leg,'Interpreter','latex');
+    xlim([0 data_thermal_source_dtu_vec_downsample_1(end,1)]); % X-axis limits - TIME
+
+    xlabel('Time [m]');
+    ylabel('Power [kW]');
+    handlerNameFig{handlerIndexFig,1} = strcat('subplot_DTU_source_and_temperature','.fig');
+
+    %%%%%%%%%%%%%%%%%%%%%%%% ANOTHER FIGURE %%%%%%%%%%%%%%%%%%%%%%%%
+    handlerIndex = handlerIndex + 1; 
+    handlerIndexFig = handlerIndexFig + 1;
+    handlerFig{handlerIndex,1} = figure();
+    color_vector = 'brgymk';
+    handlerLegend =  1;
+    legend_string = strings;
+
+    %%% First subplot
+    subplot(1,3,1)
+    plot(data_voltage_ref_sin_out_vec_downsample_1(1:50,1), ...
+        voltage_ref_sin_out_vec_downsample_1(1:50,3), color_vector(1));
+    grid on
+    hold on
+    plot(data_voltage_ref_rse_out_vec_downsample_1(1:50,1), ...
+        voltage_ref_rse_out_vec_downsample_1(1:50,3), color_vector(2));
+    hold off
+
+    legend_string(handlerLegend) = strcat('$V_{SIN}^{ref}$');  handlerLegend = handlerLegend + 1;
+    legend_string(handlerLegend) = strcat('$V_{RSE}^{ref}$');  
+    leg = legend(legend_string, 'Location', 'Best', 'FontSize', 14, 'Orientation','horizontal');
+    set(leg,'Interpreter','latex');
+    xlim([0 data_voltage_ref_sin_out_vec_downsample_1(50,1)]); % X-axis limits - TIME
+    
+    xlabel('Time [m]');
+    ylabel('Voltage [V]');
+    
+    %%% Second subplot
+    subplot(1,3,2)
+    plot(data_reactive_power_el_sin_out_vec_downsample_1(:,1), ...
+        reactive_power_el_sin_out_vec_downsample_1(:,3), color_vector(1));
+    grid on
+    hold on
+    plot(data_reactive_power_el_rse_out_vec_downsample_1(:,1), ...
+        reactive_power_el_rse_out_vec_downsample_1(:,3), color_vector(2));
+    hold off
+    
+    handlerLegend = 1; % re-initialization
+    legend_string(handlerLegend) = strcat('$Q_{el_{SIN}}$');  handlerLegend = handlerLegend + 1;
+    legend_string(handlerLegend) = strcat('$Q_{el_{RSE}}$');  
+    leg = legend(legend_string, 'Location', 'Best', 'FontSize', 14, 'Orientation','horizontal');
+    set(leg,'Interpreter','latex');
+    xlim([0 data_reactive_power_el_sin_out_vec_downsample_1(end,1)]); % X-axis limits - TIME
+
+    xlabel('Time [m]');
+    ylabel('Power [kVAr]');
+
+    %%% Third subplot
+    subplot(1,3,3)
+    plot(data_frequency_ref_sin_out_vec_downsample_1(:,1), ...
+        frequency_ref_sin_out_vec_downsample_1(:,3), color_vector(1));
+    grid on
+    hold on
+    plot(data_frequency_ref_rse_out_vec_downsample_1(:,1), ...
+        frequency_ref_rse_out_vec_downsample_1(:,3), color_vector(2));
+    hold off
+
+    handlerLegend = 1; % re-initialization
+    legend_string(handlerLegend) = strcat('$f_{SIN}^{ref}$');  handlerLegend = handlerLegend + 1;
+    legend_string(handlerLegend) = strcat('$f_{RSE}^{ref}$');  
+    leg = legend(legend_string, 'Location', 'Best', 'FontSize', 14, 'Orientation','horizontal');
+    set(leg,'Interpreter','latex');
+    ylim([0 55]); % Y-axis limits - Frequency
+    xlim([0 data_frequency_ref_sin_out_vec_downsample_1(end,1)]); % X-axis limits - TIME
+
+    xlabel('Time [m]');
+    ylabel('Frequency [Hz]');
+    handlerNameFig{handlerIndexFig,1} = strcat('zoom_frequency_ref_SIN_RSE','.fig');
+
+end
+
+%% %%%%%%%%%%%%%%%%% ADDITIONAL PLOTS DELIVERABLE %%%%%%%%%%%%%%%%%%%%%% %%
+if(selection_switch == 2 && (selection_scenario == 1 || selection_scenario == 2))
+    handlerIndex = handlerIndex + 1; 
+    handlerIndexFig = handlerIndexFig + 1;
+    handlerFig{handlerIndex,1} = figure();
+    color_vector = 'brgymk';
+    handlerLegend =  1;
+    legend_string = strings;
+
+    %%% First subplot
+    subplot(2,1,1)
+    plot(data_reactive_power_el_sin_out_vec_downsample_1(:,1), ...
+        reactive_power_el_sin_out_vec_downsample_1(:,3), color_vector(1));
+    grid on
+    hold on
+    plot(data_reactive_power_el_rse_out_vec_downsample_1(:,1), ...
+        reactive_power_el_rse_out_vec_downsample_1(:,3), color_vector(2));
+    hold off
+    
+    legend_string(handlerLegend) = strcat('$Q_{el_{SIN}}$');  handlerLegend = handlerLegend + 1;
+    legend_string(handlerLegend) = strcat('$Q_{el_{RSE}}$');  
+    leg = legend(legend_string, 'Location', 'Best', 'FontSize', 14, 'Orientation','horizontal');
+    set(leg,'Interpreter','latex');
+    xlim([0 data_reactive_power_el_sin_out_vec_downsample_1(end,1)]); % X-axis limits - TIME
+
+    xlabel('Time [m]');
+    ylabel('Power [kVAr]');
+
+    %%% Second subplot
+    subplot(2,1,2)
+    plot(data_frequency_ref_sin_out_vec_downsample_1(:,1), ...
+        frequency_ref_sin_out_vec_downsample_1(:,3), color_vector(1));
+    grid on
+    hold on
+    plot(data_frequency_ref_rse_out_vec_downsample_1(:,1), ...
+        frequency_ref_rse_out_vec_downsample_1(:,3), color_vector(2));
+    hold off
+
+    handlerLegend = 1; % re-initialization
+    legend_string(handlerLegend) = strcat('$f_{SIN}^{ref}$');  handlerLegend = handlerLegend + 1;
+    legend_string(handlerLegend) = strcat('$f_{RSE}^{ref}$');  
+    leg = legend(legend_string, 'Location', 'Best', 'FontSize', 14, 'Orientation','horizontal');
+    set(leg,'Interpreter','latex');
+    ylim([0 55]); % Y-axis limits - Frequency
+    xlim([0 data_frequency_ref_sin_out_vec_downsample_1(end,1)]); % X-axis limits - TIME
+
+    xlabel('Time [m]');
+    ylabel('Frequency [Hz]');
+    handlerNameFig{handlerIndexFig,1} = strcat('subplot_reactive_power_frequency_RSE_SINTEF','.fig');
+
+end
+
 %% %%%%%%%%%%%%%%%%%%%%%%% SAVE FIGURES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% %%
 
 % Asking for the scenario to plot
@@ -1411,7 +1576,7 @@ if strcmp(selection_action, 'y')
         saveas(handlerFig{i,1}, handlerNameFig{i,1});
         movefile(handlerNameFig{i,1}, destinationFig);
         handlerNameFig{i,1} = strrep(handlerNameFig{i,1},'png','eps'); % Replacing '.png' (the previous one) with '.eps'
-        saveas(handlerFig{i,1}, handlerNameFig{i,1});
+        saveas(handlerFig{i,1}, handlerNameFig{i,1}, 'epsc'); % for colored EPS files
         movefile(handlerNameFig{i,1}, destinationFig);
     end
 

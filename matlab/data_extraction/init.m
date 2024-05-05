@@ -7,6 +7,7 @@ clc
 addpath('csv_files');
 addpath('mat_files');
 addpath('print');
+addpath('txt');
 
 %% LOADING CSV file
 
@@ -31,6 +32,8 @@ disp( '1  - Extracting data from the experiments on December 14 and 15, 2023 - O
 disp( '2  - Cleaning, subsampling and plotting data from the experiments on December 14-15, 2023 - Overvoltage/Undervoltage scenario');
 disp( '3  - Extracting data from the experiments on January 26, 2024 - Undervoltage');
 disp( '4  - Cleaning, subsampling and plotting data from the experiments on January 26, 2023 - Undervoltage scenario');
+disp( '5  - Make txt files for plots in MATLAB for the experiments on December 14 and 15, 2023 - Overvolgate scenario');
+disp( '6  - Make txt files for plots in MATLAB for the experiments on January 26, 2024 - Undervoltage scenario');
 disp('---------------------------------------------------------------------------------');
 
 disp( ' ' );
@@ -550,7 +553,7 @@ switch selection_switch
             %%%% Overvoltage scenario
             case 1
                 
-                fileMATName = filenameOvervoltagePrettyScenario_rev1; % name MAT-file
+                fileMATName = filenameOvervoltageScenario_rev1; % name MAT-file
                 fileMATName = erase(fileMATName,'.csv'); % Delete substrings within strings
                 
                 % Loading MAT-files
@@ -642,7 +645,7 @@ switch selection_switch
             %%%% Undervoltage scenario
             case 3
                 
-                fileMATName = filenameUndervoltagePrettyScenario_rev1; % name MAT-file
+                fileMATName = filenameUndervoltageScenario_rev1; % name MAT-file
                 fileMATName = erase(fileMATName,'.csv'); % Delete substrings within strings
                 
                 % Loading MAT-files
@@ -676,7 +679,7 @@ switch selection_switch
             %%%% Overvoltage scenario (pretty)
             case 4
                 
-                fileMATName = filenameUndervoltagePrettyScenario_rev1; % name MAT-file
+                fileMATName = filenameUndervoltageScenario_rev1; % name MAT-file
                 fileMATName = erase(fileMATName,'.csv'); % Delete substrings within strings
                 
                 % Loading MAT-files
@@ -1209,6 +1212,76 @@ switch selection_switch
                 disp( ' ' );
                 
         end
+        
+    %% Make txt files for plots in MATLAB for the experiments on December 14 and 15, 2023
+    case 5
+        
+        selection_scenario = 1; % selection the overvoltage scenario
+        fileMATName = filenameOvervoltageScenario_rev1; % name MAT-file
+        fileMATName = erase(fileMATName,'.csv'); % Delete substrings within strings
+        
+        % Loading MAT-files
+        load(strcat(folder_mat, filesep, fileMATName, '.mat'));
+        close all
+        clc
+        
+        % To align the plots. Remove the dirty part
+        % COMMAND: datetime(active_power_el_sin_out_vec(XX,2), 'ConvertFrom', 'posixtime')
+        shift_1_start = datetime('14-Dec-2023 09:17:45'); % related point 2568, "voltage_ref_rse_out_vec" vector
+        shift_1_end   = datetime('14-Dec-2023 09:34:11'); % related point 3551, "voltage_ref_rse_out_vec" vector
+        shift_2_start = datetime('14-Dec-2023 09:37:01'); % related point 3721, "voltage_ref_rse_out_vec" vector
+        shift_2_end   = datetime('14-Dec-2023 09:46:11'); % related point 4129, "voltage_ref_rse_out_vec" vector
+                
+        % Downsampling factor
+        downsampling_value_1 = 2; % parameters for the code
+        downsampling_value_2 = 1; % parameters for the code
+        
+        % Resizing vector for LaTeX plots (Deliverable)
+        disp( 'Creating necessary subvectors and downsampling data...');
+        disp( ' ' );
+        downsampling_meas_data
+
+        % Saving txt files
+        destinationTxT_1 = strcat('txt', filesep, '14_december_2023_attempt1');
+        destinationTxT_2 = strcat('txt', filesep, '14_december_2023_attempt2');
+        disp( 'Saving data on txt files...');
+        saving_data % Saving data in txt files
+
+        close all
+        disp( ' ' ); 
+
+    %% Make txt files for plots in MATLAB for the experiments on January 26, 2024
+    case 6
+        
+        selection_scenario = 1; % selection the undervoltage scenario
+        fileMATName = filenameUndervoltageScenario_rev2; % name MAT-file
+        fileMATName = erase(fileMATName,'.csv'); % Delete substrings within strings
+
+        % Loading MAT-files
+        load(strcat(folder_mat, filesep, fileMATName, '.mat'));
+        close all
+        clc
+
+        % To align the plots. Remove the dirty part
+        % COMMAND: datetime(active_power_el_sin_out_vec(XX,2), 'ConvertFrom', 'posixtime')
+        shift_1_start = datetime('26-Jan-2024 13:59:00');
+        shift_1_end   = datetime('26-Jan-2024 14:30:00');
+
+        % Downsampling factor
+        downsampling_value_1 = 2; % parameters for the code
+
+        % Resizing vector for LaTeX plots (Deliverable)
+        disp( 'Creating necessary subvectors and downsampling data...');
+        disp( ' ' );
+        downsampling_meas_data
+
+        % Saving txt files
+        destinationTxT = strcat('txt', filesep, '26_january_2024_attempt1');
+        disp( 'Saving data on txt files...');
+        saving_data % Saving data in txt files
+
+        close all
+        disp( ' ' );        
 
 end
 

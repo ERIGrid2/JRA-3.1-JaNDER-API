@@ -54,8 +54,8 @@ find_end_rse_chp_m_ea_watt_vec_1              = find(datetime(rse_chp_m_ea_watt_
     'posixtime') >= shift_1_end, 1);
 
 % Excluding some signals from the scenario SELECTION_SWITCH = 2 (Experiments December 14-15, 2023)
-if selection_switch == 2 && selection_scenario ~= 1 && selection_scenario ~= 2 && selection_scenario ~= 3 ...
-        && selection_scenario ~= 4
+if ( selection_switch == 2 || selection_switch == 5 ) && selection_scenario ~= 1 && selection_scenario ~= 2 && ...
+        selection_scenario ~= 3 && selection_scenario ~= 4
     % STARTING TIME
     find_start_cres_temperature1_m_ea_celsius_vec_1  = find(datetime(cres_temperature1_m_ea_celsius_vec(:,2), 'ConvertFrom', ...
         'posixtime') >= shift_1_start, 1);
@@ -74,7 +74,7 @@ if selection_switch == 2 && selection_scenario ~= 1 && selection_scenario ~= 2 &
 end
 
 % Excluding some signals generated only in the SELECTION_SWITCH = 4 (Experiments Januar 26, 2024)
-if selection_switch == 4
+if selection_switch == 4 || selection_switch == 6
     % Frequency and voltage at the connection point SINTEF - STARTING TIME
     find_start_frequency_rse_pcc_vec_1  = find(datetime(frequency_rse_pcc_vec(:,2), 'ConvertFrom', ...
         'posixtime') >= shift_1_start, 1);
@@ -191,9 +191,9 @@ find_end_chp_heat_out_rse_vec_1                   = find(datetime(chp_heat_out_r
 find_end_active_power_chp_rse_vec_1               = find(datetime(active_power_chp_rse_vec(:,2), 'ConvertFrom', ...
         'posixtime') >= shift_1_end, 1);
     
-%%%%%%%%% FINDING Time second experimental trial (Overvoltage scenario) - SELECTION_SWITH = 2 (Experiments December 14-15,   %%%%%%%%% 
+%%%%%%%%% FINDING Time second experimental trial (Overvoltage scenario) - SELECTION_SWITCH = 2 (Experiments December 14-15,   %%%%%%%%% 
 %%%%%%%%% 2023) - SELECTION_SWITH = 4 (Experiments January 26, 2024)                                                               %%%%%%%%%
-if ( selection_switch == 2 ) && (selection_scenario == 1 || selection_scenario == 2)
+if ( selection_switch == 2 || selection_switch == 5 ) && (selection_scenario == 1 || selection_scenario == 2)
     % STARTING TIME
     find_start_active_power_el_sin_out_vec_2        = find(datetime(active_power_el_sin_out_vec(:,2), 'ConvertFrom', ...
         'posixtime') >= shift_2_start, 1);
@@ -247,8 +247,8 @@ if ( selection_switch == 2 ) && (selection_scenario == 1 || selection_scenario =
         'posixtime') >= shift_2_end, 1);
 
     % Excluding some signals from the scenario SELECTION_SWITCH = 2 (Experiments December 14-15, 2023)
-    if selection_switch == 2 && selection_scenario ~= 1 && selection_scenario ~= 2 && selection_scenario ~= 3 ...
-            && selection_scenario ~= 4
+    if ( selection_switch == 2 || selection_switch == 5 ) && selection_scenario ~= 1 && selection_scenario ~= 2 ...
+            && selection_scenario ~= 3 && selection_scenario ~= 4
         % STARTING TIME
         find_start_cres_temperature1_m_ea_celsius_vec_2  = find(datetime(cres_temperature1_m_ea_celsius_vec(:,2), 'ConvertFrom', ...
             'posixtime') >= shift_2_start, 1);
@@ -267,7 +267,7 @@ if ( selection_switch == 2 ) && (selection_scenario == 1 || selection_scenario =
     end
 
     % Excluding some signals generated only in the SELECTION_SWITCH = 4 (Experiments Januar 26, 2024)
-    if selection_switch == 4
+    if selection_switch == 4 || selection_switch == 6
         % Frequency and voltage at the connection point SINTEF - STARTING TIME
         find_start_frequency_rse_pcc_vec_2  = find(datetime(frequency_rse_pcc_vec(:,2), 'ConvertFrom', ...
             'posixtime') >= shift_2_start, 1);
@@ -412,8 +412,8 @@ rse_chp_m_ea_watt_vec_shifted_1               = rse_chp_m_ea_watt_vec(find_start
     find_end_rse_chp_m_ea_watt_vec_1, :);
 
 % Excluding some signals from the scenario SELECTION_SWITCH = 2 (Experiments December 14-15, 2023)
-if selection_switch == 2 && selection_scenario ~= 1 && selection_scenario ~= 2 && selection_scenario ~= 3 ...
-        && selection_scenario ~= 4
+if ( selection_switch == 2 || selection_switch == 5 ) && selection_scenario ~= 1 && selection_scenario ~= 2 && ...
+        selection_scenario ~= 3 && selection_scenario ~= 4
     cres_temperature1_m_ea_celsius_vec_shifted_1  = cres_temperature1_m_ea_celsius_vec(find_start_cres_temperature1_m_ea_celsius_vec_1 : ...
         find_end_cres_temperature1_m_ea_celsius_vec_1, :);
     cres_temperature2_m_ea_celsisus_vec_shifted_1 = cres_temperature2_m_ea_celsisus_vec(find_start_cres_temperature2_m_ea_celsisus_vec_1 : ...
@@ -423,7 +423,7 @@ if selection_switch == 2 && selection_scenario ~= 1 && selection_scenario ~= 2 &
 end
 
 % Excluding some signals generated only in the SELECTION_SWITCH = 4 (Experiments Januar 26, 2024)
-if selection_switch == 4
+if selection_switch == 4 || selection_switch == 6
     % Frequency and voltage at the connection point SINTEF
     frequency_rse_pcc_vec_shifted_1               = frequency_rse_pcc_vec(find_start_frequency_rse_pcc_vec_1 : ...
         find_end_frequency_rse_pcc_vec_1, :);
@@ -480,9 +480,9 @@ chp_heat_out_rse_vec_shifted_1                = chp_heat_out_rse_vec(find_start_
 active_power_chp_rse_vec_shifted_1            = active_power_chp_rse_vec(find_start_active_power_chp_rse_vec_1 : ...
     find_end_active_power_chp_rse_vec_1, :);
 
-%%%%%%%%% Shifting second experimental trial (Overvoltage scenario) - SELECTION_SWITH = 2 (Experiments December 14-15, 2023) %%%%%%%%%
+%%%%%%%%% Shifting second experimental trial (Overvoltage scenario) - SELECTION_SWITCH = 2 (Experiments December 14-15, 2023) %%%%%%%%%
 %%%%%%%%% - SELECTION_SWITH = 4 (Experiments January 26, 2024)                                                               %%%%%%%%%
-if ( selection_switch == 2 ) && (selection_scenario == 1 || selection_scenario == 2)
+if ( selection_switch == 2 || selection_switch == 5 ) && (selection_scenario == 1 || selection_scenario == 2)
     active_power_el_sin_out_vec_shifted_2         = active_power_el_sin_out_vec(find_start_active_power_el_sin_out_vec_2 : ...
         find_end_active_power_el_sin_out_vec_2, :);
     reactive_power_el_sin_out_vec_shifted_2       = reactive_power_el_sin_out_vec(find_start_reactive_power_el_sin_out_vec_2 : ...
@@ -509,8 +509,8 @@ if ( selection_switch == 2 ) && (selection_scenario == 1 || selection_scenario =
         find_end_rse_chp_m_ea_watt_vec_2, :);
 
     % Excluding some signals from the scenario SELECTION_SWITCH = 2 (Experiments December 14-15, 2023)
-    if selection_switch == 2 && selection_scenario ~= 1 && selection_scenario ~= 2 && selection_scenario ~= 3 ...
-            && selection_scenario ~= 4
+    if (selection_switch == 2 || selection_switch == 5 ) && selection_scenario ~= 1 && selection_scenario ~= 2 && ...
+            selection_scenario ~= 3 && selection_scenario ~= 4
         cres_temperature1_m_ea_celsius_vec_shifted_2  = cres_temperature1_m_ea_celsius_vec(find_start_cres_temperature1_m_ea_celsius_vec_2 : ...
             find_end_cres_temperature1_m_ea_celsius_vec_2, :);
         cres_temperature2_m_ea_celsisus_vec_shifted_2 = cres_temperature2_m_ea_celsisus_vec(find_start_cres_temperature2_m_ea_celsisus_vec_2 : ...
@@ -520,7 +520,7 @@ if ( selection_switch == 2 ) && (selection_scenario == 1 || selection_scenario =
     end
 
     % Excluding some signals generated only in the SELECTION_SWITCH = 4 (Experiments Januar 26, 2024)
-    if selection_switch == 4
+    if selection_switch == 4 || selection_switch == 6
         % Frequency and voltage at the connection point SINTEF
         frequency_rse_pcc_vec_shifted_2               = frequency_rse_pcc_vec(find_start_frequency_rse_pcc_vec_2 : ...
             find_end_frequency_rse_pcc_vec_2, :);
@@ -594,8 +594,8 @@ frequency_ref_rse_out_vec_downsample_1           = downsample(frequency_ref_rse_
 rse_chp_m_ea_watt_vec_downsample_1               = downsample(rse_chp_m_ea_watt_vec_shifted_1, downsampling_value_1);
 
 % Excluding some signals from the scenario only in the SELECTION_SWITCH = 2 (Experiments December 14-15, 2023)
-if selection_switch == 2 && selection_scenario ~= 1 && selection_scenario ~= 2 && selection_scenario ~= 3 ...
-        && selection_scenario ~= 4
+if ( selection_switch == 2 || selection_switch == 5 ) && selection_scenario ~= 1 && selection_scenario ~= 2 ...
+        && selection_scenario ~= 3 && selection_scenario ~= 4
     cres_temperature1_m_ea_celsius_vec_downsample_1  = ...
         downsample(cres_temperature1_m_ea_celsius_vec_shifted_1, downsampling_value_1);
     cres_temperature2_m_ea_celsisus_vec_downsample_1 = ...
@@ -605,7 +605,7 @@ if selection_switch == 2 && selection_scenario ~= 1 && selection_scenario ~= 2 &
 end
 
 % Excluding some signals from the scenario only in the SELECTION_SWITCH = 4 (Experiments January 26, 2024)
-if selection_switch == 4 
+if selection_switch == 4 || selection_switch == 6
     % Voltage and frequency at the connection point SINTEF
     voltage_rse_pcc_vec_downsample_1              = downsample(voltage_rse_pcc_vec_shifted_1, downsampling_value_1);
     frequency_rse_pcc_vec_downsample_1            = downsample(frequency_rse_pcc_vec_shifted_1, downsampling_value_1);
@@ -643,7 +643,7 @@ active_power_chp_rse_vec_downsample_1            = downsample(active_power_chp_r
 
 %%%%%%%%% Shifting second experimental trial - SELECTION_SWITH = 2 (Experiments December 14-15, 2023) %%%%%%%%%
 %%%%%%%%% - SELECTION_SWITH = 4 (Experiments January 26, 2024)                                        %%%%%%%%%
-if ( selection_switch == 2 ) && (selection_scenario == 1 || selection_scenario == 2)
+if ( selection_switch == 2 || selection_switch == 5 ) && (selection_scenario == 1 || selection_scenario == 2)
     active_power_el_sin_out_vec_downsample_2         = downsample(active_power_el_sin_out_vec_shifted_2, downsampling_value_2);
     reactive_power_el_sin_out_vec_downsample_2       = downsample(reactive_power_el_sin_out_vec_shifted_2, downsampling_value_2);
     active_power_ref_el_sin_out_vec_downsample_2     = downsample(active_power_ref_el_sin_out_vec_shifted_2, downsampling_value_2);
@@ -668,7 +668,7 @@ if ( selection_switch == 2 ) && (selection_scenario == 1 || selection_scenario =
     end
     
     % Excluding some signals from the scenario only in the SELECTION_SWITCH = 4 (Experiments January 26, 2024)
-    if selection_switch == 4
+    if selection_switch == 4 || selection_switch == 6
         % Voltage and frequency at the connection SINTEF (in case of
         % a second experiment trial)
         voltage_rse_pcc_vec_downsample_2              = downsample(voltage_rse_pcc_vec_shifted_2, downsampling_value_2);
@@ -761,7 +761,8 @@ time_vector = datetime(rse_chp_m_ea_watt_vec_downsample_1(:,2), 'ConvertFrom', '
 data_rse_chp_m_ea_watt_vec_downsample_1             = [time_vector, rse_chp_m_ea_watt_vec_downsample_1(:,3)];
 
 % Excluding some signals from the scenario only in the SELECTION_SWITCH = 2 (Experiments December 14-15, 2023)
-if selection_switch == 2 && selection_scenario ~= 1 && selection_scenario ~= 2 && selection_scenario ~= 3 && selection_scenario ~= 4
+if ( selection_switch == 2 || selection_switch == 5 ) && selection_scenario ~= 1 && selection_scenario ~= 2 && ...
+        selection_scenario ~= 3 && selection_scenario ~= 4
     
     time_bias = datetime(cres_temperature1_m_ea_celsius_vec_downsample_1(1,2), 'ConvertFrom', 'posixtime');
     time_vector = datetime(cres_temperature1_m_ea_celsius_vec_downsample_1(:,2), 'ConvertFrom', 'posixtime') - time_bias;
@@ -778,7 +779,7 @@ if selection_switch == 2 && selection_scenario ~= 1 && selection_scenario ~= 2 &
 end
 
 % Excluding some signals from the scenario only in the SELECTION_SWITCH = 4 (Experiments January 26, 2024)
-if selection_switch == 4
+if selection_switch == 4 || selection_switch == 6
     % Voltage and frequency at the connection point at SINTEF
     
     time_bias = datetime(voltage_rse_pcc_vec_downsample_1(1,2), 'ConvertFrom', 'posixtime');
@@ -882,9 +883,9 @@ time_bias = datetime(active_power_chp_rse_vec_downsample_1(1,2), 'ConvertFrom', 
 time_vector = datetime(active_power_chp_rse_vec_downsample_1(:,2), 'ConvertFrom', 'posixtime') - time_bias;
 data_active_power_chp_rse_vec_downsample_1          = [time_vector, active_power_chp_rse_vec_downsample_1(:,3)];  
 
-%%%%%%%%% Shifting second experimental trial - SELECTION_SWITH = 2 (Experiments December 14-15, 2023) %%%%%%%%%
+%%%%%%%%% Shifting second experimental trial - SELECTION_SWITCH = 2 (Experiments December 14-15, 2023) %%%%%%%%%
 %%%%%%%%% - SELECTION_SWITH = 4 (Experiments January 26, 2024)                                        %%%%%%%%%
-if ( selection_switch == 2 ) && (selection_scenario == 1 || selection_scenario == 2)  
+if ( selection_switch == 2 || selection_switch == 5 ) && (selection_scenario == 1 || selection_scenario == 2)  
     time_bias = datetime(active_power_el_sin_out_vec_downsample_2(1,2), 'ConvertFrom', 'posixtime');
     time_vector = datetime(active_power_el_sin_out_vec_downsample_2(:,2), 'ConvertFrom', 'posixtime') - time_bias;
     data_active_power_el_sin_out_vec_downsample_2       = [time_vector, active_power_el_sin_out_vec_downsample_2(:,3)];
@@ -934,7 +935,7 @@ if ( selection_switch == 2 ) && (selection_scenario == 1 || selection_scenario =
     data_rse_chp_m_ea_watt_vec_downsample_2             = [time_vector, rse_chp_m_ea_watt_vec_downsample_2(:,3)];             
 
     % Excluding some signals from the scenario only in the SELECTION_SWITCH = 4 (Experiments December 14-15, 2023)
-    if selection_switch == 2 && selection_scenario ~= 1 && selection_scenario ~= 2   
+    if ( selection_switch == 2 || selection_switch == 5 ) && selection_scenario ~= 1 && selection_scenario ~= 2   
         time_bias = datetime(cres_temperature1_m_ea_celsius_vec_downsample_2(1,2), 'ConvertFrom', 'posixtime');
         time_vector = datetime(cres_temperature1_m_ea_celsius_vec_downsample_2(:,2), 'ConvertFrom', 'posixtime') - time_bias;
         data_cres_temperature1_m_ea_celsius_vec_downsample_2  = [time_vector, cres_temperature1_m_ea_celsius_vec_downsample_2(:,3)];
@@ -950,7 +951,7 @@ if ( selection_switch == 2 ) && (selection_scenario == 1 || selection_scenario =
     end
     
     % Excluding some signals from the scenario only in the SELECTION_SWITCH = 4 (Experiments January 26, 2024)
-    if selection_switch == 4
+    if ( selection_switch == 4 || selection_switch == 6 )
         % Voltage and frequency at the connection point SINTEF (in case of
         % a second trial of experiments)        
         time_bias = datetime(voltage_rse_pcc_vec_downsample_2(1,2), 'ConvertFrom', 'posixtime');
