@@ -31,4 +31,4 @@ COPY ./files/entrypoint_redisRepl_arm32.sh ./files/
 COPY --from=restapi /usr/src/app/ .
 
 WORKDIR /home/files
-ENTRYPOINT ["./entrypoint_redisRepl_arm32.sh"]
+ENTRYPOINT ["./entrypoint_redisRepl_arm32.sh"] 
