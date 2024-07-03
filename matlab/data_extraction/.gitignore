@@ -17,3 +17,10 @@
 *.m~
 
 !trackThisFolder.txt
+
+# Track the folder containing the txt files for plotting data
+!txt/26_january_2024_attempt1/trackThisFolder.txt
+!txt/14_december_2023_attempt1/trackThisFolder.txt
+!txt/14_december_2023_attempt2/trackThisFolder.txt
+
+!txt/26_january_2024_attempt1_workshop_DTU/trackThisFolder.txt

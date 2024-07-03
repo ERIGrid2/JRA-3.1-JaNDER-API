@@ -818,8 +818,167 @@ elseif selection_switch == 6
     movefile(strcat('data_thermal_load_dtu_vec_downsample_1', '.txt'), destinationTxT, 'f');                        
     movefile(strcat('data_thermal_source_dtu_vec_downsample_1', '.txt'), destinationTxT, 'f');                    
     movefile(strcat('data_chp_heat_out_rse_vec_downsample_1', '.txt'), destinationTxT, 'f');                  
-    movefile(strcat('data_active_power_chp_rse_vec_downsample_1', '.txt'), destinationTxT, 'f');      
+    movefile(strcat('data_active_power_chp_rse_vec_downsample_1', '.txt'), destinationTxT, 'f');  
 
+%% Experiments on January 26, 2024 (workshop at DTU)
+elseif selection_switch == 7
+    
+    disp('Saving TXTfiles...');
+    % Opening the txt file for the data is going to be saved - FIRST SET OF DATA
+    fid_data_active_power_el_sin_out_vec_downsample_1_txt       = ...
+        fopen(strcat('data_active_power_el_sin_out_vec_1', '.csv'), 'w');
+    fid_data_reactive_power_el_sin_out_vec_downsample_1_txt     = ...
+        fopen(strcat('data_reactive_power_el_sin_out_vec_1', '.csv'), 'w');   
+    fid_data_active_power_ref_el_sin_out_vec_downsample_1_txt   = ...
+        fopen(strcat('data_active_power_ref_el_sin_out_vec_1', '.csv'), 'w');          
+    fid_data_reactive_power_ref_el_sin_out_vec_downsample_1_txt = ...
+        fopen(strcat('data_reactive_power_ref_el_sin_out_vec_1', '.csv'), 'w');   
+    fid_data_soc_sin_vec_downsample_1_txt                       = ...
+        fopen(strcat('data_soc_sin_vec_1', '.csv'), 'w');                                          
+    fid_data_voltage_ref_sin_out_vec_downsample_1_txt           = ...
+        fopen(strcat('data_voltage_ref_sin_out_vec_1', '.csv'), 'w');        
+    fid_data_frequency_ref_sin_out_vec_downsample_1_txt         = ...
+        fopen(strcat('data_frequency_ref_sin_out_vec_1', '.csv'), 'w');    
+    fid_data_active_power_el_rse_out_vec_downsample_1_txt       = ...
+        fopen(strcat('data_active_power_el_rse_out_vec_1', '.csv'), 'w');    
+    fid_data_reactive_power_el_rse_out_vec_downsample_1_txt     = ...
+        fopen(strcat('data_reactive_power_el_rse_out_vec_1', '.csv'), 'w'); 
+    fid_data_voltage_ref_rse_out_vec_downsample_1_txt           = ...
+        fopen(strcat('data_voltage_ref_rse_out_vec_1', '.csv'), 'w');  
+    fid_data_frequency_ref_rse_out_vec_downsample_1_txt         = ...
+        fopen(strcat('data_frequency_ref_rse_out_vec_1', '.csv'), 'w');     
+    fid_data_rse_chp_m_ea_watt_vec_downsample_1_txt             = ...
+        fopen(strcat('data_rse_chp_m_ea_watt_vec_1', '.csv'), 'w');  
+    
+    % Opening the txt file for the data is going to be saved - THIRD SET OF DATA
+    fid_data_cres_heat_pump_m_ea_kiloWatts_vec_downsample_1_txt = ...
+        fopen(strcat('data_cres_heat_pump_m_ea_kiloWatts_vec_1', '.csv'), 'w');                   
+    fid_data_chp_heat_out_rse_vec_downsample_1_txt              = ...
+        fopen(strcat('data_chp_heat_out_rse_vec_1', '.csv'), 'w');                   
+    fid_data_active_power_chp_rse_vec_downsample_1_txt          = ...
+        fopen(strcat('data_active_power_chp_rse_vec_1', '.csv'), 'w');            
+    
+    
+    for j = 1 : length(data_active_power_el_sin_out_vec_downsample_1)
+
+        % Writing data in the text files - FIRST SET OF DATA
+        if j <= length(data_active_power_el_sin_out_vec_downsample_1)
+            temp = time2num(data_active_power_el_sin_out_vec_downsample_1(j,1), 'seconds');
+            fprintf(fid_data_active_power_el_sin_out_vec_downsample_1_txt, '%f %f\n', ...
+                [temp active_power_el_sin_out_vec_downsample_1(j,3)]'); 
+        end
+        if j <= length(data_reactive_power_el_sin_out_vec_downsample_1)
+            temp = time2num(data_reactive_power_el_sin_out_vec_downsample_1(j,1), 'seconds');
+            fprintf(fid_data_reactive_power_el_sin_out_vec_downsample_1_txt, '%f %f\n', ...
+                [temp reactive_power_el_sin_out_vec_downsample_1(j,3)]'); 
+        end
+        if j <= length(data_active_power_ref_el_sin_out_vec_downsample_1)
+            temp = time2num(data_active_power_ref_el_sin_out_vec_downsample_1(j,1), 'seconds');
+            fprintf(fid_data_active_power_ref_el_sin_out_vec_downsample_1_txt, '%f %f\n', ...
+                [temp active_power_ref_el_sin_out_vec_downsample_1(j,3)]'); 
+        end
+        if j <= length(data_reactive_power_ref_el_sin_out_vec_downsample_1)
+            temp = time2num(data_reactive_power_ref_el_sin_out_vec_downsample_1(j,1), 'seconds');
+            fprintf(fid_data_reactive_power_ref_el_sin_out_vec_downsample_1_txt, '%f %f\n', ...
+                [temp reactive_power_ref_el_sin_out_vec_downsample_1(j,3)]'); 
+       end
+       if j <= length(data_soc_sin_vec_downsample_1)
+            temp = time2num(data_soc_sin_vec_downsample_1(j,1), 'seconds');
+            fprintf(fid_data_soc_sin_vec_downsample_1_txt, '%f %f\n', ...
+                [temp soc_sin_vec_downsample_1(j,3)]');
+       end
+       if j <= length(data_voltage_ref_sin_out_vec_downsample_1)
+            temp = time2num(data_voltage_ref_sin_out_vec_downsample_1(j,1), 'seconds');
+            fprintf(fid_data_voltage_ref_sin_out_vec_downsample_1_txt, '%f %f\n', ...
+                [temp voltage_ref_sin_out_vec_downsample_1(j,3)]');
+       end
+       if j <= length(data_frequency_ref_sin_out_vec_downsample_1)
+            temp = time2num(data_frequency_ref_sin_out_vec_downsample_1(j,1), 'seconds');
+            fprintf(fid_data_frequency_ref_sin_out_vec_downsample_1_txt, '%f %f\n', ...
+                [temp frequency_ref_sin_out_vec_downsample_1(j,3)]');
+       end
+       if j <= length(data_active_power_el_rse_out_vec_downsample_1)
+            temp = time2num(data_active_power_el_rse_out_vec_downsample_1(j,1), 'seconds');
+            fprintf(fid_data_active_power_el_rse_out_vec_downsample_1_txt, '%f %f\n', ...
+                [temp active_power_el_rse_out_vec_downsample_1(j,3)]'); 
+       end
+       if j <= length(data_reactive_power_el_rse_out_vec_downsample_1)
+            temp = time2num(data_reactive_power_el_rse_out_vec_downsample_1(j,1), 'seconds');
+            fprintf(fid_data_reactive_power_el_rse_out_vec_downsample_1_txt, '%f %f\n', ...
+                [temp reactive_power_el_rse_out_vec_downsample_1(j,3)]'); 
+       end
+       if j <= length(data_voltage_ref_rse_out_vec_downsample_1)
+            temp = time2num(data_voltage_ref_rse_out_vec_downsample_1(j,1), 'seconds');
+            fprintf(fid_data_voltage_ref_rse_out_vec_downsample_1_txt, '%f %f\n', ...
+                [temp voltage_ref_rse_out_vec_downsample_1(j,3)]');
+       end
+       if j <= length(data_frequency_ref_rse_out_vec_downsample_1)
+            temp = time2num(data_frequency_ref_rse_out_vec_downsample_1(j,1), 'seconds');
+            fprintf(fid_data_frequency_ref_rse_out_vec_downsample_1_txt, '%f %f\n', ...
+                [temp frequency_ref_rse_out_vec_downsample_1(j,3)]');
+       end
+       if j <= length(data_rse_chp_m_ea_watt_vec_downsample_1)
+            temp = time2num(data_rse_chp_m_ea_watt_vec_downsample_1(j,1), 'seconds');
+            fprintf(fid_data_rse_chp_m_ea_watt_vec_downsample_1_txt, '%f %f\n', ...
+                [temp rse_chp_m_ea_watt_vec_downsample_1(j,3)]');
+       end
+        
+        % Writing data in the text files - THIRD SET OF DATA
+       if j <= length(data_cres_heat_pump_m_ea_kiloWatts_vec_downsample_1)
+            temp = time2num(data_cres_heat_pump_m_ea_kiloWatts_vec_downsample_1(j,1), 'seconds');
+            fprintf(fid_data_cres_heat_pump_m_ea_kiloWatts_vec_downsample_1_txt, '%f %f\n', ...
+                [temp cres_heat_pump_m_ea_kiloWatts_vec_downsample_1(j,3)]'); 
+       end
+       if j <= length(data_chp_heat_out_rse_vec_downsample_1)
+            temp = time2num(data_chp_heat_out_rse_vec_downsample_1(j,1), 'seconds');
+            fprintf(fid_data_chp_heat_out_rse_vec_downsample_1_txt, '%f %f\n', ...
+                [temp chp_heat_out_rse_vec_downsample_1(j,3)]'); 
+       end
+       if j <= length(data_active_power_chp_rse_vec_downsample_1)
+            temp = time2num(data_active_power_chp_rse_vec_downsample_1(j,1), 'seconds');
+            fprintf(fid_data_active_power_chp_rse_vec_downsample_1_txt, '%f %f\n', ...
+                [temp active_power_chp_rse_vec_downsample_1(j,3)]'); 
+       end
+        
+    end
+
+    % Closing the txt files - FIRST SET OF DATA
+    fclose(fid_data_active_power_el_sin_out_vec_downsample_1_txt);
+    fclose(fid_data_reactive_power_el_sin_out_vec_downsample_1_txt);
+    fclose(fid_data_active_power_ref_el_sin_out_vec_downsample_1_txt);
+    fclose(fid_data_reactive_power_ref_el_sin_out_vec_downsample_1_txt);
+    fclose(fid_data_soc_sin_vec_downsample_1_txt);
+    fclose(fid_data_voltage_ref_sin_out_vec_downsample_1_txt);
+    fclose(fid_data_frequency_ref_sin_out_vec_downsample_1_txt);
+    fclose(fid_data_active_power_el_rse_out_vec_downsample_1_txt);
+    fclose(fid_data_reactive_power_el_rse_out_vec_downsample_1_txt);
+    fclose(fid_data_voltage_ref_rse_out_vec_downsample_1_txt);
+    fclose(fid_data_frequency_ref_rse_out_vec_downsample_1_txt);
+    fclose(fid_data_rse_chp_m_ea_watt_vec_downsample_1_txt);
+    
+    % Closing the txt files - THIRD SET OF DATA
+    fclose(fid_data_cres_heat_pump_m_ea_kiloWatts_vec_downsample_1_txt);
+    fclose(fid_data_chp_heat_out_rse_vec_downsample_1_txt);
+    fclose(fid_data_active_power_chp_rse_vec_downsample_1_txt);
+   
+    % Moving the obtained files - FIRST SET OF DATA
+    movefile(strcat('data_active_power_el_sin_out_vec_1', '.csv'), destinationTxT, 'f');
+    movefile(strcat('data_reactive_power_el_sin_out_vec_1', '.csv'), destinationTxT, 'f');   
+    movefile(strcat('data_active_power_ref_el_sin_out_vec_1', '.csv'), destinationTxT, 'f');        
+    movefile(strcat('data_reactive_power_ref_el_sin_out_vec_1', '.csv'), destinationTxT, 'f'); 
+    movefile(strcat('data_soc_sin_vec_1', '.csv'), destinationTxT, 'f');                                      
+    movefile(strcat('data_voltage_ref_sin_out_vec_1', '.csv'), destinationTxT, 'f');      
+    movefile(strcat('data_frequency_ref_sin_out_vec_1', '.csv'), destinationTxT, 'f');  
+    movefile(strcat('data_active_power_el_rse_out_vec_1', '.csv'), destinationTxT, 'f'); 
+    movefile(strcat('data_reactive_power_el_rse_out_vec_1', '.csv'), destinationTxT, 'f');
+    movefile(strcat('data_voltage_ref_rse_out_vec_1', '.csv'), destinationTxT, 'f');  
+    movefile(strcat('data_frequency_ref_rse_out_vec_1', '.csv'), destinationTxT, 'f');
+    movefile(strcat('data_rse_chp_m_ea_watt_vec_1', '.csv'), destinationTxT, 'f'); 
+    
+    % Moving the obtained files - THIRD SET OF DATA
+    movefile(strcat('data_cres_heat_pump_m_ea_kiloWatts_vec_1', '.csv'), destinationTxT, 'f');                                        
+    movefile(strcat('data_chp_heat_out_rse_vec_1', '.csv'), destinationTxT, 'f');                  
+    movefile(strcat('data_active_power_chp_rse_vec_1', '.csv'), destinationTxT, 'f');  
 
 %% Display messagge explaining that the scenario is not coded within the code
 else

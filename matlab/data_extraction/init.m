@@ -34,6 +34,7 @@ disp( '3  - Extracting data from the experiments on January 26, 2024 - Undervolt
 disp( '4  - Cleaning, subsampling and plotting data from the experiments on January 26, 2023 - Undervoltage scenario');
 disp( '5  - Make txt files for plots in MATLAB for the experiments on December 14 and 15, 2023 - Overvolgate scenario');
 disp( '6  - Make txt files for plots in MATLAB for the experiments on January 26, 2024 - Undervoltage scenario');
+disp( '7  - Make csv files in MATLAB for the workshop in DTU with the experiments on January 26, 2024 - Undervoltage scenario');
 disp('---------------------------------------------------------------------------------');
 
 disp( ' ' );
@@ -1277,6 +1278,39 @@ switch selection_switch
 
         % Saving txt files
         destinationTxT = strcat('txt', filesep, '26_january_2024_attempt1');
+        disp( 'Saving data on txt files...');
+        saving_data % Saving data in txt files
+
+        close all
+        disp( ' ' );        
+
+    %% Make the csv files in MATLAB for the workshop in DTU with the experiments on January 26, 2024
+    case 7
+        
+        selection_scenario = 1; % selection the undervoltage scenario
+        fileMATName = filenameUndervoltageScenario_rev2; % name MAT-file
+        fileMATName = erase(fileMATName,'.csv'); % Delete substrings within strings
+
+        % Loading MAT-files
+        load(strcat(folder_mat, filesep, fileMATName, '.mat'));
+        close all
+        clc
+
+        % To align the plots. Remove the dirty part
+        % COMMAND: datetime(active_power_el_sin_out_vec(XX,2), 'ConvertFrom', 'posixtime')
+        shift_1_start = datetime('26-Jan-2024 13:59:00');
+        shift_1_end   = datetime('26-Jan-2024 14:30:00');
+
+        % Downsampling factor
+        downsampling_value_1 = 1; % parameters for the code
+
+        % Resizing vector for LaTeX plots (Deliverable)
+        disp( 'Creating necessary subvectors...');
+        disp( ' ' );
+        downsampling_meas_data
+
+        % Saving txt files
+        destinationTxT = strcat('txt', filesep, '26_january_2024_attempt1_workshop_DTU');
         disp( 'Saving data on txt files...');
         saving_data % Saving data in txt files
 
